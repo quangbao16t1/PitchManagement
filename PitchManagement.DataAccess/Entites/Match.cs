@@ -30,9 +30,8 @@ namespace PitchManagement.DataAccess.Entites
         public int InviteeId { get; set; }
         public int ReceiverId { get; set; }
         public int Status { get; set; } // '0 - Waiting;  1 - confirmed, 2 - canceled ,  3 - Waiting confirmed
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public DateTime DeleteTime { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
         public string Area { get; set; }
         public string Note { get; set; }
        

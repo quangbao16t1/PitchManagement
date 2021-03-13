@@ -14,7 +14,6 @@ namespace PitchManagement.DataAccess.Entites
         [Required]
         public string Name { get; set; }
         public string Decription { get; set; }
-        public string Type { get; set; }
         public int DistrictId { get; set; }
         [ForeignKey("DistrictId")]
         public virtual District District { get; set; }
@@ -22,10 +21,9 @@ namespace PitchManagement.DataAccess.Entites
         public string Email { get; set; }
         public string WebSite { get; set; }
         public string Avatar { get; set; }
-        public DateTime DateOrder { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public DateTime DeleteTime { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
         public string CreateBy { get; set; }
         public int Status { get; set; }
         public virtual ICollection<SubPitch> SubPitches { get; set; }

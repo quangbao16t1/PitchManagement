@@ -42,7 +42,10 @@ namespace PitchManagement.API
             });
             services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(AutoMapperProfiles));
             //Repository
+
+            services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<IUserRepository, UserReposirory>();
+            services.AddScoped<IProvinceRepository, ProvinceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
