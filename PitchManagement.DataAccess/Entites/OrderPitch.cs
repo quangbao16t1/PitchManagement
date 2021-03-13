@@ -26,10 +26,9 @@ namespace PitchManagement.DataAccess.Entites
         public bool IsDelete { get; set; }
         public string UserOrder { get; set; }
         public string PhoneOrder { get; set; }
-        public DateTime DateOrder { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public DateTime DeleteTime { get; set; }
+        public DateTime? DateOrder { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
 
     }
 }

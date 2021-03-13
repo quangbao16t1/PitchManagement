@@ -18,10 +18,8 @@ namespace PitchManagement.DataAccess.Entites
         public string Name { get; set; }
         public int Type { get; set; }//5-7-9-11
         public int Status { get; set; }
-        public int Quantity { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public DateTime DeleteTime { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
         public virtual ICollection<SubPitchNumber> SubPitchNumbers { get; set; }
         public virtual ICollection<SubPitchDetail> SubPitchDetails { get; set; }
         public virtual ICollection<Team> Teams { get; set; }

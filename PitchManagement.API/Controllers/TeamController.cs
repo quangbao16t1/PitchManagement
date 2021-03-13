@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PitchManagement.API.Dtos.Teams;
 using PitchManagement.API.Interfaces;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PitchManagement.API.Controllers
@@ -18,25 +20,24 @@ namespace PitchManagement.API.Controllers
         public TeamController(ITeamRepository teamRepo, IMapper mapper)
         {
             _teamRepo = teamRepo;
-            _mapper = mapper;
+             _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAllTeams(string keyword)
         {
-            var listTeam = _teamRepo.GetAllTeam(keyword);
-            return Ok(_mapper.Map<IEnumerable<TeamUI>>(listTeam));
+
+            var listUsers = _teamRepo.GetAllTeam(keyword);
+
+            return Ok(_mapper.Map<IEnumerable<TeamUI>>(listUsers));
+            //return Ok(listUsers);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetTeamById(int id)
+        [HttpPut("{id}")]
+        public async Task<bool> UpdateOne(int id, [FromBody] TeamForUpdate teamForUpdate)
         {
-            var team = await _teamRepo.GetTeamByIdAsync(id);
-            if(team == null)
-            {
-                return NotFound();
-            }
-            return Ok(_mapper.Map < TeamUI > (team));
+            await _teamRepo.UpdateTeamAsync(id, teamForUpdate);
+            return true;
         }
     }
 }

@@ -18,8 +18,9 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<UserForCreateDto, User>();
             CreateMap<UserForUpdateDto, User>();
 
-            CreateMap<Team, TeamUI>();
-            //CreateMap<TeamUI, Team>();
+            CreateMap<Team, TeamUI>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); });
+            //CreateMap<TeamForUpdate, Team>();
+            CreateMap<TeamForCreate, Team>();
 
         }
     }
