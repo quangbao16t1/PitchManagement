@@ -10,9 +10,9 @@ namespace PitchManagement.API.Interfaces
     public interface ITeamRepository
     {
         IEnumerable<Team> GetAllTeam(string keyword);
-        //Task<Team> GetTeamByIdAsync(int id);
-        //Task<bool> CreateTeamAsync(Team teamForCreate);
+        Task<Team> GetTeamByIdAsync(int id);
+        Task<bool> CreateTeamAsync(TeamForCreate teamForCreate);
         Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate);
-        //Task<bool> DeleteTeamAsync(int id);
+        Task<bool> DeleteTeamAsync(int id);
     }
 }
