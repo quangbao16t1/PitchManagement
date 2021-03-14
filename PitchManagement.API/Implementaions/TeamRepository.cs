@@ -21,40 +21,41 @@ namespace PitchManagement.API.Implementaions
             _mapper = mapper;
         }
 
-        //public async Task<bool> CreateTeamAsync(Team teamForCreate)
-        //{
-        //    try
-        //    {
-        //        _context.Teams.Add(teamForCreate);
-        //        await _context.SaveChangesAsync();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public async Task<bool> CreateTeamAsync(TeamForCreate teamForCreate)
+        {
+            var team = _mapper.Map<Team>(teamForCreate);
+            try
+            {
+                _context.Teams.Add(team);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        //public async Task<bool> DeleteTeamAsync(int id)
-        //{
-        //    var teamInDb = await _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<bool> DeleteTeamAsync(int id)
+        {
+            var teamInDb = await _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
 
-        //    if (teamInDb == null)
-        //    {
-        //        return false;
-        //    }
+            if (teamInDb == null)
+            {
+                return false;
+            }
 
-        //    try
-        //    {
-        //        _context.Teams.Remove(teamInDb);
-        //        await _context.SaveChangesAsync();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+            try
+            {
+                _context.Teams.Remove(teamInDb);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public IEnumerable<Team> GetAllTeam(string keyword)
         {
@@ -69,10 +70,10 @@ namespace PitchManagement.API.Implementaions
             //        .Where(x => true).ToList();
         }
 
-        //public async Task<Team> GetTeamByIdAsync(int id)
-        //{
-        //    return await _context.Teams.Include(x => x.SubPitch).FirstOrDefaultAsync(x => x.Id == id);
-        //}
+        public async Task<Team> GetTeamByIdAsync(int id)
+        {
+            return await _context.Teams.Include(x => x.SubPitch).FirstOrDefaultAsync(x => x.Id == id);
+        }
 
         public async Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate)
         {
