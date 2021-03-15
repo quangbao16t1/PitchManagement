@@ -28,9 +28,9 @@ namespace PitchManagement.API.Controllers
         public IActionResult GetAllTeams(string keyword)
         {
 
-            var listUsers = _teamRepo.GetAllTeam(keyword);
+            var listTeams = _teamRepo.GetAllTeam(keyword);
 
-            return Ok(_mapper.Map<IEnumerable<TeamUI>>(listUsers));
+            return Ok(_mapper.Map<IEnumerable<TeamUI>>(listTeams));
             //return Ok(listUsers);
         }
 

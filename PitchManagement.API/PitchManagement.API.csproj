@@ -32,7 +32,6 @@
     <Folder Include="Dtos\Matches\" />
     <Folder Include="Dtos\Auth\" />
     <Folder Include="Dtos\OrderPitches\" />
-    <Folder Include="Dtos\SubPitches\" />
     <Folder Include="Dtos\Slides\" />
     <Folder Include="Dtos\Pitches\" />
   </ItemGroup>
