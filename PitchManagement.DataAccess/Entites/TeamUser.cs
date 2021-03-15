@@ -19,9 +19,9 @@ namespace PitchManagement.DataAccess.Entites
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public DateTime DeleteTime { get; set; }
+        public string Description { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
         
         
     }
