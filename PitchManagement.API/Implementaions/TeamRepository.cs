@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PitchManagement.API.Dtos.Teams;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess;
 using PitchManagement.DataAccess.Entites;
@@ -14,55 +15,67 @@ namespace PitchManagement.API.Implementaions
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public TeamRepository(DataContext context, Mapper mapper)
+        public TeamRepository(DataContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<bool> CreateTeamAsync(Team team)
+        public async Task<bool> CreateTeamAsync(TeamForCreate teamForCreate)
         {
+            var team = _mapper.Map<Team>(teamForCreate);
             try
             {
                 _context.Teams.Add(team);
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch(Exception)
+            catch (Exception ex)
             {
-                throw ;
+                throw ex;
             }
         }
 
         public async Task<bool> DeleteTeamAsync(int id)
         {
-            var teamInDb = await _context.Teams.FirstOrDefaultAsync(p => p.Id == id);
+            var teamInDb = await _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
+
             if (teamInDb == null)
+            {
                 return false;
+            }
+
             try
             {
                 _context.Teams.Remove(teamInDb);
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch(Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
         public IEnumerable<Team> GetAllTeam(string keyword)
         {
-            if(string.IsNullOrEmpty(keyword)) keyword = "";
-            return  _context.Teams.Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
+            if (string.IsNullOrEmpty(keyword))
+            {
+                keyword = "";
+            }
+
+            return _context.Teams
+                .Include(x => x.SubPitch).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
+            //return _context.Teams
+            //        .Where(x => true).ToList();
         }
 
         public async Task<Team> GetTeamByIdAsync(int id)
         {
-            return await _context.Teams.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Teams.Include(x => x.SubPitch).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<bool> UpdateTeamAsync(int id, Team team)
+        public async Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate)
         {
             var teamInDb = await _context.Teams.FirstOrDefaultAsync(p => p.Id == id);
             if (teamInDb == null)
@@ -71,19 +84,22 @@ namespace PitchManagement.API.Implementaions
             }
             try
             {
-                teamInDb.Name = team.Name;
-                teamInDb.Area = team.Area;
-                teamInDb.CreateBy = team.CreateBy;
-                teamInDb.Description = team.Description;
-                teamInDb.Matches = team.Matches;
-                teamInDb.Level = team.Level;
-                teamInDb.Logo = team.Logo;
-                teamInDb.PitchSubId = team.PitchSubId;
-                teamInDb.TeamImage = team.TeamImage;
-                team.StartTime = team.StartTime;
-                teamInDb.AgeFrom = team.AgeFrom;
-                teamInDb.AgeTo = team.AgeTo;
-                teamInDb.DateOfWeek = team.DateOfWeek;
+                teamInDb.Name = teamForUpdate.Name;
+                teamInDb.Level = teamForUpdate.Level;
+                teamInDb.ImageUrl = teamForUpdate.ImageUrl;
+                teamInDb.Logo = teamForUpdate.Logo;
+                teamInDb.SubPitchId = teamForUpdate.SubPitchId;
+                teamInDb.TeamImage = teamForUpdate.TeamImage;
+                teamInDb.StartTime = teamForUpdate.StartTime;
+                teamInDb.CreateBy = teamForUpdate.CreateBy;
+                teamInDb.CreateTime = teamForUpdate.CreateTime;
+                teamInDb.UpdateTime = teamForUpdate.UpdateTime;
+                teamInDb.AgeTo = teamForUpdate.AgeTo;
+                teamInDb.AgeFrom = teamForUpdate.AgeFrom;
+                teamInDb.DateOfWeek = teamForUpdate.DateOfWeek;
+                teamInDb.Description = teamForUpdate.Description;
+
+                _context.Teams.Update(teamInDb);
                 await _context.SaveChangesAsync();
                 return true;
             }

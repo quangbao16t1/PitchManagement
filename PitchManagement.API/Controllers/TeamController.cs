@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PitchManagement.API.Dtos.Teams;
 using PitchManagement.API.Interfaces;
-using System.Collections;
+using PitchManagement.DataAccess.Entites;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PitchManagement.API.Controllers
@@ -18,14 +21,17 @@ namespace PitchManagement.API.Controllers
         public TeamController(ITeamRepository teamRepo, IMapper mapper)
         {
             _teamRepo = teamRepo;
-            _mapper = mapper;
+             _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAllTeams(string keyword)
         {
-            var listTeam = _teamRepo.GetAllTeam(keyword);
-            return Ok(_mapper.Map<IEnumerable<TeamUI>>(listTeam));
+
+            var listTeams = _teamRepo.GetAllTeam(keyword);
+
+            return Ok(_mapper.Map<IEnumerable<TeamUI>>(listTeams));
+            //return Ok(listUsers);
         }
 
         [HttpGet("{id}")]
@@ -36,7 +42,50 @@ namespace PitchManagement.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map < TeamUI > (team));
+            return Ok(_mapper.Map<TeamUI>(team));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTeam([FromBody] TeamForCreate teamForCreate)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _teamRepo.CreateTeamAsync(teamForCreate);
+            if (result)
+                return Ok();
+
+            return BadRequest();
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOne(int id, [FromBody] TeamForUpdate teamForUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _teamRepo.UpdateTeamAsync(id, teamForUpdate);
+            if (result)
+                return Ok();
+
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTeam(int id)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result =  await _teamRepo.DeleteTeamAsync(id);
+            if (result)
+                return Ok();
+
+            return BadRequest();
         }
     }
 }

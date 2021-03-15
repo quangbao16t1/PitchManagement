@@ -1,4 +1,5 @@
-﻿using PitchManagement.DataAccess.Entites;
+﻿using PitchManagement.API.Dtos.Teams;
+using PitchManagement.DataAccess.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace PitchManagement.API.Interfaces
     {
         IEnumerable<Team> GetAllTeam(string keyword);
         Task<Team> GetTeamByIdAsync(int id);
-        Task<bool> CreateTeamAsync(Team team);
-        Task<bool> UpdateTeamAsync(int id, Team team);
+        Task<bool> CreateTeamAsync(TeamForCreate teamForCreate);
+        Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate);
         Task<bool> DeleteTeamAsync(int id);
     }
 }
