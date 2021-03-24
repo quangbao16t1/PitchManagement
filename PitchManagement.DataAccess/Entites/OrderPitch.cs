@@ -19,9 +19,9 @@ namespace PitchManagement.DataAccess.Entites
         public int SubPitchDetailId { get; set; }
         [ForeignKey("SubPitchDetailId")]
         public virtual SubPitchDetail SubPitchDetail { get; set; }
-        public int ServiceDetailId { get; set; }
-        [ForeignKey("ServiceDetailId")]
-        public virtual ServiceDetail ServiceDetail { get; set; }
+        //public int ServiceDetailId { get; set; }
+        //[ForeignKey("ServiceDetailId")]
+        //public virtual ServiceDetail ServiceDetail { get; set; }
         public string Note { get; set; }
         public bool IsDelete { get; set; }
         public string UserOrder { get; set; }

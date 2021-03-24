@@ -2,7 +2,7 @@
 
 namespace PitchManagement.DataAccess.Migrations
 {
-    public partial class AddService : Migration
+    public partial class UpdateDatabaseee : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

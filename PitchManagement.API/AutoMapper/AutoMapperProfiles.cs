@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using PitchManagement.API.Dtos;
+using PitchManagement.API.Dtos.Districts;
 using PitchManagement.API.Dtos.Matches;
 using PitchManagement.API.Dtos.Pitches;
+using PitchManagement.API.Dtos.Provinces;
 using PitchManagement.API.Dtos.Slides;
 using PitchManagement.API.Dtos.SubPitchDetail;
 using PitchManagement.API.Dtos.SubPitches;
 using PitchManagement.API.Dtos.Teams;
 using PitchManagement.API.Dtos.TeamUser;
 using PitchManagement.API.Dtos.Users;
+using PitchManagement.API.Dtos.Wards;
 using PitchManagement.DataAccess.Entites;
 using System;
 using System.Collections.Generic;
@@ -46,6 +49,15 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); });
             CreateMap<SubPitchDetailUI, SubPitchDetail>();
+
+            CreateMap<ProvinceUI, Province>();
+            CreateMap<Province, ProvinceUI>();
+
+            CreateMap<District, DistrictReturn>().ForMember(x => x.ProvinceName, y => { y.MapFrom(z => z.Province.Name); });
+            CreateMap<DistrictUI, District>();
+
+            CreateMap<Ward, WardReturn>().ForMember(x => x.DistrictName, y => { y.MapFrom(z => z.District.Name); });
+            CreateMap<WardUI, Ward>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PitchManagement.API.Dtos.Provinces;
+using PitchManagement.API.Dtos.Districts;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
 using System;
@@ -13,44 +13,44 @@ namespace PitchManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProvinceController : ControllerBase
+    public class DistrictController : ControllerBase
     {
-        private readonly IProvinceRepository _provinceRepo;
+        private readonly IDistrictRepository _districtRepo;
         private readonly IMapper _mapper;
 
-        public ProvinceController(IProvinceRepository provinceRepo, IMapper mapper)
+        public DistrictController(IDistrictRepository districtRepo, IMapper mapper)
         {
-            _provinceRepo = provinceRepo;
+            _districtRepo = districtRepo;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult GetAllProvince(string keyword)
+        public IActionResult GetAllDistrict(string keyword)
         {
-            var listProvince = _provinceRepo.GetAllProvince(keyword);
-            return Ok(_mapper.Map<IEnumerable<ProvinceUI>>(listProvince));
+            var listDistrict = _districtRepo.GetAllDistrict(keyword);
+            return Ok(_mapper.Map<IEnumerable<DistrictReturn>>(listDistrict));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAllProvinceById(int id)
+        public async Task<IActionResult> GetAllDistrictById(int id)
         {
-            var province = await _provinceRepo.GetProvinceByIdAsync(id);
-            if (province == null)
+            var district = await _districtRepo.GetDistrictByIdAsync(id);
+            if (district == null)
                 return
                     BadRequest();
 
-            return Ok(_mapper.Map<ProvinceUI>(province));
+            return Ok(_mapper.Map<DistrictReturn>(district));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProvince([FromBody] ProvinceUI provinceAdd)
+        public async Task<IActionResult> CreateDistrict([FromBody] DistrictUI districtAdd)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var province = _mapper.Map<Province>(provinceAdd);
-            var result = await _provinceRepo.CreateProvinceAsync(province);
+            var district = _mapper.Map<District>(districtAdd);
+            var result = await _districtRepo.CreateDistrictAsync(district);
             if (result)
                 return Ok();
 
@@ -59,14 +59,14 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProvince(int id, [FromBody] ProvinceUI provinceUpdate)
+        public async Task<IActionResult> UpdateDistrict(int id, [FromBody] DistrictUI districtUpdate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var province = _mapper.Map<Province>(provinceUpdate);
-            var result = await _provinceRepo.UpdateProvinceAsync(id, province);
+            var district = _mapper.Map<District>(districtUpdate);
+            var result = await _districtRepo.UpdateDistrictAsync(id, district);
             if (result)
                 return Ok();
 
@@ -75,14 +75,14 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProvince(int id)
+        public async Task<IActionResult> DeleteDistrict(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _provinceRepo.DeleteProvinceAsync(id);
+            var result = await _districtRepo.DeleteDistrictAsync(id);
             if (result)
                 return Ok();
 

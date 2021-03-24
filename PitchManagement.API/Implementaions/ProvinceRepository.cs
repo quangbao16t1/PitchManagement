@@ -56,11 +56,8 @@ namespace PitchManagement.API.Implementaions
             {
                 keyword = "";
             }
-            var result = _context.Provinces.Where(p => true).ToList();
+            return _context.Provinces.Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
 
-          
-
-            return result;
         }
 
         public async Task<Province> GetProvinceByIdAsync(int id)
