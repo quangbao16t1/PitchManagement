@@ -35,6 +35,8 @@ namespace PitchManagement.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<UserPermission> UserPermissions  { get; set; }
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceDetail> ServiceDetails { get; set; }
 
     }
 }

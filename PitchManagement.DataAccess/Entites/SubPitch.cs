@@ -22,6 +22,7 @@ namespace PitchManagement.DataAccess.Entites
         public DateTime? UpdateTime { get; set; }
         public virtual ICollection<SubPitchNumber> SubPitchNumbers { get; set; }
         public virtual ICollection<SubPitchDetail> SubPitchDetails { get; set; }
+        public virtual ICollection<ServiceDetail> ServiceDetails { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
     }
 }

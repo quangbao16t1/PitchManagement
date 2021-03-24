@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
 using PitchManagement.API.Dtos;
+using PitchManagement.API.Dtos.Matches;
+using PitchManagement.API.Dtos.Pitches;
+using PitchManagement.API.Dtos.Slides;
+using PitchManagement.API.Dtos.SubPitchDetail;
 using PitchManagement.API.Dtos.SubPitches;
 using PitchManagement.API.Dtos.Teams;
 using PitchManagement.API.Dtos.TeamUser;
@@ -29,6 +33,19 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<SubPitch, SubPitchReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
             CreateMap<SubPitchUI, SubPitch>();
+
+            CreateMap<Pitch, PitchReturn>().ForMember(x => x.District, y => { y.MapFrom(z => z.District.Name); });
+            CreateMap<PitchUI, Pitch>();
+
+            CreateMap<Slide, SlideReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
+            CreateMap<SlideUI, Slide>();
+
+            CreateMap<Match, MatchReturn>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
+                                            .ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
+            CreateMap<MatchUI, Match>();
+
+            CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); });
+            CreateMap<SubPitchDetailUI, SubPitchDetail>();
         }
     }
 }

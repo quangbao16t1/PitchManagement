@@ -48,6 +48,10 @@ namespace PitchManagement.API
             services.AddScoped<IProvinceRepository, ProvinceRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
             services.AddScoped<ISubPitchRepository, SubPitchRepository>();
+            services.AddScoped<IPitchRepository, PitchRepository>();
+            services.AddScoped<ISlideRepository, SlideRepository>();
+            services.AddScoped<IMatchRepository, MatchRepository>();
+            services.AddScoped<ISubPitchDetailRepository, SubPitchDetailRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

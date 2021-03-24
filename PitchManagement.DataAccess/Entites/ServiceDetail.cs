@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace PitchManagement.DataAccess.Entites
 {
-    public class TimeSlot
+    public class ServiceDetail
     {
         public int Id { get; set; }
         [Required]
-        //public int SubPitchDetailId { get; set; }
-        //[ForeignKey("SubPitchDetailId")]
-        //public virtual SubPitchNumber SubPitchNumber { get; set; }
-        public int SubPitchNumberId { get; set; }
-        [ForeignKey("SubPitchNumberId")]
+        public int SubPitchId { get; set; }
+        [ForeignKey("SubPitchId")]
+        public virtual SubPitch SubPitch { get; set; }
+        public int ServiceId { get; set; }
+        [ForeignKey("ServiceId")]
+        public virtual Service Service { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-       // public virtual SubPitchDetail SubPitchDetail { get; set; }
-       // public virtual ICollection<OrderPitch> OrderPitches { get; set; }
+        public double Cost { get; set; }
+        public virtual ICollection<OrderPitch> OrderPitches { get; set; }
     }
 }
