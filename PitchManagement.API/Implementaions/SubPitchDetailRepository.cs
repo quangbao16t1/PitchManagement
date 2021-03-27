@@ -82,7 +82,6 @@ namespace PitchManagement.API.Implementaions
                 subPitchDt.SubPitchId = subPitchDetail.SubPitchId;
                 subPitchDt.StartTime = subPitchDetail.StartTime;
                 subPitchDt.EndTime = subPitchDetail.EndTime;
-                subPitchDt.DateOrder = subPitchDetail.DateOrder;
                 subPitchDt.CreateTime = subPitchDetail.CreateTime;
                 subPitchDt.UpdateTime = subPitchDetail.UpdateTime;
 

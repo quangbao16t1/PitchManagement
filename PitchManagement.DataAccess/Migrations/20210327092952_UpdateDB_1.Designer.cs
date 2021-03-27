@@ -10,8 +10,8 @@ using PitchManagement.DataAccess;
 namespace PitchManagement.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210313051646_UpdateTeamDB")]
-    partial class UpdateTeamDB
+    [Migration("20210327092952_UpdateDB_1")]
+    partial class UpdateDB_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,10 +143,7 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubPitchDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TimeSlotId")
+                    b.Property<int?>("SubPitchDetailId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateTime")
@@ -155,18 +152,38 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserOrder")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("SubPitchDetailId");
 
-                    b.HasIndex("TimeSlotId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("OrderPitches");
+                });
+
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.OrderServiceDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderPitchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderPitchId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceDetailId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderPitchId");
+
+                    b.HasIndex("OrderPitchId1");
+
+                    b.ToTable("OrderServiceDetails");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.Permission", b =>
@@ -223,8 +240,8 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
@@ -278,6 +295,56 @@ namespace PitchManagement.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
+                });
+
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.ServiceDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("SubPitchId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("SubPitchId");
+
+                    b.ToTable("ServiceDetails");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.Slide", b =>
@@ -348,9 +415,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOrder")
-                        .HasColumnType("datetime2");
-
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
@@ -400,8 +464,8 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<int>("AgeTo")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
@@ -428,9 +492,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<string>("StartTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubPitchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeamImage")
                         .HasColumnType("nvarchar(max)");
 
@@ -438,8 +499,6 @@ namespace PitchManagement.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubPitchId");
 
                     b.ToTable("Teams");
                 });
@@ -451,16 +510,16 @@ namespace PitchManagement.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeleteTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateTime")
+                    b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -488,15 +547,10 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.Property<int?>("SubPitchDetailId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SubPitchNumberId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubPitchDetailId");
 
                     b.ToTable("TimeSlots");
                 });
@@ -640,15 +694,7 @@ namespace PitchManagement.DataAccess.Migrations
                 {
                     b.HasOne("PitchManagement.DataAccess.Entites.SubPitchDetail", "SubPitchDetail")
                         .WithMany("OrderPitches")
-                        .HasForeignKey("SubPitchDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PitchManagement.DataAccess.Entites.TimeSlot", "TimeSlot")
-                        .WithMany("OrderPitches")
-                        .HasForeignKey("TimeSlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubPitchDetailId");
 
                     b.HasOne("PitchManagement.DataAccess.Entites.User", "User")
                         .WithMany("OrderPitches")
@@ -658,9 +704,26 @@ namespace PitchManagement.DataAccess.Migrations
 
                     b.Navigation("SubPitchDetail");
 
-                    b.Navigation("TimeSlot");
-
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.OrderServiceDetail", b =>
+                {
+                    b.HasOne("PitchManagement.DataAccess.Entites.ServiceDetail", "ServiceDetail")
+                        .WithMany("OrderServiceDetails")
+                        .HasForeignKey("OrderPitchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PitchManagement.DataAccess.Entites.OrderPitch", "OrderPitch")
+                        .WithMany("OrderServiceDetails")
+                        .HasForeignKey("OrderPitchId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrderPitch");
+
+                    b.Navigation("ServiceDetail");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.PermissionDetail", b =>
@@ -683,6 +746,25 @@ namespace PitchManagement.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("District");
+                });
+
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.ServiceDetail", b =>
+                {
+                    b.HasOne("PitchManagement.DataAccess.Entites.Service", "Service")
+                        .WithMany("ServiceDetails")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PitchManagement.DataAccess.Entites.SubPitch", "SubPitch")
+                        .WithMany("ServiceDetails")
+                        .HasForeignKey("SubPitchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+
+                    b.Navigation("SubPitch");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.Slide", b =>
@@ -729,17 +811,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Navigation("SubPitch");
                 });
 
-            modelBuilder.Entity("PitchManagement.DataAccess.Entites.Team", b =>
-                {
-                    b.HasOne("PitchManagement.DataAccess.Entites.SubPitch", "SubPitch")
-                        .WithMany("Teams")
-                        .HasForeignKey("SubPitchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SubPitch");
-                });
-
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.TeamUser", b =>
                 {
                     b.HasOne("PitchManagement.DataAccess.Entites.Team", "Team")
@@ -757,15 +828,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Navigation("Team");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PitchManagement.DataAccess.Entites.TimeSlot", b =>
-                {
-                    b.HasOne("PitchManagement.DataAccess.Entites.SubPitchDetail", "SubPitchDetail")
-                        .WithMany()
-                        .HasForeignKey("SubPitchDetailId");
-
-                    b.Navigation("SubPitchDetail");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.User", b =>
@@ -821,6 +883,11 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Navigation("UserPermissions");
                 });
 
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.OrderPitch", b =>
+                {
+                    b.Navigation("OrderServiceDetails");
+                });
+
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.Permission", b =>
                 {
                     b.Navigation("PermissionDetails");
@@ -842,13 +909,23 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Navigation("Districts");
                 });
 
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.Service", b =>
+                {
+                    b.Navigation("ServiceDetails");
+                });
+
+            modelBuilder.Entity("PitchManagement.DataAccess.Entites.ServiceDetail", b =>
+                {
+                    b.Navigation("OrderServiceDetails");
+                });
+
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.SubPitch", b =>
                 {
+                    b.Navigation("ServiceDetails");
+
                     b.Navigation("SubPitchDetails");
 
                     b.Navigation("SubPitchNumbers");
-
-                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.SubPitchDetail", b =>
@@ -861,11 +938,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Navigation("Matches");
 
                     b.Navigation("TeamUsers");
-                });
-
-            modelBuilder.Entity("PitchManagement.DataAccess.Entites.TimeSlot", b =>
-                {
-                    b.Navigation("OrderPitches");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.User", b =>

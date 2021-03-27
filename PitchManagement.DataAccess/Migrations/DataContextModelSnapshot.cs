@@ -238,8 +238,8 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
@@ -413,9 +413,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOrder")
-                        .HasColumnType("datetime2");
-
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
@@ -465,8 +462,8 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<int>("AgeTo")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
@@ -493,9 +490,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<string>("StartTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubPitchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeamImage")
                         .HasColumnType("nvarchar(max)");
 
@@ -503,8 +497,6 @@ namespace PitchManagement.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubPitchId");
 
                     b.ToTable("Teams");
                 });
@@ -763,7 +755,7 @@ namespace PitchManagement.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("PitchManagement.DataAccess.Entites.SubPitch", "SubPitch")
-                        .WithMany()
+                        .WithMany("ServiceDetails")
                         .HasForeignKey("SubPitchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -810,17 +802,6 @@ namespace PitchManagement.DataAccess.Migrations
                 {
                     b.HasOne("PitchManagement.DataAccess.Entites.SubPitch", "SubPitch")
                         .WithMany("SubPitchNumbers")
-                        .HasForeignKey("SubPitchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SubPitch");
-                });
-
-            modelBuilder.Entity("PitchManagement.DataAccess.Entites.Team", b =>
-                {
-                    b.HasOne("PitchManagement.DataAccess.Entites.SubPitch", "SubPitch")
-                        .WithMany("Teams")
                         .HasForeignKey("SubPitchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -938,11 +919,11 @@ namespace PitchManagement.DataAccess.Migrations
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.SubPitch", b =>
                 {
+                    b.Navigation("ServiceDetails");
+
                     b.Navigation("SubPitchDetails");
 
                     b.Navigation("SubPitchNumbers");
-
-                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.SubPitchDetail", b =>

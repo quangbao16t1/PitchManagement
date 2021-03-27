@@ -17,11 +17,9 @@ namespace PitchManagement.DataAccess.Entites
         public double Cost { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public DateTime DateOrder { get; set; }
         public DateTime? CreateTime { get; set; }
         public DateTime? UpdateTime { get; set; }
         public virtual SubPitch SubPitch { get; set; }
-        //public virtual ICollection<TimeSlot> TimeSlots { get; set; }
         public virtual ICollection<OrderPitch> OrderPitches { get; set; }
     }
 }

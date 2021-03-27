@@ -13,18 +13,12 @@ namespace PitchManagement.DataAccess.Entites
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string CreateBy { get; set; }
+        public int CreateBy { get; set; }
         public string Level { get; set; }
         public string Logo { get; set; }
         public string Description { get; set; }
         public string TeamImage { get; set; }
         public string ImageUrl { get; set; }
-        //public int PitchId { get; set; }
-        //[ForeignKey("PitchId")]
-        //public virtual Pitch Pitch { get; set; }
-        public int SubPitchId { get; set; }
-        [ForeignKey("SubPitchId")]
-        public virtual SubPitch SubPitch { get; set; }
         public int AgeFrom { get; set; }
         public int AgeTo { get; set; }
         public string DateOfWeek { get; set; }

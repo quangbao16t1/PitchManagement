@@ -65,14 +65,14 @@ namespace PitchManagement.API.Implementaions
             }
 
             return _context.Teams
-                .Include(x => x.SubPitch).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
+               .Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
             //return _context.Teams
             //        .Where(x => true).ToList();
         }
 
         public async Task<Team> GetTeamByIdAsync(int id)
         {
-            return await _context.Teams.Include(x => x.SubPitch).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate)
@@ -88,17 +88,14 @@ namespace PitchManagement.API.Implementaions
                 teamInDb.Level = teamForUpdate.Level;
                 teamInDb.ImageUrl = teamForUpdate.ImageUrl;
                 teamInDb.Logo = teamForUpdate.Logo;
-                teamInDb.SubPitchId = teamForUpdate.SubPitchId;
                 teamInDb.TeamImage = teamForUpdate.TeamImage;
                 teamInDb.StartTime = teamForUpdate.StartTime;
                 teamInDb.CreateBy = teamForUpdate.CreateBy;
-                teamInDb.CreateTime = teamForUpdate.CreateTime;
-                teamInDb.UpdateTime = teamForUpdate.UpdateTime;
+                teamInDb.UpdateTime = DateTime.Now;
                 teamInDb.AgeTo = teamForUpdate.AgeTo;
                 teamInDb.AgeFrom = teamForUpdate.AgeFrom;
                 teamInDb.DateOfWeek = teamForUpdate.DateOfWeek;
                 teamInDb.Description = teamForUpdate.Description;
-
                 _context.Teams.Update(teamInDb);
                 await _context.SaveChangesAsync();
                 return true;

@@ -20,7 +20,7 @@ namespace PitchManagement.API.Dtos.Pitches
         public string PhoneNumber { get; set; }
         public DateTime? CreateTime { get; set; }
         public DateTime? UpdateTime { get; set; }
-        public string CreateBy { get; set; }
+        public int CreateBy { get; set; }
         public int Status { get; set; }
     }
 }

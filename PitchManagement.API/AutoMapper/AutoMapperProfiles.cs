@@ -27,7 +27,7 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<UserForCreateDto, User>();
             CreateMap<UserForUpdateDto, User>();
 
-            CreateMap<Team, TeamUI>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); });
+            CreateMap<Team, TeamUI>();
             CreateMap<TeamForCreate, Team>();
 
             CreateMap<TeamUser, TeamUserReturn>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
@@ -47,17 +47,18 @@ namespace PitchManagement.API.AutoMapper
                                             .ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
             CreateMap<MatchUI, Match>();
 
-            CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); });
-            CreateMap<SubPitchDetailUI, SubPitchDetail>();
+            CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
+                .ForMember(x => x.StartTime, y => y.MapFrom( z => new DateTime().Add(z.StartTime).ToString("hh:mm")))
+                .ForMember(x => x.EndTime, y => y.MapFrom( z => new DateTime().Add(z.EndTime).ToString("hh:mm")));
+
+            CreateMap<SubPitchDetailUI, SubPitchDetail>().ForMember(x => x.StartTime, y => y.MapFrom(z => TimeSpan.Parse(z.StartTime)))
+                                                         .ForMember(x => x.EndTime, y => y.MapFrom(z => TimeSpan.Parse(z.EndTime)));
 
             CreateMap<ProvinceUI, Province>();
             CreateMap<Province, ProvinceUI>();
 
             CreateMap<District, DistrictReturn>().ForMember(x => x.ProvinceName, y => { y.MapFrom(z => z.Province.Name); });
             CreateMap<DistrictUI, District>();
-
-            CreateMap<Ward, WardReturn>().ForMember(x => x.DistrictName, y => { y.MapFrom(z => z.District.Name); });
-            CreateMap<WardUI, Ward>();
         }
     }
 }

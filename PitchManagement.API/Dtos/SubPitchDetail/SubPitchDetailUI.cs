@@ -12,9 +12,8 @@ namespace PitchManagement.API.Dtos.SubPitchDetail
         [Required]
         public int SubPitchId { get; set; }
         public double Cost { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public DateTime DateOrder { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public DateTime? CreateTime { get; set; }
         public DateTime? UpdateTime { get; set; }
     }
