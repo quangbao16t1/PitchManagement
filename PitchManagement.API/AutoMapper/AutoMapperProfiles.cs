@@ -4,6 +4,8 @@ using PitchManagement.API.Dtos.Districts;
 using PitchManagement.API.Dtos.Matches;
 using PitchManagement.API.Dtos.Pitches;
 using PitchManagement.API.Dtos.Provinces;
+using PitchManagement.API.Dtos.ServiceDetail;
+using PitchManagement.API.Dtos.Services;
 using PitchManagement.API.Dtos.Slides;
 using PitchManagement.API.Dtos.SubPitchDetail;
 using PitchManagement.API.Dtos.SubPitches;
@@ -48,8 +50,8 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<MatchUI, Match>();
 
             CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
-                .ForMember(x => x.StartTime, y => y.MapFrom( z => new DateTime().Add(z.StartTime).ToString("hh:mm")))
-                .ForMember(x => x.EndTime, y => y.MapFrom( z => new DateTime().Add(z.EndTime).ToString("hh:mm")));
+                .ForMember(x => x.StartTime, y => y.MapFrom( z => new DateTime().Add(z.StartTime).ToString("hh:mm:tt")))
+                .ForMember(x => x.EndTime, y => y.MapFrom( z => new DateTime().Add(z.EndTime).ToString("hh:mm:tt")));
 
             CreateMap<SubPitchDetailUI, SubPitchDetail>().ForMember(x => x.StartTime, y => y.MapFrom(z => TimeSpan.Parse(z.StartTime)))
                                                          .ForMember(x => x.EndTime, y => y.MapFrom(z => TimeSpan.Parse(z.EndTime)));
@@ -59,6 +61,15 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<District, DistrictReturn>().ForMember(x => x.ProvinceName, y => { y.MapFrom(z => z.Province.Name); });
             CreateMap<DistrictUI, District>();
+
+            CreateMap<ServiceUI, Service>();
+
+            CreateMap<ServiceDetail, ServiceDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
+                            .ForMember(x => x.ServiceName, y => { y.MapFrom(z => z.Service.Name); })
+                            .ForMember(x => x.StartTime, y => y.MapFrom(z => new DateTime().Add(z.StartTime).ToString("hh:mm:tt")))
+                            .ForMember(x => x.EndTime, y => y.MapFrom(z => new DateTime().Add(z.EndTime).ToString("hh:mm:tt")));
+            CreateMap<ServiceDetailUI, ServiceDetail>().ForMember(x => x.StartTime, y => y.MapFrom(z => TimeSpan.Parse(z.StartTime)))
+                                                         .ForMember(x => x.EndTime, y => y.MapFrom(z => TimeSpan.Parse(z.EndTime)));
         }
     }
 }

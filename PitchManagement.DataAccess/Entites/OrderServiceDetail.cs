@@ -14,9 +14,9 @@ namespace PitchManagement.DataAccess.Entites
         [Required]
         public int ServiceDetailId { get; set; }
         [ForeignKey("ServiceDetailId")]
+        public virtual ServiceDetail ServiceDetail { get; set; }
         public int OrderPitchId { get; set; }
         [ForeignKey("OrderPitchId")]
-        public virtual ServiceDetail ServiceDetail { get; set; }
         public virtual OrderPitch OrderPitch { get; set; }
     }
 }

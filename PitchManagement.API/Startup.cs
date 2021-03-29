@@ -54,6 +54,9 @@ namespace PitchManagement.API
             services.AddScoped<ISubPitchDetailRepository, SubPitchDetailRepository>();
             services.AddScoped<IDistrictRepository, DistrictRepository>();
             services.AddScoped<IWardRepository, WardRepository>();
+            services.AddScoped<IWardRepository, WardRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IServiceDetailRepository, ServiceDetailRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

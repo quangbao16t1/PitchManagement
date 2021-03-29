@@ -169,9 +169,6 @@ namespace PitchManagement.DataAccess.Migrations
                     b.Property<int>("OrderPitchId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderPitchId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("ServiceDetailId")
                         .HasColumnType("int");
 
@@ -179,7 +176,7 @@ namespace PitchManagement.DataAccess.Migrations
 
                     b.HasIndex("OrderPitchId");
 
-                    b.HasIndex("OrderPitchId1");
+                    b.HasIndex("ServiceDetailId");
 
                     b.ToTable("OrderServiceDetails");
                 });
@@ -707,15 +704,15 @@ namespace PitchManagement.DataAccess.Migrations
 
             modelBuilder.Entity("PitchManagement.DataAccess.Entites.OrderServiceDetail", b =>
                 {
-                    b.HasOne("PitchManagement.DataAccess.Entites.ServiceDetail", "ServiceDetail")
+                    b.HasOne("PitchManagement.DataAccess.Entites.OrderPitch", "OrderPitch")
                         .WithMany("OrderServiceDetails")
                         .HasForeignKey("OrderPitchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PitchManagement.DataAccess.Entites.OrderPitch", "OrderPitch")
+                    b.HasOne("PitchManagement.DataAccess.Entites.ServiceDetail", "ServiceDetail")
                         .WithMany("OrderServiceDetails")
-                        .HasForeignKey("OrderPitchId1")
+                        .HasForeignKey("ServiceDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
