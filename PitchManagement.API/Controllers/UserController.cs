@@ -22,6 +22,7 @@ namespace PitchManagement.API.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
         }
+
         [HttpGet]
         public IActionResult GetAllUsers(string keyword)
         {
@@ -30,6 +31,7 @@ namespace PitchManagement.API.Controllers
             
             return Ok(_mapper.Map<IEnumerable<UserDto>>(listUsers));
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
@@ -40,6 +42,7 @@ namespace PitchManagement.API.Controllers
             }
             return Ok(_mapper.Map<UserDto>(user));
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserForCreateDto userForCreate)
         {
@@ -55,6 +58,7 @@ namespace PitchManagement.API.Controllers
 
             return BadRequest();
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserForUpdateDto userForUpdate)
         {
@@ -68,6 +72,7 @@ namespace PitchManagement.API.Controllers
 
             return BadRequest();
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
