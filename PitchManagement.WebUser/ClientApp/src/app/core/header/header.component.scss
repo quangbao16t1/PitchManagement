@@ -1,0 +1,15 @@
+.navbar-right > li > ul {
+    top: 53px;
+  }
+  .navbar-right > li:nth-child(3) > a:before,
+  .navbar-right > li:nth-child(1) > a:after {
+    content: '';
+  }
+  .container,
+  .navbar-nav {
+    display: block;
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  

@@ -1,0 +1,97 @@
+<header class="n-nav navbar" style="border-radius: 0;">
+    <div class="container">
+        <div class="navbar-header">
+            <span id="btn-left-sidebar" class="only-mobile-btn"><i class="fa fa-bars" aria-hidden="true"></i></span>
+            <a class="logo-top" href="javascript:;" routerLink="" title="Tìm Đối Nhanh">
+                <img width="80px" height="50px" src="assets/images/logo-hp.png" alt="Quang Bao Sport">
+            </a>
+            <span id="btn-right-sidebar" class="only-mobile-btn btn-right-user">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <b class="badge badge-primary bg-red" style="display:none"></b>
+        </span>
+        </div> <!-- /.navbar-header -->
+        <nav class="mobi-none" role="navigation">
+            <ul class="nav navbar-nav navbar-right ">
+                <li>
+                    <a routerLink="tim-doi" title="Tìm đối đá bóng sân 7 người, sân 5 người">Tìm đối nhanh</a>
+                    <ul class="navbar-nav-dropdown">
+                        <li class="navbar-match-finding">
+                            <a routerLink="tim-doi" title="Tìm đối đá bóng tại Hà Nội">
+                                <i class="fa fa-futbol-o" aria-hidden="true"></i>
+                                Đối đang chờ
+                            </a>
+                        </li>
+                        <li class="navbar-invite">
+                            <a routerLink="tao-tran-dau">
+                                <i class="fa fa-beer"></i>
+                                Mời đối giao lưu
+                            </a>
+                        </li>
+
+                        <li style="display:none">View more</li>
+
+                    </ul>
+                </li>
+                <li style="display:none"></li>
+                <li class="navbar-stadium">
+                    <a routerLink="danh-sach-san-bong" title="Sân cỏ nhân tạo tại Hà Nội, sân cỏ nhân tạo tại HCM"><i
+                        class="fa fa-futbol-o" aria-hidden="true"></i>Đặt sân nhanh</a>
+
+                </li>
+                <li *ngIf="">
+                    <a id="loginBtn" >
+                        Đăng nhập
+                    </a>
+                </li>
+
+                <li class="dropdown navbar-profile" *ngIf="">
+                    <a class="dropdown-toggle user-menu" data-toggle="dropdown" href="javascript:;">
+                        <!-- <img src="/{{getImageUrl()}}" class="navbar-profile-avatar" alt=""> -->
+                        <span class="visible-xs-inline user-name">Xin chào</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="navbar-nav-dropdown" role="menu">
+
+                        <li>
+                            <a routerLink="thong-tin-tai-khoan">
+                                <i class="fa fa-user"></i>
+                                Thông tin tài khoản
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="tran-dau/bat-doi">
+                                <i class="fa fa-futbol-o"></i>
+                                Đang bắt đối
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['lich-su-dat-san']">
+                                <i class="fa fa-history"></i>
+                                Lịch sử đặt sân
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a [routerLink]="['doi-bong-cua-toi']" [queryParams]="{id: 1}">
+                                <i class="fa fa-futbol-o"></i>
+                                Đội bóng của tôi
+                            </a>
+                        </li> -->
+                        <li>
+                            <a routerLink="san-bong-cua-toi">
+                                <i class="fa fa-th-large"></i>
+                                Sân bóng của tôi
+                            </a>
+                        </li>
+                        <li>
+                            <!-- <a (click)="logout()">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Đăng xuất
+                            </a> -->
+                        </li>
+                        <li style="display:none"></li>
+                    </ul>
+                <!-- </li> -->
+            </ul>
+        </nav>
+    </div> <!-- /.container -->
+</header>

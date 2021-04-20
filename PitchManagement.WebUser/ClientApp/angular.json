@@ -23,9 +23,18 @@
             "assets": ["src/assets"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/loading.css",
+              "src/assets/scss/_bootstrap-variables.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/scss/main.scss",
+              "src/assets/scss/global.scss",
+              "src/assets/scss/vendor.scss",
+              "src/assets/scss/plugins.scss"
             ],
-            "scripts": []
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {

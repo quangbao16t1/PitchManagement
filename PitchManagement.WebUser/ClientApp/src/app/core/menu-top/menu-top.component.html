@@ -1,0 +1,28 @@
+<!-- <div class="tabs-chi-tiet-doi" *ngIf="team?.id">
+    <div class="container">
+        <div class="img-doio"><img class="img-responsive" src="{{logoUrl}}" align="thumb"></div>
+        <div class="title-doi">
+            <h1>{{team?.name}}<span class="gender"><i class="fa fa-mars" aria-hidden="true"></i></span></h1>
+            <p class="captain-item">
+                <span>
+                    <a href="javascript:;">
+                        {{team?.createdUser?.firstName}} {{team?.createdUser?.lastName}}</a> (đội trưởng)
+                    <span class="captain-item-status offline"></span>
+                </span>
+                <span routerLink="/doi-bong-cua-toi/tao-moi" class="chat-nhanh" title="Tạo mới"><i
+                    class="fa fa-plus" aria-hidden="true"></i>Tạo mới</span>
+            </p>
+        </div>
+        <div class="wrap-ul-doi">
+            <ul class="list-link-doi">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"><a [routerLink]="['/doi-bong-cua-toi']" [queryParams]="{id: team?.id}">Giới thiệu</a></li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"><a [routerLink]="['/doi-bong-cua-toi/members']" [queryParams]="{id: team?.id}">Thành viên</a></li>
+                <li [routerLinkActive]="['active']">
+                    <a routerLink="/doi-bong-cua-toi/{{team?.id}}/edit">
+                        <i class="fa fa-gear"></i> Cập nhật thông tin
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> -->
