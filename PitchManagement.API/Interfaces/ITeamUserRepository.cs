@@ -8,7 +8,7 @@ namespace PitchManagement.API.Interfaces
 {
     public interface ITeamUserRepository
     {
-        IEnumerable<TeamUser> GetAllTeamUsers();
+        IEnumerable<TeamUser> GetAllTeamUsers(string keyword);
         Task<TeamUser> GetTeamUserByIdAsnyc(int id);
         Task<bool> CreateTeamUserAsync(TeamUser teamUser);
         Task<bool> UpdateTeamUserAsync(int id, TeamUser teamUser);

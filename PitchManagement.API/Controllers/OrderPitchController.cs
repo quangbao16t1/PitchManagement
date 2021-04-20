@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos.OrderPitches;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -25,12 +26,31 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllOrderPitchs(string keyword)
+        public IActionResult GetAllOrderPitchs(string keyword, int page = 1, int pagesize = 10)
         {
+            try
+            {
+                var listOrder = _orderPitchRepo.GetAllOrderPitch(keyword);
 
-            var listOrder = _orderPitchRepo.GetAllOrderPitch(keyword);
+                int totalCount = listOrder.Count();
 
-            return Ok(_mapper.Map<IEnumerable<OrderPitchReturn>>(listOrder));
+                var query = listOrder.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<OrderPitch>, IEnumerable<OrderPitchReturn>>(query);
+
+                var paginationset = new PaginationSet<OrderPitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]

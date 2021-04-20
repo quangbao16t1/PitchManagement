@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos.Matches;
 using PitchManagement.API.Dtos.Pitches;
 using PitchManagement.API.Interfaces;
@@ -26,12 +27,31 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllMatch(string keyword)
+        public IActionResult GetAllMatch(string keyword, int page = 1, int pagesize = 10)
         {
+            try
+            {
+                var listMatch = _matchRepo.GetAllMatch(keyword);
 
-            var listMatch = _matchRepo.GetAllMatch(keyword);
+                int totalCount = listMatch.Count();
 
-            return Ok(_mapper.Map<IEnumerable<MatchReturn>>(listMatch));
+                var query = listMatch.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<Match>, IEnumerable<MatchReturn>>(query);
+
+                var paginationset = new PaginationSet<MatchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]

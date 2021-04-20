@@ -79,15 +79,12 @@ namespace PitchManagement.API.Implementaions
             try
             {
                 userInDb.Address = userUpdate.Address;
-                userInDb.Activated = userUpdate.Activated;
                 userInDb.Email = userUpdate.Email;
                 userInDb.FirstName = userUpdate.FirstName;
                 userInDb.LastName = userUpdate.LastName;
-                userInDb.Username = userUpdate.Username;
                 userInDb.PhoneNumber = userUpdate.PhoneNumber;
                 userInDb.Gender = userUpdate.Gender;
                 userInDb.GroupUserId = userUpdate.GroupUserId;
-                userInDb.CreateDate = userUpdate.CreateDate;
                 userInDb.ImageUrl = userUpdate.ImageUrl;
 
                 _context.Users.Update(userInDb);

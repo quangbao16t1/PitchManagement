@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos.TeamUser;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -25,10 +26,32 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllTeamUser()
+        public IActionResult GetAllTeamUser(string keyword, int page = 1, int pagesize = 10)
         {
-            var listTeamUser = _teamUserRepo.GetAllTeamUsers();
-            return Ok(_mapper.Map<IEnumerable <TeamUserReturn>> (listTeamUser));
+           try
+            {
+                var listTeamUser = _teamUserRepo.GetAllTeamUsers(keyword);
+
+                int totalCount = listTeamUser.Count();
+
+                var query = listTeamUser.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<TeamUser>, IEnumerable<TeamUserReturn>>(query);
+
+                var paginationset = new PaginationSet<TeamUserReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+            
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
         }
 
         [HttpGet("{id}")]

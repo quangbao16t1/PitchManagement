@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos.SubPitches;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -25,13 +26,32 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllSubPitchs(string keyword)
+        public IActionResult GetAllSubPitchs(string keyword, int page = 1, int pagesize = 10)
         {
+            try
+            {
+                var listSubPicth = _subPitchRepo.GetAllSubPitch(keyword);
 
-            var listSubPicth = _subPitchRepo.GetAllSubPitch(keyword);
+                int totalCount = listSubPicth.Count();
 
-            return Ok(_mapper.Map<IEnumerable<SubPitchReturn>>(listSubPicth));
-            //return Ok(listUsers);
+                var query = listSubPicth.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<SubPitch>, IEnumerable<SubPitchReturn>>(query);
+
+                var paginationset = new PaginationSet<SubPitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
         }
 
         [HttpGet("{id}")]

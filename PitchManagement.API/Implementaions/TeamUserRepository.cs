@@ -49,9 +49,14 @@ namespace PitchManagement.API.Implementaions
             }
         }
 
-        public IEnumerable<TeamUser> GetAllTeamUsers()
+        public IEnumerable<TeamUser> GetAllTeamUsers(string keyword)
         {
-            return _context.TeamUsers.Include(x => x.Team).Include(y => y.User).ToList();
+            if (string.IsNullOrEmpty(keyword))
+            {
+                keyword = "";
+            }
+
+            return _context.TeamUsers.Include(x => x.Team).Include(y => y.User).Where(x => x.Team.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
         public async Task<TeamUser> GetTeamUserByIdAsnyc(int id)
