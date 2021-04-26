@@ -51,7 +51,12 @@ namespace PitchManagement.API.Implementaions
 
         public IEnumerable<OrderServiceDetail> GetAllOrderServiceDetails()
         {
-            return _context.OrderServiceDetails.Include(x => x.OrderPitch).Include(y => y.ServiceDetail).AsEnumerable();
+           // return _context.OrderServiceDetails.Include(x => x.OrderPitch).Include(y => y.ServiceDetail).AsEnumerable();
+
+            return _context.OrderServiceDetails.Include(x => x.OrderPitch).ThenInclude(x => x.User)
+                                    .Include(x => x.ServiceDetail).ThenInclude(x => x.SubPitch)
+                                    .Include(x => x.OrderPitch).ThenInclude(x => x.SubPitchDetail)
+                                   .Include(x => x.ServiceDetail).ThenInclude(x => x.Service).AsEnumerable();
         }
 
         public async Task<OrderServiceDetail> GetOrderServiceDetailByIdAsnyc(int id)

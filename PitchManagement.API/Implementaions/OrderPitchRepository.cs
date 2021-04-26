@@ -62,6 +62,7 @@ namespace PitchManagement.API.Implementaions
             }
 
             return _context.OrderPitches
+                 .Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
                 .Include(x => x.User).Include(x => x.SubPitchDetail).AsEnumerable();
         }
 

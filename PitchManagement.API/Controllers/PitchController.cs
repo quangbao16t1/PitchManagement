@@ -45,6 +45,18 @@ namespace PitchManagement.API.Controllers
             return Ok(_mapper.Map<PitchReturn>(pitch));
         }
 
+        [Route("GetPitchByUserId")]
+        [HttpGet]
+        public async Task<IActionResult> GetPitchCreateBy(int userId)
+        {
+            var pitch = await _PitchRepo.GetPitchCreateBy(userId);
+            if (pitch == null)
+            {
+                return NotFound();
+            }
+            return Ok(_mapper.Map<PitchReturn>(pitch));
+        }
+        
         [HttpPost]
         public async Task<IActionResult> CreatePitch([FromBody] PitchUI pitchCreate)
         {

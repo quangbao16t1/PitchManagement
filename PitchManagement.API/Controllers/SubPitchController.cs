@@ -54,6 +54,36 @@ namespace PitchManagement.API.Controllers
 
         }
 
+        [Route("GetSpByPitchId")]
+        [HttpGet]
+        public IActionResult GetSubPitchbyPitchId(int pitchId, int page = 1, int pagesize = 10)
+        {
+            try
+            {
+                var listSubPicth = _subPitchRepo.GetSubPitchByPitchId(pitchId);
+
+                int totalCount = listSubPicth.Count();
+
+                var query = listSubPicth.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<SubPitch>, IEnumerable<SubPitchReturn>>(query);
+
+                var paginationset = new PaginationSet<SubPitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSubPitchById(int id)
         {

@@ -65,6 +65,11 @@ namespace PitchManagement.API.Implementaions
                 .Include(x => x.Pitch).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
+        public IEnumerable<SubPitch>GetSubPitchByPitchId(int pitchId)
+        {
+            return _context.SubPitches.Include(x => x.Pitch).Where(y => y.PitchId == pitchId).AsEnumerable().Distinct();
+        }
+
         public async Task<SubPitch> GetSubPitchByIdAsync(int id)
         {
             return await _context.SubPitches.Include(x => x.Pitch).FirstOrDefaultAsync(x => x.Id == id);

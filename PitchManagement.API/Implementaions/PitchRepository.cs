@@ -72,6 +72,11 @@ namespace PitchManagement.API.Implementaions
             return await _context.Pitches.Include(x => x.District).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Pitch> GetPitchCreateBy(int userId)
+        {
+            return await _context.Pitches.Include(x => x.District).Where(y => y.CreateBy == userId).FirstOrDefaultAsync();
+        }
+
         public async Task<bool> UpdatePitchAsync(int id, Pitch pitchUpdate)
         {
             var pitchInDb = await _context.Pitches.FirstOrDefaultAsync(p => p.Id == id);
