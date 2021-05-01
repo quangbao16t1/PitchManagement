@@ -1,0 +1,39 @@
+<div class="box box-primary">
+
+    <div class="box-header with-border">
+      <h3 class="box-title">Tạo tài khoản mới</h3>
+    </div>
+
+    <form [formGroup]="registerForm" (submit)="createUser()" novalidate>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Tên đăng nhập</label>
+              <input type="text" class="form-control" formControlName="username" placeholder="Tên đăng nhập"
+                [ngClass]="{ 'is-invalid': f.username.errors }">
+                <app-control-messages [control]="registerForm.get('username')"></app-control-messages>
+            </div>
+            <div class="form-group">
+              <label>Mật Khẩu</label>
+              <input type="text" class="form-control" formControlName="password" placeholder="Mật khẩu"
+                [ngClass]="{ 'is-invalid': f.password.errors }">
+                <app-control-messages [control]="registerForm.get('password')"></app-control-messages>
+            </div>
+            <div class="form-group">
+              <label>Xác nhận mật khẩu</label>
+              <input type="text" class="form-control" placeholder="Nhập lại mật khẩu" formControlName="passwordAgain"
+              [ngClass]="{ 'is-invalid': f.passwordAgain.errors }">
+              <app-control-messages [control]="registerForm.get('passwordAgain')"></app-control-messages>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer text-center">
+        <button [routerLink]="['/login']" class="btn btn-default">Hủy</button>
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-success">Lưu</button>
+      </div>
+    </form>
+
+  </div>
+  

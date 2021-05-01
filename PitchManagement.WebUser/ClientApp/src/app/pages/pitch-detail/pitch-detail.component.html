@@ -1,1 +1,136 @@
-<p>pitch-detail works!</p>
+<div ng-view="" class="ng-scope">
+    <div class="breadcrum ng-scope">
+        <div class="container">
+            <div class="breadcrum-line"><a  routerLink="/home">Trang chủ</a><a routerLink="/sub-pitch">Danh sách sân</a></div>
+        </div>
+    </div>
+    <div class="content-wrap stadium-managment-page ng-scope">
+        <div class="container">
+            <div class="item-card">
+                <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+                    <!-- <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li [ngClass]="isOpenListPitch === false ? 'active' : ''">
+                            <a href="javascript:void(0)" (click)="isOpenListPitch = false;">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Yêu cầu đặt sân <b class="badge badge-primary ng-binding" *ngIf="notiCountP && notiCountP > 0"
+                                                   style="background-color:red">{{notiCountP}}</b>
+                            </a>
+                        </li>
+
+                        <li [ngClass]="isOpenListPitch === true ? 'active' : ''">
+                            <a href="javascript:void(0)" (click)="isOpenListPitch = true;">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Danh sách sân
+                            </a>
+                        </li>
+                    </ul> -->
+                    <div id="stadiumListTabContent" class="tab-content">
+
+                        <div class="tab-pane active" id="#/stadium">
+                            <div id="listStadium" style="min-height:250px; position:relative">
+                                <div class="pull-right" style="margin-bottom:30px;">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary btn-primary-extra dropdown-toggle" type="button"
+                                                routerLink="new">
+                                            <i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp;&nbsp;Tạo sân mới
+                                            <span class="caret"></span>
+                                        </button>
+
+                                    </div>
+                                </div>
+                                <table class="table table-striped table-responsive table-stadium-list ng-scope">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th width="80">Loại</th>
+                                        <th width="150">Trạng thái</th>
+                                        <th>Thông tin sân</th>
+                                        <th>Ảnh đại diện</th>
+                                        <th align="right" style="text-align:right">Tác vụ</th>
+                                    </tr>
+                                    </thead>
+                                    <!-- <tbody *ngIf="pitchs?.length === 0">
+                                        <tr>
+                                            <td colspan="6" class="text-center"> Không có dữ liệu!</td>
+                                        </tr>
+                                    </tbody> -->
+                                    <tbody>
+                                        <!-- < *ngFor="let pitch of item; let i=index;" class="ng-scope"> -->
+                                    <tr *ngFor="let item of itemsAsync | async">
+                                        <td class="ng-binding">{{ item.id }}</td>
+                                        <td>
+                                           <span class="ng-scope">Bóng đá</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success" *ngIf="item.status === 1">Đang hoạt động</span>
+                                            <span class="text-danger" *ngIf="item.status === 0">Dừng hoạt động</span>
+                                        </td>
+                                        <td>
+                                            <a href="#/stadium-info/1354">
+                                                <strong class="ng-binding">{{item.name}}</strong>
+                                            </a>
+                                            <div class="ng-binding">
+                                                <i class="fa fa-map-o"></i>
+                                               ( {{item.address}} - {{item.district}})
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-phone-square"></i>
+                                                <a href="tel:{{item.phoneNumber}}" class="ng-binding"> {{item.phoneNumber}}</a>
+                                            </div>
+
+                                            <div>
+                                                <i class="fa fa-envelope-o" aria-hidden="true"></i> <a
+                                                href="mailto:{{item.email}}" target="_top" class="ng-binding">
+                                                {{item.email}}</a>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <!-- <img width="100" height="100" src="{{loadImage(pitch?.avatar)}}"> -->
+                                            <img width="100" height="100">
+                                        </td>
+
+                                        <td align="right" style="text-align:right">
+                                            <div class="form-group">
+                                                <a routerLink="/sub-pitch" class="btn btn-info btn-sm"
+                                                   style="width:130px">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i> Đặt sân
+                                                </a>
+                                            </div>
+                                            <div class="form-group">
+                                                <a class="btn btn-default btn-sm" routerLink="{{pitch?.id}}/edit"
+                                                   title="Chỉnh sửa" style="width:130px" >
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                    Sửa thông tin
+                                                </a>
+                                            </div>
+                                            <!-- <div class="form-group">
+                                                <a (click)="toggleStatus(pitch?.id, pitch?.status)" [ngClass]="pitch?.status === 1 ? 'btn-danger' : 'btn-success'" class="btn btn-sm" title="Ngưng hoạt động">
+                                                    <span *ngIf="pitch?.status === 1"><i class="fa fa-ban" aria-hidden="true"></i> Dừng</span>
+                                                    <span *ngIf="pitch?.status === 0"><i class="fa fa-check" aria-hidden="true"></i> Kích hoạt</span>
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" title="Xóa" (click)="delete(pitch?.id)">
+                                                    <i class="fa fa-times" aria-hidden="true"></i> Xóa
+                                                </a>
+                                            </div> -->
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <div class="row justify-content-center" *ngIf="pitchs?.length > 0">
+                                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                                </div> -->
+                            </div>
+                        </div> <!-- /.tab-pane -->
+                    </div>
+                    <!-- <div *ngIf="isOpenListPitch === false" id="myTab1Content" class="tab-content">
+                        <jhi-oder-pitch (updateNotiCount)="loadTotalRequestOrder($event)" style="width: 100%;"></jhi-oder-pitch>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

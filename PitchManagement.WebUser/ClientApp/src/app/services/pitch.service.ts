@@ -14,6 +14,14 @@ export class PitchService {
         return this.http.get(`${this.baseUrl}?keyword=${keyword}`);
     }
 
+    getPitchByUserId(userId: any): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetPitchByUserId?userId=${userId}`);
+    }
+
+    getPitchId(userId: any): Observable<number> {
+        return this.http.get<number>(`${this.baseUrl}/GetPitchId?userId=${userId}`);
+    }
+
     getPitchById(id: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`);
     }

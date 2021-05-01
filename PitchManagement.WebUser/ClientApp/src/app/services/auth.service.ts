@@ -32,6 +32,10 @@ export class AuthService {
       );
   }
 
+  save(account: UserLogin): Observable<{}> {
+    return this.http.post(this.baseUrl + 'register', account);
+  }
+
   processLoginResponse(response: LoginResponse) {
     const token = response.access_token;
     const userResponse = response.user;
