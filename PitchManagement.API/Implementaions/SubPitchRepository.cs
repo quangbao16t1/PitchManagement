@@ -65,9 +65,13 @@ namespace PitchManagement.API.Implementaions
                 .Include(x => x.Pitch).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
-        public IEnumerable<SubPitch>GetSubPitchByPitchId(int pitchId)
+        public IEnumerable<SubPitch>GetSubPitchByPitchId(int pitchId, string keyword)
         {
-            return _context.SubPitches.Include(x => x.Pitch).Where(y => y.PitchId == pitchId).AsEnumerable().Distinct();
+            if (string.IsNullOrEmpty(keyword))
+            {
+                keyword = "";
+            }
+            return _context.SubPitches.Include(x => x.Pitch).Where(y => y.PitchId == pitchId).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable().Distinct();
         }
 
         public async Task<SubPitch> GetSubPitchByIdAsync(int id)
@@ -85,7 +89,7 @@ namespace PitchManagement.API.Implementaions
                 subPitchInDb.Name = subPitchUpdate.Name;
                 subPitchInDb.PitchId = subPitchUpdate.PitchId;
                 subPitchInDb.Status = subPitchUpdate.Status;
-                subPitchInDb.UpdateTime = subPitchUpdate.UpdateTime;
+                subPitchInDb.UpdateTime = DateTime.Now;
                 subPitchInDb.CreateTime = subPitchUpdate.CreateTime;
                 subPitchInDb.Type = subPitchUpdate.Type;
                 await _context.SaveChangesAsync();

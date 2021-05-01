@@ -66,15 +66,21 @@ namespace PitchManagement.API.Implementaions
                 .Include(x => x.District).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
+        public async Task<int> GetIdPitch(int userId)
+        {
+            int pitchId = await _context.Pitches.Where(y => y.CreateBy == userId).Select(y => y.Id).SingleOrDefaultAsync();
+            return pitchId;
+        }
+
         public async Task<Pitch> GetPitchByIdAsync(int id)
         {
 
             return await _context.Pitches.Include(x => x.District).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Pitch> GetPitchCreateBy(int userId)
+        public IEnumerable<Pitch> GetPitchCreateBy(int userId)
         {
-            return await _context.Pitches.Include(x => x.District).Where(y => y.CreateBy == userId).FirstOrDefaultAsync();
+            return  _context.Pitches.Include(x => x.District).Where(y => y.CreateBy == userId).AsEnumerable();
         }
 
         public async Task<bool> UpdatePitchAsync(int id, Pitch pitchUpdate)

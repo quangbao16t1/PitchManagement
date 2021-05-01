@@ -56,11 +56,11 @@ namespace PitchManagement.API.Controllers
 
         [Route("GetSpByPitchId")]
         [HttpGet]
-        public IActionResult GetSubPitchbyPitchId(int pitchId, int page = 1, int pagesize = 10)
+        public IActionResult GetSubPitchbyPitchId(int pitchId, string keyword, int page = 1, int pagesize = 10)
         {
             try
             {
-                var listSubPicth = _subPitchRepo.GetSubPitchByPitchId(pitchId);
+                var listSubPicth = _subPitchRepo.GetSubPitchByPitchId(pitchId, keyword);
 
                 int totalCount = listSubPicth.Count();
 

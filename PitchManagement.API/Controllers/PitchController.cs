@@ -45,16 +45,24 @@ namespace PitchManagement.API.Controllers
             return Ok(_mapper.Map<PitchReturn>(pitch));
         }
 
+        [Route("GetPitchId")]
+        [HttpGet]
+        public async Task<int> GetPitchId(int userId)
+        {
+            int pitchId =  await _PitchRepo.GetIdPitch(userId);  
+            return pitchId;
+        }
+
         [Route("GetPitchByUserId")]
         [HttpGet]
-        public async Task<IActionResult> GetPitchCreateBy(int userId)
+        public IActionResult GetPitchCreateBy(int userId)
         {
-            var pitch = await _PitchRepo.GetPitchCreateBy(userId);
+            var pitch =  _PitchRepo.GetPitchCreateBy(userId);
             if (pitch == null)
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<PitchReturn>(pitch));
+            return Ok(_mapper.Map<IEnumerable<PitchReturn>>(pitch));
         }
         
         [HttpPost]

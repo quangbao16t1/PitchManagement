@@ -10,9 +10,10 @@ namespace PitchManagement.API.Interfaces
     {
         IEnumerable<Pitch> GetAllPitch(string keyword);
         Task<Pitch> GetPitchByIdAsync(int id);
-        Task<Pitch> GetPitchCreateBy(int userId);
+        IEnumerable<Pitch> GetPitchCreateBy(int userId);
         Task<bool> CreatePitchAsync(Pitch pitchCreate);
         Task<bool> UpdatePitchAsync(int id, Pitch pitchUpdate);
         Task<bool> DeletePitchAsync(int id);
+        Task<int> GetIdPitch(int userId);
     }
 }
