@@ -51,7 +51,47 @@ namespace PitchManagement.API.Controllers
 
                 return BadRequest();
             }
+        }
 
+        [Route("GetMember")]
+        [HttpGet]
+        public IActionResult GetMember(int teamId, string keyword, int page = 1, int pagesize = 10)
+        {
+            try
+            {
+                var listTeamUser = _teamUserRepo.GetMemBerByTeamId(teamId, keyword);
+
+                int totalCount = listTeamUser.Count();
+
+                var query = listTeamUser.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<TeamUser>, IEnumerable<TeamUserMember>>(query);
+
+                var paginationset = new PaginationSet<TeamUserMember>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+        }
+
+        [Route("GetTeamByUserId")]
+        [HttpGet]
+        public async Task<IActionResult>  GetTeamByUserId(int userId)
+        {
+            var teamUser = await _teamUserRepo.GetTeamByUserId(userId);
+            if (teamUser == null)
+                return
+                    BadRequest();
+
+            return Ok(_mapper.Map<TeamUserReturn>(teamUser));
         }
 
         [HttpGet("{id}")]

@@ -48,6 +48,11 @@ namespace PitchManagement.API.AutoMapper
                                                  .ForMember(x => x.StartTime, y => { y.MapFrom(z => z.Team.StartTime); });
             CreateMap<TeamUserUI, TeamUser>();
 
+            CreateMap<TeamUser, TeamUserMember>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
+                                                 .ForMember(x => x.UserName, y => { y.MapFrom(z => z.User.Username); })
+                                                 .ForMember(x => x.FirstName, y => { y.MapFrom(z => z.User.FirstName); })
+                                                 .ForMember(x => x.LastName, y => { y.MapFrom(z => z.User.LastName); });
+
             CreateMap<SubPitch, SubPitchReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
             CreateMap<SubPitchUI, SubPitch>();
 

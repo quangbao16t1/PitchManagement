@@ -20,13 +20,13 @@ namespace PitchManagement.API.Implementaions
 
         public async Task<bool> CreateTeamUserAsync(TeamUser teamUser)
         {
-           try
+            try
             {
                 _context.TeamUsers.Add(teamUser);
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -57,6 +57,22 @@ namespace PitchManagement.API.Implementaions
             }
 
             return _context.TeamUsers.Include(x => x.Team).Include(y => y.User).Where(x => x.Team.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
+        }
+
+        public IEnumerable<TeamUser> GetMemBerByTeamId(int teamId, string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                keyword = "";
+            }
+
+            return _context.TeamUsers.Include(x => x.Team).Include(y => y.User)
+                .Where(z => z.TeamId == teamId).Where(y => y.User.Username.ToLower().Contains(keyword.ToLower())).AsEnumerable();
+        }
+
+        public async Task<TeamUser> GetTeamByUserId(int userId)
+        {
+            return await _context.TeamUsers.Include(x => x.Team).Include(y => y.User).FirstOrDefaultAsync(x => x.UserId == userId);
         }
 
         public async Task<TeamUser> GetTeamUserByIdAsnyc(int id)

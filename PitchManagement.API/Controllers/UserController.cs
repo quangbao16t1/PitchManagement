@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos;
 using PitchManagement.API.Dtos.Users;
 using PitchManagement.API.Interfaces;
@@ -24,12 +25,32 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllUsers(string keyword)
+        public IActionResult GetAllUsers(string keyword, int page = 1, int pagesize = 10)
         {
-            
-            var listUsers= _userRepo.GetAllUsers(keyword);
-            
-            return Ok(_mapper.Map<IEnumerable<UserDto>>(listUsers));
+            try
+            {
+                var listUsers = _userRepo.GetAllUsers(keyword);
+
+                int totalCount = listUsers.Count();
+
+                var query = listUsers.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<UserDto>>(query);
+
+                var paginationset = new PaginationSet<UserDto>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
         }
 
         [HttpGet("{id}")]

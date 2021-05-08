@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos.Pitches;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -26,14 +27,33 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllPitches(string keyword)
+        public IActionResult GetAllPitches(string keyword, int page = 1, int pagesize = 10)
         {
+            try
+            {
+                var listPicth = _PitchRepo.GetAllPitch(keyword);
 
-            var listPicth = _PitchRepo.GetAllPitch(keyword);
+                int totalCount = listPicth.Count();
 
-            return Ok(_mapper.Map<IEnumerable<PitchReturn>>(listPicth));
+                var query = listPicth.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<PitchReturn>>(query);
+
+                var paginationset = new PaginationSet<PitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPitchById(int id)
         {
