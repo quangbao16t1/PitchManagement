@@ -14,6 +14,14 @@ export class TeamService {
         return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
       }
 
+    getMember(teamId: number, keyword: string, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetMember?teamId=${teamId}&keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
+      }
+
+    getTeamByUserId(userId: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetTeamByUserId?userId=${userId}`);
+      }
+
     getTeamById(id: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`);
     }

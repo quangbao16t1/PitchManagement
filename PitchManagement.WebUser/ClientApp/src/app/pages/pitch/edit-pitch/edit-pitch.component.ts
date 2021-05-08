@@ -36,7 +36,7 @@ export class EditPitchComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.getRoles().filter(x => x.includes('UPDATE_pitcher')).length === 0) {
-      this.router.navigate(['/pitchers']);
+      this.router.navigate(['/pitch']);
     }
 
     this.route.params.subscribe(params => {
@@ -62,7 +62,7 @@ export class EditPitchComponent implements OnInit {
 
     this.pitchService.editPitch(this.id, this.pitcher).subscribe(
       () => {
-        this.router.navigate(['/pitchers']).then(() => {
+        this.router.navigate(['/pitch']).then(() => {
           this.toastr.success('Cập nhật nhà cung cấp thành công');
         });
       },

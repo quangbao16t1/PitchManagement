@@ -1,0 +1,18 @@
+<div class="sidebar sidebar-tien-ich">
+    <ul class="list-left-links">
+        <li><a href="/tran-dau/bat-doi" class="red">Đang bắt đối</a></li>
+        <li><a href="/lich-su-dat-san">Lịch sử đặt sân</a></li>
+        <!-- <li>
+            <a href="#">Quản lý đội bóng</a>
+            <ul class="sub-links ng-scope" *ngIf="myTeams?.length > 0">
+                <li *ngFor="let mt of myTeams" class="ng-scope">
+                    <a class="nav-active" [routerLink]="['/doi-bong-cua-toi']" [queryParams]="{id: mt?.id}">
+                        {{mt?.name}}
+                    </a>
+                </li>
+            </ul>
+        </li> -->
+        <li><a routerLink="/san-bong-cua-toi">Quản lý sân</a></li>
+        <li><a routerLink="/thong-tin-tai-khoan">Tài khoản</a></li>
+    </ul>
+</div>

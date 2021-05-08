@@ -10,10 +10,9 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getAllUsers(keyword: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}?keyword=${keyword}`);
+  getAllUsers(keyword: string, page: number, pageSize: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
   }
-
   getUserById(id: any): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
@@ -28,5 +27,8 @@ export class UserService {
 
   deleteUser(id: any) {
     return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+  changePassword(currentPassword: string, newPassword: string): Observable<{}> {
+    return this.http.post<any>(`${this.baseUrl}/change-password`, { currentPassword: currentPassword, newPassword: newPassword });
   }
 }

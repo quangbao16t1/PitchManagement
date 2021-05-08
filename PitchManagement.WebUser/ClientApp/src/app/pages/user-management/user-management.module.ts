@@ -8,12 +8,14 @@ import { UserManagementComponent } from './user-management.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { UserManagementRoutingModule } from './user-management-routing.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
         UserManagementRoutingModule,
         ControlModule,
         BsDatepickerModule.forRoot()

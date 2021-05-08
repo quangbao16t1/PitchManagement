@@ -10,10 +10,10 @@ import { UserService } from 'src/app/services/user.service';
 import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
+  selector: 'app-edit-user-proflie',
+  templateUrl: './edit-user-proflie.component.html',
 })
-export class EditUserComponent implements OnInit {
+export class EditUserProflieComponent implements OnInit {
 
   editUserForm: FormGroup;
   user: UserUpdate;
@@ -54,7 +54,7 @@ export class EditUserComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params.id;
       if (this.id) {
-        this.userService.getUserById(this.id).subscribe(
+        this.userService.getUserById(this.getId).subscribe(
           result => {
             console.log(result);
             this.user = result;
@@ -80,7 +80,7 @@ export class EditUserComponent implements OnInit {
     this.user.groupUserId = Number(this.user.groupUserId);
     this.userService.editUser(this.id, this.user).subscribe(
       () => {
-        this.router.navigate(['/users']).then(() => {
+        this.router.navigate(['/user-profile']).then(() => {
           this.toastr.success('Cập nhật tài khoản thành công');
         });
       },
@@ -106,6 +106,5 @@ export class EditUserComponent implements OnInit {
 
     return 0;
   }
-
 
 }

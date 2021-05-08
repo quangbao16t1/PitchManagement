@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { Pitch } from 'src/app/models/pitch/pitch.model';
 import { PitchService } from 'src/app/services/pitch.service';
 
@@ -17,6 +18,9 @@ export class PitchComponent implements OnInit {
   keyword: string;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
+  page: number;
+  pageSize: number;
+  total: number;
 
   constructor(
     public pitchService: PitchService,
@@ -27,11 +31,20 @@ export class PitchComponent implements OnInit {
 
   ngOnInit() {
     this.keyword = '';
-    this.getAllPitches();
+    this.page = 1;
+    this.pageSize = 10;
+    this.getAllPitches(this.page);
   }
 
-  getAllPitches() {
-    this.itemsAsync = this.pitchService.getAllPitches(this.keyword);
+  getAllPitches(page: number) {
+    this.itemsAsync = this.pitchService.getAllPitches(this.keyword, page, this.pageSize)
+      .pipe(
+        tap(response => {
+          this.total = response.total;
+          this.page = page;
+        }),
+        map(response => response.items)
+      );
   }
 
   add() {
@@ -39,7 +52,11 @@ export class PitchComponent implements OnInit {
   }
 
   edit(id: any) {
-    this.router.navigate(['/pitch/edit' + id]);
+    this.router.navigate(['/pitch/edit/' + id]);
+  }
+
+  getSybPitch(id: any) {
+    this.router.navigate(['/pitch/sub-pitch/' + id]);
   }
 
   deleteConfirm(template: TemplateRef<any>, data: any) {
@@ -52,7 +69,7 @@ export class PitchComponent implements OnInit {
       this.pitchService.deletePitch(this.pitch.id)
       .subscribe(
         () => {
-          this.getAllPitches();
+          this.getAllPitches(this.page);
           this.toastr.success(`Xóa sân thành công`);
         },
         (_error: HttpErrorResponse) => {
@@ -70,12 +87,12 @@ export class PitchComponent implements OnInit {
 }
 
 search() {
-    this.getAllPitches();
+    this.getAllPitches(this.page);
 }
 
 refresh() {
     this.keyword = '';
-    this.getAllPitches();
+    this.getAllPitches(this.page);
 }
 
 }

@@ -17,14 +17,14 @@ import { FooterComponent } from './footer/footer.component';
     ],
     declarations: [
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
     ],
     exports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
       ]
 })
 export class CoreModule { }

@@ -10,10 +10,9 @@ export class PitchService {
     constructor(private http: HttpClient) {
     }
 
-    getAllPitches(keyword: string): Observable<any> {
-        return this.http.get(`${this.baseUrl}?keyword=${keyword}`);
-    }
-
+    getAllPitches(keyword: string, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
+      }
     getPitchByUserId(userId: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/GetPitchByUserId?userId=${userId}`);
     }

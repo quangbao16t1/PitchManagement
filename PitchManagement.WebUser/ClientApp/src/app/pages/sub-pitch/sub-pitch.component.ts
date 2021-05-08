@@ -124,4 +124,20 @@ refresh() {
     this.getSubPitchByPitchId(this.pitchId, this.page);
 }
 
+isUser(): boolean {
+  const user = JSON.parse(localStorage.getItem(CURRENT_USER));
+  if (user != null) {
+    return user.groupRole === 'User';
+  }
+return false;
+}
+
+isPitcher(): boolean {
+  const user = JSON.parse(localStorage.getItem(CURRENT_USER));
+  if (user != null) {
+    return user.groupRole === 'Pitcher';
+  }
+return false;
+}
+
 }

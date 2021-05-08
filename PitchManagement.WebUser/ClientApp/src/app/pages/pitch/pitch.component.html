@@ -22,47 +22,100 @@
             </div>
         </div>
         <br />
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <table class="table table-bordered">
-                    <tbody>
+        <div id="stadiumListTabContent" class="tab-content">
+            <div class="tab-pane active" id="#/stadium">
+                <div id="listStadium" style="min-height:250px; position:relative">
+                    <table class="table table-striped table-responsive table-stadium-list ng-scope">
+                        <thead>
                         <tr>
-                            <th style="width: 5%">Id</th>
-                            <th>Tên sân bóng</th>
-                            <th>Số điện thoại</th>
-                            <th>Giới thiệu</th>
-                            <th>Địa chỉ</th>
-                            <th>Website</th>
-                            <th>Avatar</th>
-                            <th>Trạng thái</th>
-                            <th style="text-align: center;">Hành động</th>
+                            <th>Id</th>
+                            <th width="80">Loại</th>
+                            <th width="150">Trạng thái</th>
+                            <th>Thông tin sân</th>
+                            <th>Ảnh đại diện</th>
+                            <th align="right" style="text-align:right">Tác vụ</th>
                         </tr>
-                        <tr
-                            *ngFor="let item of itemsAsync | async">
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.phoneNumber }}</td>
-                            <td>{{ item.decription }}</td>
-                            <td>{{ item.address }}</td>
-                            <td>{{ item.website }}</td>
-                            <td>{{ item.avatar }}</td>
-                            <td>{{ item.status }}</td>
-                            <td style=" text-align: center;">
-                                <button class="btn btn-sm btn-primary" style="margin-right: 10px; margin-bottom: 5px;" (click) = "edit(item.id)"
-                                    >
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" style="margin-right: 10px; margin-bottom: 5px;"  (click)="deleteConfirm(template,item)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                        </thead>
+                        <!-- <tbody *ngIf="pitchs?.length === 0">
+                            <tr>
+                                <td colspan="6" class="text-center"> Không có dữ liệu!</td>
+                            </tr>
+                        </tbody> -->
+                        <tbody>
+                            <!-- < *ngFor="let pitch of item; let i=index;" class="ng-scope"> -->
+                        <tr *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }">
+                            <td class="ng-binding">{{ item.id }}</td>
+                            <td>
+                               <span class="ng-scope">Bóng đá</span>
                             </td>
+                            <td>
+                                <span class="text-success" *ngIf="item.status === 1">Đang hoạt động</span>
+                                <span class="text-danger" *ngIf="item.status === 0">Dừng hoạt động</span>
+                            </td>
+                            <td>
+                                <a href="#/stadium-info/1354">
+                                    <strong class="ng-binding">{{item.name}}</strong>
+                                </a>
+                                <div class="ng-binding">
+                                    <i class="fa fa-map-o"></i>
+                                   ( {{item.address}} - {{item.district}})
+                                </div>
+                                <div>
+                                    <i class="fa fa-phone-square"></i>
+                                    <a href="tel:{{item.phoneNumber}}" class="ng-binding"> {{item.phoneNumber}}</a>
+                                </div>
+
+                                <div>
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i> <a
+                                    href="mailto:{{item.email}}" target="_top" class="ng-binding">
+                                    {{item.email}}</a>
+                                </div>
+                                <div>
+                                    <i class="fas fa-globe" aria-hidden="true"></i> <a
+                                    href="mailto:{{item.webSite}}" target="_top" class="ng-binding">
+                                    {{item.webSite}}</a>
+                                </div>
+                            </td>
+                            <td>
+                                <!-- <img width="100" height="100" src="{{loadImage(pitch?.avatar)}}"> -->
+                                <img width="100" height="100">
+                            </td>
+
+                            <td align="right" style="text-align:right">
+                                <div class="form-group">
+                                    <a (click)="getSybPitch(item.id)" class="btn btn-info btn-sm"
+                                       style="width:130px">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i> Danh sách sân
+                                    </a>
+                                </div>
+                                <div class="form-group">
+                                    <a class="btn btn-default btn-sm" routerLink="{{pitch?.id}}/edit"
+                                       title="Chỉnh sửa" style="width:130px" >
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        Sửa thông tin
+                                    </a>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <a (click)="toggleStatus(pitch?.id, pitch?.status)" [ngClass]="pitch?.status === 1 ? 'btn-danger' : 'btn-success'" class="btn btn-sm" title="Ngưng hoạt động">
+                                        <span *ngIf="pitch?.status === 1"><i class="fa fa-ban" aria-hidden="true"></i> Dừng</span>
+                                        <span *ngIf="pitch?.status === 0"><i class="fa fa-check" aria-hidden="true"></i> Kích hoạt</span>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" title="Xóa" (click)="delete(pitch?.id)">
+                                        <i class="fa fa-times" aria-hidden="true"></i> Xóa
+                                    </a>
+                                </div> -->
+                            </td>
+
                         </tr>
-                    </tbody>
-                </table>
-                <!-- <pagination-controls class="custom-pagination" (pageChange)="getAllUsers($event)" autoHide="true"
-                    responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
-                </pagination-controls> -->
-            </div>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <pagination-controls class="custom-pagination" (pageChange)="getAllPitches($event)" autoHide="true"
+                                responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
+                            </pagination-controls>
+                    </div>
+                </div>
+            </div> <!-- /.tab-pane -->
         </div>
     </div>
   </div>
@@ -71,7 +124,7 @@
     <div class="modal-header">
         <button type="button" class="close" (click)="close()">&times;</button>
         <h4 class="modal-title">Xác nhận</h4>
-    </div>
+    </div>  
     <div class="modal-body">
         <p>Bạn có chắc chắn muốn xóa nhà cung cấp này không?</p>
     </div>

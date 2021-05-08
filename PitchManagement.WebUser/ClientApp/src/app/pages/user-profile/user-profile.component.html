@@ -1,1 +1,87 @@
-<p>user-profile works!</p>
+<div class="tabs-chi-tiet-doi">
+    <div class="container">
+
+        <div class="title-doi">
+
+        </div>
+        <div class="wrap-ul-doi">
+            <ul class="list-link-doi tabs">
+                <li [ngClass]="isOpenChangePassForm === false ? 'active' : ''"><a href="javascript:void(0)" (click)="isOpenChangePassForm = false;">Thông tin cá
+                    nhân</a></li>
+                <li [ngClass]="isOpenChangePassForm === true ? 'active' : ''"><a href="javascript:void(0)" (click)="isOpenChangePassForm = true;">Thay đổi mật
+                    khẩu</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content-wrap">
+    <!-- Nav Tabs -->
+<div class="container">
+    <div class="box box-primary">
+
+        <div class="box-header with-border">
+          <h3 class="box-title">Thông tin tài khoản</h3>
+        </div>
+      
+        <form [formGroup]="profileForm" novalidate>
+            <div class="col-md-3">
+                <div class="img-profile" title="Tải lên một hình ảnh đại diện">
+                    <img id="profile-avatar" class="media-object" width="100%"
+                         src="assets/images/default-user.png"
+                         alt="avatar">
+                </div>
+                <!-- <span style="display:none">
+                    <input id="btnprofileUpload" onchange="return sport.account.readURL(this);"
+                           name="profileUpload" type="file">
+                </span> -->
+
+            </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input  type="text" class="form-control" formControlName="email" placeholder="Email" disabled>
+                </div>
+                <div class="form-group">
+                  <label>Họ và tên</label>
+                  <input type="text" class="form-control" formControlName="firstName" placeholder="Họ và tên" disabled>
+                </div>
+                <div class="form-group">
+                  <label>Tên</label>
+                  <input type="text"  class="form-control" formControlName="lastName" placeholder="Tên" disabled
+                    >
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Số điện thoại" disabled>
+                </div>
+              </div>
+               <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Địa chỉ</label>
+                  <input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ" disabled>
+                </div>
+                <div class="form-group">
+                  <label>Giới tính</label>
+                  <select class="form-control" formControlName="gender" disabled>
+                    <option *ngFor="let gender1 of genders " value={{gender1.key}}>{{gender1.value[0]}}</option>
+                </select>
+                </div>
+                <div class="form-group" *ngIf="getId != 1">
+                  <label>Vai trò</label>
+                  <select class="form-control" formControlName="groupUserId" disabled>
+                    <option *ngFor="let role of roles1 " value={{role.key}}>{{role.value[0]}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer text-center">
+            <button [routerLink]="['/home']" class="btn btn-default">Quay lại</button>
+            <button (click)="edit(this.getId)"  class="btn btn-success">Chỉnh sửa thông tin</button>
+          </div>
+        </form>
+      
+      </div>
+    </div>

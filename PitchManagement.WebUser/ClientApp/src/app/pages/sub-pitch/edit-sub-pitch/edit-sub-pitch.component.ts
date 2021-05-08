@@ -41,7 +41,7 @@ export class EditSubPitchComponent implements OnInit {
           console.log(result);
           this.subPitch = result;
           this.editSubPitchForm.controls.name.setValue(result.name);
-          this.editSubPitchForm.controls.pitchId.setValue(result.pitchId);
+          this.editSubPitchForm.controls.pitchId.setValue(result.pitchName);
           this.editSubPitchForm.controls.type.setValue(result.type);
           this.editSubPitchForm.controls.status.setValue(result.status);
           this.editSubPitchForm.controls.createTime.setValue(result.createTime);

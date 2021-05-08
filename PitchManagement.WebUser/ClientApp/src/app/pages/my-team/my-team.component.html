@@ -1,90 +1,63 @@
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Quản lý đội bóng</h3>
-  </div>
-  <div class="box-body">
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="input-group">
-          <input class="form-control" type="text" [(ngModel)]="keyword" placeholder="Nhập từ khóa" (keyup) = "searchCharacter()"/>
-          <span class="input-group-btn">
-            <!-- <button class="btn btn-default" type="button" (click)="search()">
-              <i class="fa fa-search"></i>
-            </button> -->
-            <button class="btn btn-default" type="button" (click)="refresh()">
-              <i class="fa fa-refresh"></i>
-            </button>
-          </span>
-        </div>
+<div class="top-banner-box top-banner-box-doi">
+  <div class="container">
+      <p class="page-title"></p>
+      <div class="team-banner-btn-container">
       </div>
-      <div class="col-sm-4">
-        <button class="btn btn-success"  (click)="add()">Thêm mới</button>
-      </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-xs-12 col-md-12">
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <th style="width: 5%">Id</th>
-              <th>Tên đội</th>
-              <th>Người tạo</th>
-              <th>Giới thiệu</th>
-              <th>Cấp độ</th>
-              <th>Logo đội</th>
-              <th>Hình ảnh</th>
-              <th>Độ tuổi</th>
-              <th>Ngày trong tuần</th>
-              <th>Thời gian đá</th>
-              <th style="text-align: center;">Hành động</th>
-            </tr>
-            <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
-            <tr
-              *ngFor="let item of itemsAsync | async">
-              <td>{{ item.id }}</td>
-              <td>{{ item.teamName }}</td>
-              <td>{{ item.createBy }}</td>
-              <td>{{ item.description }}</td>
-              <td>{{ item.level }}</td>
-              <td>{{ item.logo }}</td>
-              <td>{{ item.imageUrl }}</td>
-              <td>{{ item.ageFrom }} - {{ item.ageTo }} </td>
-              <td>{{ item.dateOfWeek }}</td>
-              <td>{{ item.startTime }}</td>
-              <td style=" text-align: center;">
-                <button class="btn btn-sm btn-primary"  style="margin-right: 10px; margin-bottom: 5px;"
-                  (click)="edit(item.id)">
-                  <i class="fa fa-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
-                  (click)="deleteConfirm(template,item)">
-                  <i class="fa fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- <div class="text-center">
-          <pagination-controls class="custom-pagination" (pageChange)="getAllTeames($event)" autoHide="true"
-            responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
-          </pagination-controls>
-        </div> -->
-      </div>
-    </div>
   </div>
 </div>
+<div class="box box-primary">
 
-<ng-template #template>
-  <div class="modal-header">
-    <button type="button" class="close" (click)="close()">&times;</button>
-    <h4 class="modal-title">Xác nhận</h4>
+  <div class="box-header with-border text-center" >
+    <h3 class="box-title">Đội bóng của tôi</h3>
   </div>
-  <div class="modal-body">
-    <p>Bạn có chắc chắn muốn xóa nhà cung cấp này không?</p>
+  <form [formGroup]="myTeamForm"  novalidate>
+    <div class="col-md-3">
+      <div class="img-profile" title="Tải lên một hình ảnh đại diện">
+          <img id="profile-avatar" class="media-object" width="100%"
+               src="assets/images/default-user.png"
+               alt="avatar">
+      </div>
+      <!-- <span style="display:none">
+          <input id="btnprofileUpload" onchange="return sport.account.readURL(this);"
+                 name="profileUpload" type="file">
+      </span> -->
+
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="close()">Đóng</button>
-    <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
-  </div>
-</ng-template>
+    <div class="box-body ">
+      <div class="row">
+        <div class="col-sm-9 ">
+          <div class="form-group ">
+            <label>Tên đội bóng</label>
+            <input  type="text" class="form-control" formControlName="teamName" placeholder="" disabled>
+          </div>
+          <div class="form-group">
+            <label>Đội trưởng</label>
+            <input type="text" class="form-control" formControlName="createBy" placeholder="" disabled>
+          </div>
+          <div class="form-group">
+            <label>Level</label>
+            <input type="text" class="form-control" formControlName="level" placeholder="" disabled>
+          </div>
+          <div class="form-group">
+              <label>Tuổi từ </label>
+              <input type="text" class="form-control" formControlName="ageFrom" placeholder="" disabled>
+          </div>
+          <div class="form-group">
+              <label>Tuổi đến</label>
+              <input type="text" class="form-control" formControlName="ageTo" placeholder="" disabled>
+          </div>
+          <div class="cl">
+            <div class="title-img">Giới thiệu về {{team?.teamName}}</div>
+            <div class="content-sans">
+                <p>{{team?.description}}</p>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-footer text-center">
+      <button [routerLink]="['/home']" class="btn btn-default">Quay lại</button>
+      <button [routerLink]="['/team/member']"  class="btn btn-success">Danh sách thành viên</button>
+    </div>
+  </form>
+</div>

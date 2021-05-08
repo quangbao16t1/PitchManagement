@@ -7,6 +7,8 @@ import { EditPitchComponent } from './edit-pitch/edit-pitch.component';
 import { PitchRoutingModule } from './pitch-routing.module';
 import { PitchComponent } from './pitch.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ListSubPitchComponent } from './list-sub-pitch/list-sub-pitch.component';
 
 
 @NgModule({
@@ -15,13 +17,15 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
         FormsModule,
         PitchRoutingModule,
         ControlModule,
+        NgxPaginationModule,
         ReactiveFormsModule,
         BsDatepickerModule.forRoot()
     ],
     declarations: [
         PitchComponent,
         EditPitchComponent,
-        AddPitchComponent
+        AddPitchComponent,
+        ListSubPitchComponent
     ]
 })
 export class PitchModule { }

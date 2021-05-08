@@ -38,22 +38,26 @@
                         class="fa fa-futbol-o" aria-hidden="true"></i>Đặt sân nhanh</a>
 
                 </li>
-                <li *ngIf="">
-                    <a id="loginBtn" >
+                <li *ngIf="!isAuthenticated()">
+                    <!-- <a id="loginBtn" (click)="/">
+                        Đăng nhập
+                    </a> -->
+                    <a routerLink="/login">
+                        <i class="fa fa-futbol-o"></i>
                         Đăng nhập
                     </a>
                 </li>
 
-                <li class="dropdown navbar-profile" *ngIf="">
+                <li class="dropdown navbar-profile" *ngIf="isAuthenticated()">
                     <a class="dropdown-toggle user-menu" data-toggle="dropdown" href="javascript:;">
                         <!-- <img src="/{{getImageUrl()}}" class="navbar-profile-avatar" alt=""> -->
-                        <span class="visible-xs-inline user-name">Xin chào</span>
+                        <span class="visible-xs-inline user-name">Xin chào, {{name}}</span>
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="navbar-nav-dropdown" role="menu">
 
                         <li>
-                            <a routerLink="thong-tin-tai-khoan">
+                            <a routerLink="/user-profile">
                                 <i class="fa fa-user"></i>
                                 Thông tin tài khoản
                             </a>
@@ -76,21 +80,27 @@
                                 Đội bóng của tôi
                             </a>
                         </li> -->
-                        <li>
-                            <a routerLink="san-bong-cua-toi">
+                        <li   *ngIf= "isPitcher()">
+                            <a routerLink="/pitch-detail">
                                 <i class="fa fa-th-large"></i>
                                 Sân bóng của tôi
                             </a>
                         </li>
+                        <li    *ngIf = "isUser()">
+                            <a routerLink="/team">
+                                <i class="fa fa-th-large" aria-hidden="true"></i>
+                               Đội bóng của tôi
+                            </a>
+                        </li>
                         <li>
-                            <!-- <a (click)="logout()">
+                            <a routerLink="/login" (click)="logout()">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 Đăng xuất
-                            </a> -->
+                            </a>
                         </li>
                         <li style="display:none"></li>
                     </ul>
-                <!-- </li> -->
+                </li>
             </ul>
         </nav>
     </div> <!-- /.container -->

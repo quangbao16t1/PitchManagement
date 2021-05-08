@@ -48,9 +48,9 @@
               <label>Hình ảnh</label>
               <input type="text" class="form-control" formControlName="imageUrl" placeholder="Hình Ảnh" [ngClass]="{ 'is-invalid': f.imageUrl.errors }">
             </div>
-            <div class="form-group" *ngIf="getId == 1">
+            <div class="form-group" *ngIf="getId != 1">
               <label>Vai trò</label>
-              <select class="form-control" formControlName="groupUserId"
+              <select class="form-control" formControlName="groupUserId" disabled
                 [ngClass]="{ 'is-invalid': f.groupUserId.errors }">
                 <option *ngFor="let role of roles1 " value={{role.key}}>{{role.value[0]}}</option>
               </select>

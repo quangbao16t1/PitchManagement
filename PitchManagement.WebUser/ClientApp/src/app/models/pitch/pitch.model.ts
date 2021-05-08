@@ -20,6 +20,7 @@ export class Pitch {
             this.name = name;
             this.decription = decription;
             this.address = address;
+            this.district = district;
             this.email = email;
             this.website = website;
             this.avatar = avatar;

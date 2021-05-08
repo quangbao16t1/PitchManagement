@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { CURRENT_USER } from 'src/app/constants/db.keys';
 import { User } from 'src/app/models/user/user.model';
 import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-user-management',
@@ -17,6 +19,10 @@ export class UserManagementComponent implements OnInit {
   keyword: string;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
+  page: number;
+  pageSize: number;
+  total: number;
+
 
   constructor(
     public userService: UserService,
@@ -26,15 +32,21 @@ export class UserManagementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if (this.getId !== 1) {
-    //   this.router.navigate(['/home']);
-    // }
     this.keyword = '';
-    this.getAllUsers();
+    this.page = 1;
+    this.pageSize = 10;
+    this.getAllUsers(this.page);
   }
 
-  getAllUsers() {
-    this.itemsAsync = this.userService.getAllUsers(this.keyword);
+  getAllUsers(page: number) {
+    this.itemsAsync = this.userService.getAllUsers(this.keyword, page, this.pageSize)
+      .pipe(
+        tap(response => {
+          this.total = response.total;
+          this.page = page;
+        }),
+        map(response => response.items)
+      );
   }
 
   add() {
@@ -55,7 +67,7 @@ export class UserManagementComponent implements OnInit {
       this.userService.deleteUser(this.user.id)
         .subscribe(
           () => {
-            this.getAllUsers();
+            this.getAllUsers(this.page);
             this.toastr.success(`Xóa tài khoản thành công`);
           },
           (_error: HttpErrorResponse) => {
@@ -80,12 +92,12 @@ export class UserManagementComponent implements OnInit {
   }
 
   search() {
-    this.getAllUsers();
+    this.getAllUsers(this.page);
   }
 
   refresh() {
     this.keyword = '';
-    this.getAllUsers();
+    this.getAllUsers(this.page);
   }
 
   get getId() {

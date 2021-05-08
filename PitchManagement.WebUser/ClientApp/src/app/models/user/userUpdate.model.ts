@@ -1,7 +1,7 @@
 export class UserUpdate {
     public id: string;
     public userName: string;
-    public firsrName: string;
+    public firstName: string;
     public lastName: string;
     public email: string;
     public phoneNumber: string;
@@ -14,7 +14,7 @@ export class UserUpdate {
         phoneNumber?: string, address?: string, gender?: boolean, imageUrl?: string, groupUserId?: Number) {
         this.id = id;
         this.userName = username;
-        this.firsrName = firstName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;

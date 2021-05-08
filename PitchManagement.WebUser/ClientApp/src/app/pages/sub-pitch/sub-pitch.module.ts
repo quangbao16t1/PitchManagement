@@ -7,6 +7,7 @@ import { SubPitchRoutingModule } from './sub-pitch-routing.module';
 import { AddSubPitchComponent } from './add-sub-pitch/add-sub-pitch.component';
 import { EditSubPitchComponent } from './edit-sub-pitch/edit-sub-pitch.component';
 import { SubPitchComponent } from './sub-pitch.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { SubPitchComponent } from './sub-pitch.component';
         SubPitchRoutingModule,
         ControlModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
         BsDatepickerModule.forRoot()
     ],
     declarations: [
