@@ -9,6 +9,7 @@ namespace PitchManagement.API.Dtos.TeamUser
     {
         public int Id { get; set; }
         public string TeamName { get; set; }
+        public string TeamId { get; set; }
         public string CreateBy { get; set; }
         public string Description { get; set; }
         public string Level { get; set; }

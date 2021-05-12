@@ -11,6 +11,7 @@ namespace PitchManagement.API.Dtos.SubPitches
         public int Id { get; set; }
         [Required]
         public string PitchName { get; set; }
+        public int PitchId { get; set; }
         public string Name { get; set; }
         public int Type { get; set; }//5-7-9-11
         public int Status { get; set; }

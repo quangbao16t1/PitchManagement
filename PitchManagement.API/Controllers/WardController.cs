@@ -31,6 +31,14 @@ namespace PitchManagement.API.Controllers
             return Ok(_mapper.Map<IEnumerable<WardReturn>>(listWard));
         }
 
+        [Route("GetAllWardByDistrict")]
+        [HttpGet]
+        public IActionResult GetAllWardByDistrict(int districtId)
+        {
+            var listWard = _wardRepo.GetAllWardByDistrict(districtId);
+            return Ok(_mapper.Map<IEnumerable<WardReturn>>(listWard));
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAllWardById(int id)
         {

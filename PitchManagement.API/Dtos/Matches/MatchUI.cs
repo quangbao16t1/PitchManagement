@@ -13,7 +13,7 @@ namespace PitchManagement.API.Dtos.Matches
         public DateTime SetupTime { get; set; }
         public int TeamId { get; set; }
         public int Type { get; set; }//type ( 0 - đã có sân, 1 - đi khách
-        public int PitchId { get; set; }
+        public int? PitchId { get; set; }
         public string Covenant { get; set; }
         public string Level { get; set; } // 'level ( 0 - Mới chơi, 1 - TB, 2 - TB khá, 3 - Phủi, 4 - TB yếu, 5 - Mềm, 6 - Rất mềm, 7 Khá; 8 - Khá mạnh, 9 - Mạnh',
         public string invitation { get; set; }

@@ -40,6 +40,7 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<TeamUser, TeamUserReturn>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
                                                  .ForMember(x => x.CreateBy, y => { y.MapFrom(z => z.User.LastName); })
+                                                 .ForMember(x => x.TeamId, y => { y.MapFrom(z => z.Team.Id); })
                                                  .ForMember(x => x.Level, y => { y.MapFrom(z => z.Team.Level); })
                                                  .ForMember(x => x.Logo, y => { y.MapFrom(z => z.Team.Logo); })
                                                  .ForMember(x => x.AgeFrom, y => { y.MapFrom(z => z.Team.AgeFrom); })
@@ -53,7 +54,8 @@ namespace PitchManagement.API.AutoMapper
                                                  .ForMember(x => x.FirstName, y => { y.MapFrom(z => z.User.FirstName); })
                                                  .ForMember(x => x.LastName, y => { y.MapFrom(z => z.User.LastName); });
 
-            CreateMap<SubPitch, SubPitchReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
+            CreateMap<SubPitch, SubPitchReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); })
+                                                 .ForMember(x => x.PitchId, y => { y.MapFrom(z => z.Pitch.Id); });
             CreateMap<SubPitchUI, SubPitch>();
 
             CreateMap<Pitch, PitchReturn>().ForMember(x => x.District, y => { y.MapFrom(z => z.District.Name); });
@@ -63,7 +65,9 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<SlideUI, Slide>();
 
             CreateMap<Match, MatchReturn>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
-                                            .ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });
+                                            .ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); })
+                                            .ForMember(x => x.DistrictName, y => { y.MapFrom(z => z.Pitch.District.Name); });
+
             CreateMap<MatchUI, Match>();
 
             CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
@@ -78,6 +82,9 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<District, DistrictReturn>().ForMember(x => x.ProvinceName, y => { y.MapFrom(z => z.Province.Name); });
             CreateMap<DistrictUI, District>();
+
+            CreateMap<Ward, WardReturn>().ForMember(x => x.DistrictName, y => { y.MapFrom(z => z.District.Name); });
+            CreateMap<WardUI, Ward>();
 
             CreateMap<ServiceUI, Service>();
 

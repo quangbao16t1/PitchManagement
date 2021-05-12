@@ -63,6 +63,11 @@ namespace PitchManagement.API.Implementaions
             return _context.Wards.Include(x => x.District).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
+        public IEnumerable<Ward> GetAllWardByDistrict(int districtId)
+        {
+            return _context.Wards.Include(x => x.District).Where(x => x.DistrictId == districtId).AsEnumerable();
+        }
+
         public async Task<Ward> GetWardByIdAsync(int id)
         {
             return await _context.Wards.Include(x => x.District).FirstOrDefaultAsync(x => x.Id == id);

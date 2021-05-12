@@ -17,7 +17,7 @@ namespace PitchManagement.DataAccess.Entites
         [ForeignKey("TeamId")]
         public virtual Team Team { get; set; }
         public int Type { get; set; }//type ( 0 - đã có sân, 1 - đi khách)   
-        public int PitchId { get; set; }
+        public int? PitchId { get; set; }
         [ForeignKey("PitchId")]
         public virtual Pitch Pitch { get; set; }
         public string Covenant { get; set; }

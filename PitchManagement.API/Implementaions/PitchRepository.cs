@@ -72,6 +72,11 @@ namespace PitchManagement.API.Implementaions
             return pitchId;
         }
 
+        public IEnumerable<Pitch> GetPitchByDistrict(int districtId)
+        {
+            return _context.Pitches.Include(x => x.District).Where(y => y.DistrictId == districtId).AsEnumerable();
+        }
+
         public async Task<Pitch> GetPitchByIdAsync(int id)
         {
 

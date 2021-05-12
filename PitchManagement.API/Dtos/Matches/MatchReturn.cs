@@ -14,6 +14,7 @@ namespace PitchManagement.API.Dtos.Matches
         public string TeamName { get; set; }
         public int Type { get; set; }
         public string PitchName { get; set; }
+        public string DistrictName { get; set; }
         public string Covenant { get; set; }
         public string Level { get; set; } 
         public string invitation { get; set; }

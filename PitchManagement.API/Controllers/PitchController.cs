@@ -54,6 +54,16 @@ namespace PitchManagement.API.Controllers
             }
 
         }
+
+        [Route("GetPitchByDistrict")]
+        [HttpGet]
+        public IActionResult GetPicthByDistrict(int districtId)
+        {
+                var listPicth = _PitchRepo.GetPitchByDistrict(districtId);
+
+                return Ok(_mapper.Map<IEnumerable<PitchReturn>>(listPicth));
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPitchById(int id)
         {
