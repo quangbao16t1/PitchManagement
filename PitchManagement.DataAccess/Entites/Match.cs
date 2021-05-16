@@ -13,7 +13,7 @@ namespace PitchManagement.DataAccess.Entites
         public int Id { get; set; }
         [Required]
         public DateTime SetupTime { get; set; }
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
         [ForeignKey("TeamId")]
         public virtual Team Team { get; set; }
         public int Type { get; set; }//type ( 0 - đã có sân, 1 - đi khách)   

@@ -70,6 +70,8 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<MatchUI, Match>();
 
+            CreateMap<MatchByStatus, Match>();
+
             CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
                 .ForMember(x => x.StartTime, y => y.MapFrom( z => new DateTime().Add(z.StartTime).ToString("hh:mm:tt")))
                 .ForMember(x => x.EndTime, y => y.MapFrom( z => new DateTime().Add(z.EndTime).ToString("hh:mm:tt")));
