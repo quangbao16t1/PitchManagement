@@ -34,9 +34,11 @@ export class PitchDetailComponent implements OnInit {
   getPitchByUserId(userId: any) {
     this.itemsAsync = this.pitchService.getPitchByUserId(this.getId);
   }
-
+  add() {
+    this.router.navigate(['/pitch-detail/add']);
+  }
   edit(id: any) {
-    this.router.navigate(['/pitch/edit' + id]);
+    this.router.navigate(['/pitch-detail/edit' + id]);
   }
 
   deleteConfirm(template: TemplateRef<any>, data: any) {

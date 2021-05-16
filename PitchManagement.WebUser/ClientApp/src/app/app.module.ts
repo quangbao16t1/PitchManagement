@@ -17,6 +17,11 @@ import { CoreModule } from './core/core.module';
 import { PitchService } from './services/pitch.service';
 import { UserService } from './services/user.service';
 import { TeamService } from './services/team.service';
+import { SubPitchService } from './services/sub-pitch.service';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { MatchService } from './services/match.service';
+import { DistrictService } from './services/district.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN);
@@ -30,8 +35,10 @@ export function tokenGetter() {
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    NgxPaginationModule,
     FormsModule,
     CoreModule,
+    NgSelectModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
@@ -50,7 +57,10 @@ export function tokenGetter() {
     AuthService,
     PitchService,
     UserService,
-    TeamService
+    TeamService,
+    SubPitchService,
+    MatchService,
+    DistrictService
   ],
   bootstrap: [AppComponent
   ],

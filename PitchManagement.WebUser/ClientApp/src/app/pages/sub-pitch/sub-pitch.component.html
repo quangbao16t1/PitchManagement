@@ -41,11 +41,18 @@
                 <td>{{ item.pitchName }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.type }}</td>
-                <td>{{ item.status }}</td>
+                <td>
+                  <span class="text-success" *ngIf="item.status === 1">Đang hoạt động</span>
+                  <span class="text-danger" *ngIf="item.status === 0">Dừng hoạt động</span>
+                </td>
                 <td style=" text-align: center;" >
                       <button class="btn btn-sm btn-primary"  style="margin-right: 10px; margin-bottom: 5px;"
                       (click)="edit(item.id)">
                       <i class="fa fa-pencil"></i>
+                     </button>
+                     <button class="btn btn-sm btn-info"  style="margin-right: 10px; margin-bottom: 5px;"
+                      (click)="edit(item.id)">
+                      <i class="eye-fill"></i>
                      </button>
                      <button class="btn btn-sm btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
                       (click)="deleteConfirm(template,item)">
@@ -72,7 +79,7 @@
       <h4 class="modal-title">Xác nhận</h4>
     </div>
     <div class="modal-body">
-      <p>Bạn có chắc chắn muốn xóa nhà cung cấp này không?</p>
+      <p>Bạn có chắc chắn muốn xóa sân bóng con này không?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" (click)="close()">Đóng</button>

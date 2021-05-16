@@ -5,6 +5,8 @@ import { ControlModule } from 'src/app/helper/control.module';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { PitchDetailRoutingModule } from './pitch-detail-routing.module';
 import { PitchDetailComponent } from './pitch-detail.component';
+import { AddPitchComponent } from './add-pitch/add-pitch.component';
+import { EditPitchComponent } from './edit-pitch/edit-pitch.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { PitchDetailComponent } from './pitch-detail.component';
     ],
     declarations: [
         PitchDetailComponent,
+        AddPitchComponent,
+        EditPitchComponent
     ]
 })
 export class PitchDetailModule { }

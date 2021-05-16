@@ -3,36 +3,24 @@
     <div class="box-header with-border">
       <h3 class="box-title">Thêm sân mới</h3>
     </div>
-  
     <form [formGroup]="addSubPitchForm" (submit)="addSubPitch()" novalidate>
-      <div class="box-body">
+      <div class="box-body col-xs-offset-3">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-9">
             <div class="form-group">
               <label>Tên sân con</label>
               <input type="text" class="form-control" formControlName="name" placeholder="Tên sân con"
-                [ngClass]="{ 'is-invalid': f.name.errors }">
+                >
                 <app-control-messages [control]="addSubPitchForm.get('name')"></app-control-messages>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Tên sân bóng</label>
-              <input type="text" class="form-control" formControlName="pitchId" placeholder="Tên sân bóng"
-                [ngClass]="{ 'is-invalid': f.pitchId.errors }">
-            </div>
+              <input type="text" class="form-control" formControlName="pitchId" placeholder="Tên sân bóng">
+            </div> -->
             <div class="form-group">
               <label>Kiểu sân</label>
               <input type="text" class="form-control" formControlName="type" placeholder="Kiểu sân"
-                [ngClass]="{ 'is-invalid': f.type.errors }">
-            </div>
-            <div class="form-group">
-                <label>Trạng thái</label>
-                <input type="text" class="form-control" formControlName="status" placeholder="Trạng thái"
-                  [ngClass]="{ 'is-invalid': f.status.errors }">
-              </div>
-            <div class="form-group">
-              <label>Ngày tạo</label>
-              <input type="text" class="form-control" formControlName="createTime" placeholder="Ngày tạo"
-                [ngClass]="{ 'is-invalid': f.createTime.errors }">
+              >
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SubPitchComponent } from './sub-pitch.component';
 import { AddSubPitchComponent } from './add-sub-pitch/add-sub-pitch.component';
 import { EditSubPitchComponent } from './edit-sub-pitch/edit-sub-pitch.component';
+import { SubPitchDetailComponent } from '../sub-pitch-detail/sub-pitch-detail.component';
 
 
 export const routes: Routes = [

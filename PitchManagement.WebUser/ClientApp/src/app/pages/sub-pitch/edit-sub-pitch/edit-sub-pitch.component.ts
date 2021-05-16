@@ -16,6 +16,10 @@ export class EditSubPitchComponent implements OnInit {
   editSubPitchForm: FormGroup;
   subPitch: SubPitchForEdit;
   id: any;
+  status: any[] = [
+    { key: 1, value: ['Đang hoạt động'] },
+    {key: 0, value: ['Dừng hoạt động']}
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -26,10 +30,8 @@ export class EditSubPitchComponent implements OnInit {
   ) {
     this.editSubPitchForm = this.fb.group({
       name: ['', [Validators.required, ValidationService.requireValue]],
-      type: ['', [Validators.required, ValidationService.requireValue]],
+      type: ['', [Validators.required, ValidationService.numberValidator]],
       status: ['', [Validators.required, ValidationService.numberValidator]],
-      pitchId: ['', [Validators.required, ValidationService.numberValidator]],
-      createTime: ['', [Validators.required]],
     });
   }
   ngOnInit() {
@@ -41,10 +43,8 @@ export class EditSubPitchComponent implements OnInit {
           console.log(result);
           this.subPitch = result;
           this.editSubPitchForm.controls.name.setValue(result.name);
-          this.editSubPitchForm.controls.pitchId.setValue(result.pitchName);
           this.editSubPitchForm.controls.type.setValue(result.type);
           this.editSubPitchForm.controls.status.setValue(result.status);
-          this.editSubPitchForm.controls.createTime.setValue(result.createTime);
         },
         () => {
           this.toastr.error(`Không tìm thấy sân con này`);

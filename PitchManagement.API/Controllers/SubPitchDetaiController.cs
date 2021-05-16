@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Core;
 using PitchManagement.API.Dtos.SubPitchDetail;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -33,6 +34,7 @@ namespace PitchManagement.API.Controllers
             return Ok(_mapper.Map<IEnumerable<SubPitchDetailReturn>>(listSbDetail));
         }
 
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAllSubDetailsById(int id)
         {
@@ -42,6 +44,36 @@ namespace PitchManagement.API.Controllers
                 return NotFound();
             }
             return Ok(_mapper.Map<SubPitchDetailReturn>(subDetail));
+        }
+
+        [Route("GetSubPitchDetailBySpId")]
+        [HttpGet]
+       public IActionResult GetAllSubDetailsBySpId(int subPitchId, int page = 1, int pagesize = 10)
+        {
+            try
+            {
+                var listPicth = _subDetailRepo.GetSubDetailBySpId(subPitchId);
+
+                int totalCount = listPicth.Count();
+
+                var query = listPicth.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<SubPitchDetailReturn>>(query);
+
+                var paginationset = new PaginationSet<SubPitchDetailReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
         }
 
         [HttpPost]

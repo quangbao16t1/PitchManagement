@@ -17,9 +17,6 @@
                     </span>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <button class="btn btn-success" (click)="add()">Thêm mới</button>
-            </div>
         </div>
         <br />
         <div id="stadiumListTabContent" class="tab-content">
@@ -33,7 +30,7 @@
                             <th width="150">Trạng thái</th>
                             <th>Thông tin sân</th>
                             <th>Ảnh đại diện</th>
-                            <th align="right" style="text-align:right">Tác vụ</th>
+                            <th align="right" style="text-align:right">Hành động</th>
                         </tr>
                         </thead>
                         <!-- <tbody *ngIf="pitchs?.length === 0">
@@ -88,13 +85,13 @@
                                         <i class="fa fa-calendar" aria-hidden="true"></i> Danh sách sân
                                     </a>
                                 </div>
-                                <div class="form-group">
-                                    <a class="btn btn-default btn-sm" routerLink="{{pitch?.id}}/edit"
+                                <!-- <div class="form-group">
+                                    <a class="btn btn-default btn-sm" routerLink="#"
                                        title="Chỉnh sửa" style="width:130px" >
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Sửa thông tin
                                     </a>
-                                </div>
+                                </div> -->
                                 <!-- <div class="form-group">
                                     <a (click)="toggleStatus(pitch?.id, pitch?.status)" [ngClass]="pitch?.status === 1 ? 'btn-danger' : 'btn-success'" class="btn btn-sm" title="Ngưng hoạt động">
                                         <span *ngIf="pitch?.status === 1"><i class="fa fa-ban" aria-hidden="true"></i> Dừng</span>
@@ -126,7 +123,7 @@
         <h4 class="modal-title">Xác nhận</h4>
     </div>  
     <div class="modal-body">
-        <p>Bạn có chắc chắn muốn xóa nhà cung cấp này không?</p>
+        <p>Bạn có chắc chắn muốn xóa xân bóng này không?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="close()">Đóng</button>

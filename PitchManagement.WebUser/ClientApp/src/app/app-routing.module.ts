@@ -45,6 +45,26 @@ const routes: Routes = [
         {
           path: 'user-profile',
           loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfileModule)
+        },
+        {
+          path: 'list-match',
+          loadChildren: () => import('./pages/list-match/list-match.module').then(m => m.ListMatchModule)
+        },
+        {
+          path: 'create-match',
+          loadChildren: () => import('./pages/create-match/create-match.module').then(m => m.CreateMatchModule)
+        },
+        {
+          path: 'list-catch',
+          loadChildren: () => import('./pages/list-catch/list-catch.module').then(m => m.ListCatchModule)
+        },
+        {
+          path: 'find-match',
+          loadChildren: () => import('./pages/find-match/find-match.module').then(m => m.FindMatchModule)
+        },
+        {
+          path: 'invite-match',
+          loadChildren: () => import('./pages/invite-match/invite-match.module').then(m => m.InviteMatchModule)
         }
       ]
     },
