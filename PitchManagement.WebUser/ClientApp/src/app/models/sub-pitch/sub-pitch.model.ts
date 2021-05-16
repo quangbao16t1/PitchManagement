@@ -1,6 +1,7 @@
 export class SubPitch {
     public id: number;
     public pitchName: string;
+    public pitchId: number;
     public name: string;
     public type: number;
     public status: number;

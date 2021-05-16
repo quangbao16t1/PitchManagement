@@ -1,0 +1,261 @@
+<div class="breadcrum">
+    <div class="container">
+        <div class="breadcrum-line">
+            <a href="/">Trang chủ</a>
+            <a href="#" class="" title="Tìm đối đá bóng">Tìm đối đá bóng</a>
+            <!-- <a>Tìm đối đá bóng</a> -->
+        </div>
+    </div>
+</div>
+<div class="content-wrap" id="match-item-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mobile-marginlr-15">
+                <div class="sidebar-filter-container">
+                    <div class="m-btn-expand-holder mobile-only">
+                        <span class="form-filter-san-span">Lọc kết quả <i class="fa fa-filter"
+                                aria-hidden="true"></i></span>
+                    </div>
+                    <h2 id="a" class="title-intent title-pages mobile-hidden"><i class="fa fa-filter"
+                            aria-hidden="true"></i>Lọc kết quả</h2>
+                    <div class="sidebar sidebar-tim-doi">
+                        <ul class="list-left-links list-left-check">
+                            <li>
+                                <strong>Sân nhà</strong>
+                                <ul>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeType($event.target.value)" id="fo" name="fo"
+                                                    type="checkbox" [value]="0"> Có sân nhà
+                                                <!-- <span class="pull-right filter-count">27</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeType($event.target.value)" id="fo" name="fo"
+                                                    type="checkbox" [value]="1">Tìm sân khách
+                                                <!-- <span class="pull-right filter-count">17</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Trình độ</strong>
+                                <ul>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeLevel($event.target.value)" name="fo"
+                                                    type="checkbox" [value]="'Yếu'"> Yếu
+                                                <!-- <span class="pull-right filter-count">1</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeLevel($event.target.value)" name="fo"
+                                                    type="checkbox" [value]="'Trung bình yếu'">Trung bình yếu
+                                                <!-- <span class="pull-right filter-count">2</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeLevel($event.target.value)" id="fo" name="fo"
+                                                    type="checkbox" [value]="'Trung bình'"> Trung bình
+                                                <!-- <span class="pull-right filter-count">41</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeLevel($event.target.value)" id="fo" name="fo"
+                                                    type="checkbox" [value]="'Khá'"> Khá
+                                                <!-- <span class="pull-right filter-count">41</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input (change)="changeLevel($event.target.value)" id="fo" name="fo"
+                                                    type="checkbox" [value]="'Mạnh'"> Mạnh
+                                                <!-- <span class="pull-right filter-count">41</span> -->
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="p-content">
+                    <h1 class="title-intent title-pages mobile-marginlr-15"><i class="fa fa-futbol-o"
+                            aria-hidden="true"></i>Tìm đối đá bóng</h1>
+                    <div class="form-group row mobile-marginlr-15">
+                        <div class="col-md-9 col-xs-9 margin-b10">
+                            <input [(ngModel)]="keyword" type="text" class="form-control"
+                                placeholder="Nhập tên sân bóng">
+                        </div>
+                        <div class="col-md-3 col-xs-3 margin-b10">
+                            <button (click)="search()" class="btn btn-primary" type="button">Tìm kiếm</button>
+                        </div>
+                    </div>
+                    <ul  *ngFor= "let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }" class="list-item-san">
+                        <li class="item-card match-finding-item" id="96056">
+                            <div class="row">
+                                <div class="col-md-12 right-item-san right-item-doi">
+                                    <div class="header-item-doi header-tim-doi ">
+                                        <div class="btn-doi-top pull-right">
+                                            <button (click)="open(content, item)"
+                                                *ngIf="getId!==item.inviteeId && item.status !==3 && checkOverTime(item.setupTime)"
+                                                class="btn btn-sm btn-primary pull-right btn-batdoi">
+                                                <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
+                                            </button>
+                                            <button (click)="cancelMatch(item.id, item)"
+                                                style="background-color: #d9534f !important; border-color: #d9534f !important;"
+                                                *ngIf="getId===item.inviteeId"
+                                                class="btn btn-sm btn-primary pull-right btn-batdoi">
+                                                <i class="fa fa-ban" aria-hidden="true"></i> Hủy trận
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="tim-doi-time"><i class="fa fa-calendar-check-o"
+                                            aria-hidden="true"></i><strong>Thời gian:</strong>{{item.setupTime |
+                                        date:'HH:mm dd-MM-yyyy':'utc'}}</p>
+                                    <p class="item-stadium-p">
+                                        <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Tên đội bóng:</strong>
+                                        <a href="#" target="_blank">{{item.teamName}} </a>
+                                    </p>
+                                    <p *ngIf="item.type===0" class="item-stadium-p">
+                                        <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Sân nhà:</strong>
+                                        <a href="#" target="_blank">{{item.pitchName}} </a>
+                                    </p>
+                                    <!-- <p *ngIf="item.type===0" class="item-stadium-address"><i class="fa fa-shirtsinbulk"
+                                            aria-hidden="true"></i><strong>Địa
+                                            chỉ:</strong>{{(item.d)?m.pitchBO?.adrress:"" + " " +
+                                        (m.pitchBO?.districtBO?.name)?m.pitchBO?.districtBO?.name:"" + " " +
+                                        (m.pitchBO?.provinceBO?.name)?m.pitchBO?.provinceBO?.name:""}}</p> -->
+                                    <p *ngIf="item.type===1" class="item-stadium-address"><i class="fa fa-shirtsinbulk"
+                                            aria-hidden="true"></i><strong>Khu vực:</strong><span
+                                            style="color:#337ab7">{{item.area}}</span></p>
+                                    <p class="level-row">
+                                        <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Trình độ:</strong>
+                                        <span *ngIf="item.level==='Yếu'">Yếu</span>
+                                        <span *ngIf="item.level==='Trung bình yếu'">Trung bình yếu</span>
+                                        <span *ngIf="item.level==='Trung bình'">Trung bình</span>
+                                        <span *ngIf="item.level==='Khá'">Khá</span>
+                                        <span *ngIf="item.level==='Mạnh'">Mạnh</span>
+                                    </p>
+                                    <p class="match-contract">
+                                        <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Kèo:</strong>
+                                        {{item.covenant}}
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-shirtsinbulk" aria-hidden="true"></i> <strong>Trạng
+                                            thái:</strong>
+                                        <span *ngIf="item.status===0 && checkOverTime(item.setupTime)" class="red">Đang
+                                            chờ</span>
+                                        <span *ngIf="item.status===3 && checkOverTime(item.setupTime)" class="red">Quá trình
+                                            bắt đối đang diễn ra...</span>
+                                        <span *ngIf="item.status===1 && checkOverTime(item.setupTime)" class="red">Đã
+                                            nhận</span>
+                                        <span *ngIf="!checkOverTime(item.setupTime)" class="red">Quá hạn</span>
+                                    </p>
+                                    <p class="quost-doi">
+                                        {{item.invitation}}
+                                    </p>
+
+                                    <div class="btn-doi-bottom mobile-only mobile-only">
+                                        <button (click)="open(content, item)"
+                                            *ngIf="getId!==item.inviteeId && item.status !=3 && checkOverTime(item.setupTime)"
+                                            class="btn btn-sm btn-primary pull-right btn-batdoi">
+                                            <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
+                                        </button>
+                                        <button (click)="cancelMatch(item.id. item)"
+                                            style="background-color: #d9534f !important; border-color: #d9534f !important;"
+                                            *ngIf="getId===item.inviteeId"
+                                            class="btn btn-sm btn-primary pull-right btn-batdoi">
+                                            <i class="fa fa-ban" aria-hidden="true"></i> Hủy trận
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                        <div class="row justify-content-center">
+                            <pagination-controls class="custom-pagination" (pageChange)="getListCatches($event)" autoHide="true"
+                                  responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
+                            </pagination-controls>
+                        </div>
+                    <div class="form-filter-doi">
+                        <div class="title-btn-moi-doi">
+                            <span>Team của bạn Không tìm được đối tác phù hợp?</span>
+                            <a href="/create-match" class="btn btn-default btn-moi-doi"><i class="fa fa-beer"
+                                    aria-hidden="true"></i> Mời đối giao lưu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+            
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Bắt đối</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal " id="formMatchFindingRecipientCreate">
+                        <div class="form-group ng-scope" ng-if="matchMobileNo">
+                            <label class="control-label col-md-3">Liên hệ đối:</label>
+                            <!-- <div class="col-md-9">
+                                <input type="text" class="form-control noborder"
+                                    [value]="match.inviteeUser.firstName + ' ' + match?.inviteeUser.lastName + ' - ' + match?.inviteeUser.phone "
+                                    readonly="">
+                            </div> -->
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Thông tin của bạn: <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control noborder"
+                                    [value]="user.firstName+' '+user.lastName + ' - ' + user.phoneNumber"
+                                    readonly="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Lời nhắn: <span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <textarea name="note" [(ngModel)]="match.note" required="" rows="3" cols="5"
+                                    class="form-control" placeholder="Lời mời giao lưu"></textarea>
+                            </div> <!-- /.col -->
+                        </div> <!-- /.form-group -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="modal.close()">Thoát</button>
+                    <button (click)="catchMatch()" class="btn btn-primary btn-primary-extra">
+                        <i class="fa fa-send"></i> Gửi
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

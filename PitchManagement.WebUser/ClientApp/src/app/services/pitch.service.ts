@@ -13,8 +13,13 @@ export class PitchService {
     getAllPitches(keyword: string, page: number, pageSize: number): Observable<any> {
         return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
       }
+
     getPitchByUserId(userId: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/GetPitchByUserId?userId=${userId}`);
+    }
+
+    getPitchByDistrict(districtId: any): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetPitchByDistrict?districtId=${districtId}`);
     }
 
     getPitchId(userId: any): Observable<number> {

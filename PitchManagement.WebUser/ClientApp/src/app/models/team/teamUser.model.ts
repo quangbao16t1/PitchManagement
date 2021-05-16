@@ -1,6 +1,7 @@
 export class TeamUser {
     public id: number;
     public teamName: string;
+    public teamId: number;
     public createBy: number;
     public level: string;
     public logo: string;
@@ -11,11 +12,12 @@ export class TeamUser {
     public dateOfWeek: string;
     public startTime: TimeRanges;
 
-    constructor(id: number, teamName?: string, createBy?: number, level?: string, logo?: string, description?: string,
+    constructor(id: number, teamName?: string, teamId?: number, createBy?: number, level?: string, logo?: string, description?: string,
         imageUrl?: string, ageFrom?: number, ageTo?: number, dateOfWeek?: string,
         startTime?: TimeRanges) {
             this.id = id;
             this.teamName = teamName;
+            this.teamId = teamId;
             this.description = description;
             this.createBy = createBy;
             this.level = level;

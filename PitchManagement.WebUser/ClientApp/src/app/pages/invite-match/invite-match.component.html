@@ -1,0 +1,164 @@
+<div class="top-banner-box">
+    <div class="container">
+        <h2 class="page-title">Danh sách trận đấu</h2>
+    </div>
+</div>
+<div class="breadcrum">
+    <div class="container">
+        <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="javascript:void(0)">Danh sách trận đấu</a></div>
+    </div>
+</div>
+<div class="content-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                  <div class="sidebar-filter-container">
+                     <div class="m-btn-expand-holder mobile-only"> <span class="form-filter-san-span">Lọc kết quả <i aria-hidden="true" class="fa fa-filter"></i></span> </div>
+                     <h2 id="a" class="title-intent title-pages mobile-hidden"><i aria-hidden="true" class="fa fa-filter"></i>Lọc kết quả</h2>
+                     <div class="sidebar sidebar-tim-doi">
+                        <ul class="list-left-links list-left-check">
+                           <li>
+                              <strong>Trạng thái</strong> 
+                              <ul>
+                                 <li>
+                                    <div class="checkbox"> <label> 
+                                       <input (change)="search()" [(ngModel)]="status" name="status" type="radio" value="-1"> Tất cả </label>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="checkbox"> <label> 
+                                       <input (change)="search()" [(ngModel)]="status" name="status" type="radio" value="0"> Đã đăng </label>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="checkbox"> <label> 
+                                       <input (change)="search()" [(ngModel)]="status" name="status" type="radio" value="3"> Đang chờ xác nhận </label>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="checkbox"> <label> 
+                                       <input (change)="search()" [(ngModel)]="status" name="status" type="radio" value="1"> Đã bắt đối </label>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="checkbox"> <label> 
+                                       <input (change)="search()" [(ngModel)]="status"  name="status" type="radio" value="2"> Đã hủy </label>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               
+            </div>
+            <div class="col-md-9">
+                <div class="content-cts">
+                    <h1 id="a" class="title-intent title-pages"><i class="fa fa-futbol-o" aria-hidden="true"></i> Danh sách các trận đấu của bạn</h1>
+                    <ul class="list-item-san" *ngIf="itemsAsync === null">
+                        <li>
+                            <p class="alert alert-info">Không có dữ liệu</p>
+                        </li>
+                    </ul>
+                     <div>
+                        <div *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total } "class="q-items ng-scope">
+                              <div class="q-info">
+                                 <h4 *ngIf="item.type===1" class="q-info-headline">Trận đấu sân khách</h4>
+                                 <h4 *ngIf="item.type===0" class="q-info-headline">Trận đấu sân nhà</h4>
+                                 <ul class="list-item-san">
+                                    <!-- ngRepeat: queueItem in queue.queueItems -->
+                                    <li class="item-card match-finding-item mfr-qi-pending-process">
+                                          <div class="row">
+                                             <div class="col-md-12 right-item-san right-item-doi">
+                                                <div class="header-item-doi header-tim-doi @">
+                                                   <!-- ngIf: settings.showTeamLogo -->
+                                                   <div class="match-header-texts">
+                                                      <h2>
+                                                         <a href="#" class="ng-binding ng-scope">{{item.teamName}}<i class="fa fa-caret-right" aria-hidden="true"></i><span *ngIf="item.pitchName">{{item.pitchName}}</span><span *ngIf="!item.pitchName">Cần tìm sân khách</span></a>
+                                                      </h2>
+                                                      <!-- ngIf: settings.showFullInfo && match.ownerUserName -->
+                                                   </div>
+                                                   <div *ngIf="item.status===3 && item.userInvite.id === getId" class="pull-right">
+                                                      <span>
+                                                         <button (click)="confirmCatchMatch(item.id, item)" type="button" class="btn btn-xs btn-primary"><i class="fa fa-check"></i> Chấp nhận</button>
+                                                         <button (click)="cancleCatchMatch(item.id, item)" type="button" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> Từ chối</button>
+                                                      </span>
+                                                   </div>
+                                                </div>
+                                                <div>
+                                                   <p class="tim-doi-time ng-binding"><i class="fa fa-calendar-check-o" aria-hidden="true"></i><strong>Thời gian:</strong>{{item.setupTime | date:'HH:mm dd-MM-yyyy':'utc'}}</p>
+                                                   <!-- ngIf: match.hasStadium -->
+                                                   <p *ngIf="item.pitchId" class="item-stadium-p ng-scope">
+                                                      <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Sân:</strong><a href="#" target="_blank" class="ng-binding">{{item.pitchName}}</a>
+                                                      <!-- ngIf: match.stadiumPrice!=null -->
+                                                   </p>
+                                                   <!-- end ngIf: match.hasStadium -->
+                                                   <!-- ngIf: match.hasStadium -->
+
+                                                   <!-- <p *ngIf="item.pitchId" class="item-stadium-address">
+                                                      <i class="fa fa-shirtsinbulk" aria-hidden="true"></i>
+                                                      <strong>Địa chỉ:</strong>
+                                                      {{(item.pitchBO?.adrress)?item.pitchBO?.adrress:"" + " " + (item.districtName)?item.pitchBO?.districtBO?.name:"" + " " + (item.pitchBO?.provinceBO?.name)?item.pitchBO?.provinceBO?.name:""}}
+                                                   </p> -->
+
+                                                   <p *ngIf="!item.pitchId" class="item-stadium-p ng-scope">
+                                                      <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Khu vực:</strong><a href="#" target="_blank" class="ng-binding">{{item.area}}</a>
+                                                      <!-- ngIf: match.stadiumPrice!=null -->
+                                                   </p>
+                                                   
+                                                      <p *ngIf="item.userInvite" class="item-stadium-p ng-scope" >
+                                                         <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Người mời:</strong>{{item.userInvite.firstName}} {{item.userInvite.lastName}}
+                                                         <a *ngIf="item.userInvite.phoneNumber" [href]="'tel:'+item.userInvite.phoneNumber"> - {{item.userInvite.phoneNumber}}</a><a *ngIf="item.userInvite.email" [href]="'mailTo:'+item.userInvite.email"> - {{item.userInvite.email}}</a>
+                                                           
+                                                         <!-- ngIf: match.stadiumPrice!=null -->
+                                                       </p>
+
+                                                       <p *ngIf="!item.userReceive" class="item-stadium-p ng-scope">
+                                                         <i  class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Người nhận/đang bắt đối:</strong>Chưa có người nhận
+                                                      </p>
+
+                                                      <p *ngIf="item.userReceive" class="item-stadium-p ng-scope">
+                                                         <i  class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Người nhận/đang bắt đối:</strong>{{item.userReceive.firstName}} {{item.userReceive.lastName}}
+                                                         <a *ngIf="item.userReceive.phoneNumber" [href]="'tel:'+item.userReceive.phoneNumber"> - {{item.userReceive.phoneNumber}}</a><a  *ngIf="item.userReceive.email" [href]="'mailTo:'+item.userReceive.email"> - {{item.userReceive.email}}</a>
+                                                  
+                                                         <!-- ngIf: match.stadiumPrice!=null -->
+                                                      </p>
+                                                   
+                                                   <p *ngIf="item.note" class="item-stadium-p ng-scope">
+                                                      <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Lời nhắn bắt đối:</strong>{{item.note}}
+                                                      <!-- ngIf: match.stadiumPrice!=null -->
+                                                   </p>
+                                                   <p class="item-stadium-p ng-scope">
+                                                      <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Trạng thái:</strong>
+                                                      <span *ngIf="item.status===0">Đã đăng trận chờ đối thủ bắt đối !</span>
+                                                      <span *ngIf="item.status===1">Hai bên bắt đối thành công !</span>
+                                                      <span *ngIf="item.status===2">Trận đấu đã hủy !</span>
+                                                      <span *ngIf="item.status===3">Trận đấu đang chờ xử lý !</span>
+                                                      <!-- ngIf: match.stadiumPrice!=null -->
+                                                   </p>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="mfr-qi-container">
+                                             <div class="status-text ng-binding">
+                                                <span *ngIf="item.status===0">Đã đăng trận chờ đối thủ bắt đối !</span>
+                                                <span *ngIf="item.status===1">Hai bên bắt đối thành công !</span>
+                                                <span *ngIf="item.status===2">Trận đấu đã hủy !</span>
+                                                <span *ngIf="item.status===3">Trận đấu đang chờ xử lý !</span>
+                                             </div>
+                                          </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="row justify-content-center">
+                    <pagination-controls class="custom-pagination" (pageChange)="getMatchByStatus(this.status ,$event)" autoHide="true"
+                          responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

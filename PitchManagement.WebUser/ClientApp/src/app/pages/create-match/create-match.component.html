@@ -1,0 +1,205 @@
+<div class="breadcrum">
+    <div class="container">
+        <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="#">Bắt đối</a></div>
+    </div>
+</div>
+<div class="content-wrap">
+    <div class="container">
+        <div class="row mobile-padlr-15">
+            <div class="col-md-10 sidebar">
+                <div class="heading-block">
+                    <p class="title-box"><i class="fa fa-futbol-o" aria-hidden="true"></i> Tạo trận đấu</p>
+                </div>
+
+                <div>
+                    <input type="hidden" id="matchStatusTemp">
+                    <!-- ngIf: !vm.isFormReady -->
+                    <form method="post" role="form" (submit)="createMatch()" [formGroup]="addMatchForm"
+                        class="form-horizontal " name="matchPostForm">
+                        <div id="makermatchRequest">
+                            <div class="form-group form-group-sm">
+                                <label class="control-label col-sm-3">Thời gian: <span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input formControlName="setupTime" type="datetime-local">
+                                    <div
+                                        *ngIf="addMatchForm.get('setupTime')!.invalid && (addMatchForm.get('setupTime')!.dirty || addMatchForm.get('setupTime')!.touched)">
+                                        <small class="form-text text-danger"
+                                            *ngIf="addMatchForm.get('setupTime')?.errors?.required">
+                                            Thời gian là thông tin bắt buộc
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-sm">
+                                <label class="control-label col-sm-3">Đội bóng: <span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <div style="margin-bottom: 5px;">
+                                        <select *ngIf="teamUser" class="form-control" name="teamId" formControlName="teamId">
+                                            <option [ngValue]="0">Chọn đội bóng của mình</option>
+                                            <option [value]="teamUser.teamId">{{teamUser.teamName}}</option>
+                                        </select>
+                                    </div>
+                                    <!-- <div>
+                                        <a href="#">Tạo mới đội bóng</a>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="!vm.matchRequest.hasPartnerAlready &amp;&amp; !false">
+                                <label class="control-label col-sm-3">
+                                    Loại hình: <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <label class="control-label pull-left" style="margin-right: 20px">
+                                        <input formControlName="type" type="radio" id="modalCbxHasStadium" name="type"
+                                            checked="checked"
+                                            class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse" [value]="0"
+                                            [(ngModel)]="type">
+                                        Đã có sân
+                                    </label>
+                                    <label class="control-label">
+                                        <input formControlName="type" type="radio" id="modalCbxHasNotStadium"
+                                            name="type" class="ng-valid ng-not-empty ng-dirty ng-touched" [value]="1"
+                                            [(ngModel)]="type">
+                                        Sân khách
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div *ngIf="type===0" class="form-group form-group-sm">
+                                <label class="control-label col-sm-3">Quận/Huyện: <span
+                                        class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <select (change)="getPitchByDistrict($event.target.value)" class="form-control"
+                                        name="district" formControlName="district">
+                                        <option [value]="00">Chọn Quận/Huyện</option>
+                                        <option *ngFor="let d of district" [value]="d.id">{{ d.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- ngIf: !vm.matchRequest.hasStadium -->
+
+                            <!-- ngIf: vm.matchRequest.hasStadium -->
+                            <div *ngIf="type===0" class="form-group form-group-sm ng-scope">
+                                <label class="control-label col-sm-3">Tên sân: <span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <div class="custom">
+                                        <div class="ng-select-container">
+                                            <ng-select class="form-control" 
+                                                formControlName="pitchName"
+                                                [items]="listStadium" 
+                                                bindLabel="name" 
+                                                bindValue="id"
+                                                [(ngModel)]="itemStadiumSelected">
+                                             </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div><!-- end ngIf: vm.matchRequest.hasStadium -->
+
+                            <div class="form-group form-group-sm ng-scope"
+                                ng-if="!vm.matchRequest.hasStadium">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-3">Khu vực: <span
+                                            class="required">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control"
+                                            name="area" formControlName="area">
+                                            <option [value]="00">Chọn Khu vực</option>
+                                            <option *ngFor="let d of district" [value]="d.name">{{ d.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div *ngIf="type===1" class="form-group form-group-sm ng-scope"
+                                ng-if="!vm.matchRequest.hasStadium">
+                                <label class="control-label col-sm-3">Khu vực: <span class="required">*</span></label>
+                                <div class="col-sm-9 mfr-tags-holder">
+                                    <div *ngIf="listDistrictSelected?.length>0">
+                                        <a (click)="removeDistrict(d.id)" class="label label-template"
+                                            *ngFor="let d of listDistrictSelected">
+                                            {{d?.name}}
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-sm btn-primary-extra"
+                                        (click)="open(content)">Chọn khu vực</button>
+                                </div>
+                            </div> -->
+                            <div class="form-group form-group-sm">
+                                <label class="control-label col-sm-3">Kèo: <span class="required">*</span></label>
+                                <div class="col-sm-9 mfr-tags-holder">
+                                    <input type="text" name="covenant" formControlName="covenant" class="form-control"
+                                        placeholder="Ví dụ: 5-5, sân-nước,...">
+                                </div> <!-- /.col -->
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label class="control-label col-sm-3">Trình độ mong muốn: <span
+                                        class="required">*</span></label>
+                                <div class="col-sm-9 mfr-tags-holder">
+                                    <select name="level" formControlName="level" required="" class="form-control">
+                                        <option [value]="00">Chọn Trình độ</option>
+                                        <option *ngFor="let l of level" [value]="l.key">{{ l.value }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Lời mời <span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <textarea name="invitation" formControlName="invitation" required="" rows="3"
+                                        cols="5" class="form-control input-sm width-100p ng-pristine"
+                                        placeholder="Lời mời giao lưu"></textarea>
+                                </div> <!-- /.col -->
+                            </div>
+
+                            <!-- <div class="form-group form-group-sm">
+                                <label class="control-label col-sm-3">Người mời: <span class="required">*</span></label>
+                                <div class="col-sm-9 mfr-tags-holder">
+                                    <input type="text" name="inviteeId" formControlName="inviteeId" class="form-control">
+                                </div>
+                            </div> -->
+
+                            <div class="modal-footer">
+                                <span>
+                                    <span class="required">* </span> Thông tin bắt buộc
+                                </span>
+                                <button class="btn btn-primary btn-primary-extra" type="submit"
+                                    [disabled]="addMatchForm.invalid">
+                                    <i class="fa fa-send"></i>
+                                    Đăng
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Chọn khu vực thuộc </h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- <div class="modal-body">
+                    <div class="list-district" *ngFor="let d of listDistrict">
+                        <input [checked]="listDistrictSelected2.indexOf(d.id)>-1"
+                            (change)="selectedDistrict($event.target.value, d.name, d.type)" type="checkbox"
+                            [value]="d.id"> {{d.name}}
+                    </div>
+                </div> -->
+                <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Xác nhận</button>
+                </div> -->
+            </ng-template>
+        </div>
+    </div>
+</div>
