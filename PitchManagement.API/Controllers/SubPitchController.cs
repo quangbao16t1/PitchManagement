@@ -84,6 +84,26 @@ namespace PitchManagement.API.Controllers
 
         }
 
+        [Route("GetSubByPitchId")]
+        [HttpGet]
+        public IActionResult GetSpbyPitchId(int pitchId, string keyword)
+        {
+            try
+            {
+                var listSubPicth = _subPitchRepo.GetSubPitchByPitchId(pitchId, keyword);
+
+                return Ok(_mapper.Map<IEnumerable<SubPitch>, IEnumerable<SubPitchReturn>>(listSubPicth));
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSubPitchById(int id)
         {

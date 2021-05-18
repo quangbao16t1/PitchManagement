@@ -10,6 +10,7 @@ namespace PitchManagement.API.Interfaces
     {
         IEnumerable<SubPitchDetail> GetAllSubPitchDetail(string keyword);
         Task<SubPitchDetail> GetSubDetailByIdAsync(int id);
+        IEnumerable<SubPitchDetail> GetSubDetailBySpId(int subPitchId);
         Task<bool> CreateSubPitchDetailsync(SubPitchDetail subPitchDetail);
         Task<bool> UpdateSubPitchDetailAsync(int id, SubPitchDetail subPitchDetail);
         Task<bool> DeleteSubPitchDetailAsync(int id);

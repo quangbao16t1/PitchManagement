@@ -23,6 +23,8 @@ namespace PitchManagement.API.Implementaions
         {
             try
             {
+                subPitchDetail.CreateTime = DateTime.Now;
+                subPitchDetail.UpdateTime = null;
                 _context.SubPitchDetails.Add(subPitchDetail);
                 await _context.SaveChangesAsync();
                 return true;
@@ -69,6 +71,11 @@ namespace PitchManagement.API.Implementaions
             return await _context.SubPitchDetails.Include(x => x.SubPitch).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public IEnumerable<SubPitchDetail> GetSubDetailBySpId(int subPitchId)
+        {
+            return  _context.SubPitchDetails.Include(x => x.SubPitch).Where(x => x.SubPitchId == subPitchId).AsEnumerable();
+        }
+
         public async Task<bool> UpdateSubPitchDetailAsync(int id, SubPitchDetail subPitchDetail)
         {
             var subPitchDt = await _context.SubPitchDetails.FirstOrDefaultAsync(p => p.Id == id);
@@ -79,11 +86,10 @@ namespace PitchManagement.API.Implementaions
             try
             {
                 subPitchDt.Cost = subPitchDetail.Cost;
-                subPitchDt.SubPitchId = subPitchDetail.SubPitchId;
+                //subPitchDt.SubPitchId = subPitchDetail.SubPitchId;
                 subPitchDt.StartTime = subPitchDetail.StartTime;
                 subPitchDt.EndTime = subPitchDetail.EndTime;
-                subPitchDt.CreateTime = subPitchDetail.CreateTime;
-                subPitchDt.UpdateTime = subPitchDetail.UpdateTime;
+                subPitchDt.UpdateTime = DateTime.Now;
 
                 _context.SubPitchDetails.Update(subPitchDt);
                 await _context.SaveChangesAsync();

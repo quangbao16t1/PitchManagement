@@ -21,11 +21,14 @@ namespace PitchManagement.API.Implementaions
             _mapper = mapper;
         }
 
-        public async Task<bool> CreateSubPitchAsync(SubPitch SubPitchCreate)
+        public async Task<bool> CreateSubPitchAsync(SubPitch subPitchCreate)
         {
             try
             {
-                _context.SubPitches.Add(SubPitchCreate);
+                subPitchCreate.CreateTime = DateTime.Now;
+                subPitchCreate.Status = 1;
+                subPitchCreate.UpdateTime = null;
+                _context.SubPitches.Add(subPitchCreate);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -87,10 +90,8 @@ namespace PitchManagement.API.Implementaions
             try
             {
                 subPitchInDb.Name = subPitchUpdate.Name;
-                subPitchInDb.PitchId = subPitchUpdate.PitchId;
                 subPitchInDb.Status = subPitchUpdate.Status;
                 subPitchInDb.UpdateTime = DateTime.Now;
-                subPitchInDb.CreateTime = subPitchUpdate.CreateTime;
                 subPitchInDb.Type = subPitchUpdate.Type;
                 await _context.SaveChangesAsync();
                 return true;
