@@ -31,6 +31,9 @@ export class SubPitchService {
     deleteSubPitch(id: any) {
         return this.http.delete(`${this.baseUrl}/${id}`);
     }
+    getSbByPitchId(pitchId: any, keyword: string): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetSubByPitchId?pitchId=${pitchId}&keyword=${keyword}`);
+      }
 }
 
 

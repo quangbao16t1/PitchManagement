@@ -1,13 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { debounceTime, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { CURRENT_USER } from 'src/app/constants/db.keys';
 import { Pitch } from 'src/app/models/pitch/pitch.model';
+import { SubPitchDetail } from 'src/app/models/sub-pitch-detail/sub-pitch-detail.model';
 import { SubPitch } from 'src/app/models/sub-pitch/sub-pitch.model';
 import { PitchService } from 'src/app/services/pitch.service';
 import { SubPitchDetailService } from 'src/app/services/sub-pitch-detail.service';
@@ -15,18 +16,18 @@ import { SubPitchService } from 'src/app/services/sub-pitch.service';
 import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
-  selector: 'app-sub-pitch-detail',
-  templateUrl: './sub-pitch-detail.component.html',
+  selector: 'app-add-sub-pitch-detail',
+  templateUrl: './add-sub-pitch-detail.component.html',
 })
-export class SubPitchDetailComponent implements OnInit {
+export class AddSubPitchDetailComponent implements OnInit {
 
   subPitch: SubPitch;
   pitch: Pitch;
-  subPitchDetail: any;
+  subPitchDetail: SubPitchDetail;
   keyword: string;
   subPitchId: number;
   pitchId: number;
-  spdForm: FormGroup;
+  addSpdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
   page: number;
@@ -35,7 +36,10 @@ export class SubPitchDetailComponent implements OnInit {
   subPitchSelect?: any;
   listSubPitch: any = [];
   listSubPitchDetail: any = [];
-  itemCostSelected: any;
+  startTime = { hour: 0 , minute: 0 };
+  endTime = { hour: 23 , minute: 59 };
+  newStartTime: string;
+  newEndTime: string;
 
   constructor(
     public subPitchService: SubPitchService,
@@ -44,10 +48,11 @@ export class SubPitchDetailComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private modalService: BsModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
-    this.spdForm = this.fb.group({
+    this.addSpdForm = this.fb.group({
       subPitchId: ['', [Validators.required]],
+      cost: ['', ValidationService.numberValidator],
     });
   }
 
@@ -62,6 +67,16 @@ export class SubPitchDetailComponent implements OnInit {
     });
   }
 
+  onTimeChangeStartTime(value: {hour: string, minute: string}) {
+     console.log(value, 12346);
+     this.newStartTime = value.hour + ':' + value.minute ;
+  }
+
+  onTimeChangeEndTime(value: {hour: string, minute: string}) {
+    console.log(value, 12346);
+    this.newEndTime = value.hour + ':' + value.minute ;
+ }
+
   getSubPitchByPitchId(pitchId: number) {
     this.subPitchService.getSbByPitchId(pitchId, this.keyword).subscribe(
       res => {
@@ -69,6 +84,7 @@ export class SubPitchDetailComponent implements OnInit {
         console.log(this.listSubPitch, 4444);
       });
   }
+
   get getId() {
     const user = JSON.parse(localStorage.getItem(CURRENT_USER));
     if (user != null) {
@@ -95,66 +111,26 @@ export class SubPitchDetailComponent implements OnInit {
         });
   }
 
-  add() {
-    this.router.navigate(['/sub-pitch-detail/add']);
-  }
-
-  edit(id: any) {
-    this.router.navigate(['/sub-pitch-detail/edit/' + id]);
-  }
-
-  deleteConfirm(template: TemplateRef<any>, data: any) {
-    this.subPitchDetail = Object.assign({}, data);
-    this.modalRef = this.modalService.show(template);
-  }
-
-  confirm(): void {
-    if (this.subPitchDetail) {
-      this.subPitchDetailService.deleteSubPitchDetail(this.subPitchDetail.id)
-      .subscribe(
-        () => {
-          this.toastr.success(`Xóa khung giờ thành công`);
-          this.getSubPitchDetailBySpId(this.subPitchId, this.page);
-        },
-        (_error: HttpErrorResponse) => {
-          this.toastr.error(`Xóa khung giờ không thành công`);
-        }
+  addSubPitchDetail() {
+    this.subPitchDetail = Object.assign({}, this.addSpdForm.value);
+    this.subPitchDetail.startTime = this.newStartTime;
+    this.subPitchDetail.endTime = this.newEndTime;
+    this.subPitchDetailService.createSubPitchDetail(this.subPitchDetail).subscribe(
+      () => {
+        this.router.navigate(['/sub-pitch-detail']).then(() => {
+          this.toastr.success('Thêm khung giờ thành công');
+        });
+      },
+      (_error: HttpErrorResponse) =>
+        this.toastr.error('Thêm khung giờ không thành công!')
       );
-    }
-    this.subPitchDetail = undefined;
-    this.modalRef.hide();
   }
-
-  close(): void {
-    this.subPitchDetail = undefined;
-    this.modalRef.hide();
-}
-
-// search() {
-//     this.getPitchId();
-// }
-
-searchCharacter() {
-  this.itemsAsync = this.subPitchService.getAllSubPitchByPitchId(this.subPitchId, this.keyword, this.page, this.pageSize)
-      .pipe(
-          debounceTime(1000),
-          tap(response => {
-              this.total = response.total;
-          }),
-          map(response => response.items)
-      );
-}
-
-// refresh() {
-//     this.keyword = '';
-//     this.getSubPitchByPitchId(this.pitchId, this.page);
-// }
 
 isPitcher(): boolean {
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));
   if (user != null) {
     return user.groupRole === 'Pitcher';
   }
-return false;
+  return false;
 }
 }

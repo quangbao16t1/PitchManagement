@@ -76,6 +76,18 @@ namespace PitchManagement.API.Implementaions
             return  _context.SubPitchDetails.Include(x => x.SubPitch).Where(x => x.SubPitchId == subPitchId).AsEnumerable();
         }
 
+        public IEnumerable<SubPitchDetail> GetSubPitchDetailEmpty(DateTime dateOrder, int subPitchId)
+        {
+            //var productInBranch = _context.BranchProducts.Where(x => x.BrachId == branchId).Select(x => x.ProductId).ToList();
+            //var productNotInBranch = _context.Products.Where(x => !productInBranch.Contains(x.Id));
+            //return productNotInBranch.AsEnumerable();
+
+            var listSpd = _context.OrderPitches.Where(x => x.DateOrder == dateOrder).Select(x => x.SubPitchDetailId).ToList();
+            var listSpdEmpty = _context.SubPitchDetails.Include(x => x.SubPitch)
+            .Where(x=> (x.SubPitchId == subPitchId) && (!listSpd.Contains(x.Id)));
+            return listSpdEmpty.AsEnumerable();
+        }
+
         public async Task<bool> UpdateSubPitchDetailAsync(int id, SubPitchDetail subPitchDetail)
         {
             var subPitchDt = await _context.SubPitchDetails.FirstOrDefaultAsync(p => p.Id == id);
@@ -88,7 +100,7 @@ namespace PitchManagement.API.Implementaions
                 subPitchDt.Cost = subPitchDetail.Cost;
                 //subPitchDt.SubPitchId = subPitchDetail.SubPitchId;
                 subPitchDt.StartTime = subPitchDetail.StartTime;
-                subPitchDt.EndTime = subPitchDetail.EndTime;
+                subPitchDt.EndTime = subPitchDetail.EndTime; 
                 subPitchDt.UpdateTime = DateTime.Now;
 
                 _context.SubPitchDetails.Update(subPitchDt);

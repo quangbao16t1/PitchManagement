@@ -76,6 +76,26 @@ namespace PitchManagement.API.Controllers
 
         }
 
+        [Route("GetSubPitchDetailEmpty")]
+        [HttpGet]
+        public IActionResult GetSubPitchDetailEmpty(DateTime dateOrder, int subPitchId)
+        {
+            try
+            {
+                var listSpdEmpty = _subDetailRepo.GetSubPitchDetailEmpty(dateOrder, subPitchId);
+
+
+                return Ok(_mapper.Map<IEnumerable<SubPitchDetailReturn>>(listSpdEmpty));
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSubDetail([FromBody] SubPitchDetailUI subDetailCreate)
         {

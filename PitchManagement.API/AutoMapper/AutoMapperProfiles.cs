@@ -73,8 +73,8 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<MatchByStatus, Match>();
 
             CreateMap<SubPitchDetail, SubPitchDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
-                .ForMember(x => x.StartTime, y => y.MapFrom( z => new DateTime().Add(z.StartTime).ToString("hh:mm:tt")))
-                .ForMember(x => x.EndTime, y => y.MapFrom( z => new DateTime().Add(z.EndTime).ToString("hh:mm:tt")));
+                .ForMember(x => x.StartTime, y => y.MapFrom( z => new DateTime().Add(z.StartTime).ToString("HH:mm")))
+                .ForMember(x => x.EndTime, y => y.MapFrom( z => new DateTime().Add(z.EndTime).ToString("HH:mm")));
 
             CreateMap<SubPitchDetailUI, SubPitchDetail>().ForMember(x => x.StartTime, y => y.MapFrom(z => TimeSpan.Parse(z.StartTime)))
                                                          .ForMember(x => x.EndTime, y => y.MapFrom(z => TimeSpan.Parse(z.EndTime)));
@@ -92,14 +92,16 @@ namespace PitchManagement.API.AutoMapper
 
             CreateMap<ServiceDetail, ServiceDetailReturn>().ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitch.Name); })
                             .ForMember(x => x.ServiceName, y => { y.MapFrom(z => z.Service.Name); })
-                            .ForMember(x => x.StartTime, y => y.MapFrom(z => new DateTime().Add(z.StartTime).ToString("hh:mm:tt")))
-                            .ForMember(x => x.EndTime, y => y.MapFrom(z => new DateTime().Add(z.EndTime).ToString("hh:mm:tt")));
+                            .ForMember(x => x.StartTime, y => y.MapFrom(z => new DateTime().Add(z.StartTime).ToString("HH:mm")))
+                            .ForMember(x => x.EndTime, y => y.MapFrom(z => new DateTime().Add(z.EndTime).ToString("HH:mm")));
             CreateMap<ServiceDetailUI, ServiceDetail>().ForMember(x => x.StartTime, y => y.MapFrom(z => TimeSpan.Parse(z.StartTime)))
                                                          .ForMember(x => x.EndTime, y => y.MapFrom(z => TimeSpan.Parse(z.EndTime)));
 
             CreateMap<OrderPitch, OrderPitchReturn>().ForMember(x => x.UserName, y => { y.MapFrom(z => z.User.Username); })
                                             .ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitchDetail.SubPitch.Name); })
-                                            .ForMember(x => x.Cost, y => { y.MapFrom(z => z.SubPitchDetail.Cost); });
+                                            .ForMember(x => x.Cost, y => { y.MapFrom(z => z.SubPitchDetail.Cost); })
+                               .ForMember(x => x.StartTime, y => y.MapFrom(z => new DateTime().Add(z.SubPitchDetail.StartTime).ToString("HH:mm")))
+                            .ForMember(x => x.EndTime, y => y.MapFrom(z => new DateTime().Add(z.SubPitchDetail.EndTime).ToString("HH:mm")));
             CreateMap<OrderPitchUI, OrderPitch>();
 
             CreateMap<OrderServiceDetail, OrderServiceDetailReturn>().ForMember(x => x.UserName, y => { y.MapFrom(z => z.OrderPitch.User.LastName); })

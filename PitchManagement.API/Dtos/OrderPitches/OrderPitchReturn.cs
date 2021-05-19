@@ -14,6 +14,8 @@ namespace PitchManagement.API.Dtos.OrderPitches
         public int Status { get; set; }
         public string SubPitchName { get; set; }
         public double Cost { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public string Note { get; set; }
         public bool IsDelete { get; set; }
         public string PhoneOrder { get; set; }

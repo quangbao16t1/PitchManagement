@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CURRENT_USER } from 'src/app/constants/db.keys';
 import { PitchService } from 'src/app/services/pitch.service';
 import { SubPitchService } from 'src/app/services/sub-pitch.service';
-import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: 'app-add-sub-pitch',

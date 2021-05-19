@@ -9,6 +9,7 @@ namespace PitchManagement.API.Interfaces
     public interface ISubPitchDetailRepository
     {
         IEnumerable<SubPitchDetail> GetAllSubPitchDetail(string keyword);
+        IEnumerable<SubPitchDetail> GetSubPitchDetailEmpty(DateTime dateOrder, int subPitchId);
         Task<SubPitchDetail> GetSubDetailByIdAsync(int id);
         IEnumerable<SubPitchDetail> GetSubDetailBySpId(int subPitchId);
         Task<bool> CreateSubPitchDetailsync(SubPitchDetail subPitchDetail);

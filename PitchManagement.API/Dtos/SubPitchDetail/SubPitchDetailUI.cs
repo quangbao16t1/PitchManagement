@@ -10,7 +10,7 @@ namespace PitchManagement.API.Dtos.SubPitchDetail
     {
         public int Id { get; set; }
         [Required]
-        public int SubPitchId { get; set; }
+        public int? SubPitchId { get; set; }
         public double Cost { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }

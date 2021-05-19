@@ -23,6 +23,8 @@ namespace PitchManagement.API.Implementaions
         {
             try
             {
+                orderPitchCreate.CreateTime = DateTime.Now;
+                orderPitchCreate.Status = 0; // Đang chờ xác nhận
                 _context.OrderPitches.Add(orderPitchCreate);
                 await _context.SaveChangesAsync();
                 return true;

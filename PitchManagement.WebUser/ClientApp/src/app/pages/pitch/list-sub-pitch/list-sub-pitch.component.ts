@@ -26,6 +26,7 @@ export class ListSubPitchComponent implements OnInit {
   page: number;
   pageSize: number;
   total: number;
+  data: any;
 
   constructor(
     public subPitchService: SubPitchService,
@@ -47,6 +48,11 @@ export class ListSubPitchComponent implements OnInit {
       }
     });
 
+  }
+
+  orderPitch(subPitchid: any) {
+    console.log('qua chưa?', 123213);
+    this.router.navigate([`/pitch/${this.id}/sub-pitch/${subPitchid}/order-pitch`]);
   }
 
   // getPitchId() {
