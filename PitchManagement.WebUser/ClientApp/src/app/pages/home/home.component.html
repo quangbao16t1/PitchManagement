@@ -9,9 +9,9 @@
         <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
 
         <div class="user-panel">
-            <div class="pull-left image">
+            <!-- <div class="pull-left image">
               <img src="src/assets/images/user2-160x160.jpg" class="img-circle" alt="User Image">
-            </div>
+            </div> -->
             <div class="pull-left info">
               <a routerLink="/users/edit/{{getId}}">
                 <p>{{name}}</p>
@@ -19,22 +19,33 @@
               <a routerLink="/users/edit/{{getId}}"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
-        <!-- <div [ngSwitch]="isAuthenticated()">
+        <div [ngSwitch]="account()">
             <div class="alert alert-success" *ngSwitchCase="true">
-                <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
-                    [translateValues]="{ username: account.login }">You are logged in as user "{{ account.login }}".</span>
+                <span id="home-logged-message" *ngIf="isPitcher" jhiTranslate="home.logged.message">
+                    Xin chào chủ sân
+                    <a routerLink="/users/edit/{{getId}}">
+                        <p>{{name}}</p>
+                    </a>
+                    <a routerLink="/pitch-detail">
+                        <p>Sân bóng của tôi</p>
+                    </a>
+                </span>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
-                <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a><span jhiTranslate="global.messages.info.authenticated.suffix">, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
+                <a class="alert-link" jhiTranslate="global.messages.info.authenticated.link">sign in</a>
+                <span jhiTranslate="global.messages.info.authenticated.suffix">, you can try the default accounts:<br/>
+                    - Administrator (login="admin" and password="admin") 
+                    <br/>- User (login="user" and password="user").
+                </span>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
                 <a class="alert-link" routerLink="account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
             </div>
-        </div> -->
+        </div>
 
         <p jhiTranslate="home.question">
             If you have any question on JHipster:

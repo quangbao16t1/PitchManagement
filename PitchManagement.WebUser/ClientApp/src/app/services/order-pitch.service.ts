@@ -1,0 +1,39 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+@Injectable()
+export class OrderPitchService {
+    baseUrl = environment.apiUrl + 'OrderPitch';
+
+    constructor(private http: HttpClient) {
+    }
+
+    getAllOrderPitch(keyword: string, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
+    }
+    getAllOrderPitchByUserId(userId: any, keyword: string, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetOrderByUserId?userId=${userId}&keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
+    }
+    getOrderPitchByPitchId(pitchId: any, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetOrderByPitchId?pitchId=${pitchId}&page=${page}&pageSize=${pageSize}`);
+    }
+    getOrderPitchById(id: any): Observable<any> {
+        return this.http.get(`${this.baseUrl}/${id}`);
+    }
+
+    createOrderPitch(orderPitch: any) {
+        return this.http.post(this.baseUrl, orderPitch);
+    }
+
+    editOrderPitch(id: any, orderPitch: any) {
+        return this.http.put(`${this.baseUrl}/${id}`, orderPitch);
+    }
+
+    deleteOrderPitch(id: any) {
+        return this.http.delete(`${this.baseUrl}/${id}`);
+    }
+}
+
+

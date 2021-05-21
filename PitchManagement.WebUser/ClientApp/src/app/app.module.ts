@@ -22,6 +22,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MatchService } from './services/match.service';
 import { DistrictService } from './services/district.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SubPitchDetailService } from './services/sub-pitch-detail.service';
+import { OrderPitchComponent } from './pages/pitch/order-pitch/order-pitch.component';
+import { OrderPitchService } from './services/order-pitch.service';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN);
@@ -60,7 +63,9 @@ export function tokenGetter() {
     TeamService,
     SubPitchService,
     MatchService,
-    DistrictService
+    DistrictService,
+    SubPitchDetailService,
+    OrderPitchService
   ],
   bootstrap: [AppComponent
   ],

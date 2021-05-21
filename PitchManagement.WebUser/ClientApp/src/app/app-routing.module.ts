@@ -65,6 +65,14 @@ const routes: Routes = [
         {
           path: 'invite-match',
           loadChildren: () => import('./pages/invite-match/invite-match.module').then(m => m.InviteMatchModule)
+        },
+        {
+          path: 'sub-pitch-detail',
+          loadChildren: () => import('./pages/sub-pitch-detail/sub-pitch-detail.module').then(m => m.SubPitcDetailhModule)
+        },
+        {
+          path: 'manage-order',
+          loadChildren: () => import('./pages/manage-order/manage-order.module').then(m => m.ManageOrderModule)
         }
       ]
     },

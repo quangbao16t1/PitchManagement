@@ -100,9 +100,12 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<OrderPitch, OrderPitchReturn>().ForMember(x => x.UserName, y => { y.MapFrom(z => z.User.Username); })
                                             .ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.SubPitchDetail.SubPitch.Name); })
                                             .ForMember(x => x.Cost, y => { y.MapFrom(z => z.SubPitchDetail.Cost); })
+                                            .ForMember(x => x.LastName, y => { y.MapFrom(z => z.User.LastName); })
+                                            .ForMember(x => x.FirstName, y => { y.MapFrom(z => z.User.FirstName); })
+                                            .ForMember(x => x.PitchName, y => { y.MapFrom(z => z.SubPitchDetail.SubPitch.Pitch.Name); })
                                .ForMember(x => x.StartTime, y => y.MapFrom(z => new DateTime().Add(z.SubPitchDetail.StartTime).ToString("HH:mm")))
                             .ForMember(x => x.EndTime, y => y.MapFrom(z => new DateTime().Add(z.SubPitchDetail.EndTime).ToString("HH:mm")));
-            CreateMap<OrderPitchUI, OrderPitch>();
+            CreateMap<OrderPitchUI, OrderPitch>().ForMember(x => x.DateOrder, y =>  y.MapFrom(z => DateTime.Parse(z.DateOrder)));
 
             CreateMap<OrderServiceDetail, OrderServiceDetailReturn>().ForMember(x => x.UserName, y => { y.MapFrom(z => z.OrderPitch.User.LastName); })
                                             .ForMember(x => x.SubPitchName, y => { y.MapFrom(z => z.ServiceDetail.SubPitch.Name); })

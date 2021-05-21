@@ -47,16 +47,8 @@ export class PitchComponent implements OnInit {
       );
   }
 
-  add() {
-    this.router.navigate(['/pitch/add']);
-  }
-
-  edit(id: any) {
-    this.router.navigate(['/pitch/edit/' + id]);
-  }
-
   getSybPitch(id: any) {
-    this.router.navigate(['/pitch/sub-pitch/' + id]);
+    this.router.navigate([`/pitch/${id}/sub-pitch/`]);
   }
 
   deleteConfirm(template: TemplateRef<any>, data: any) {

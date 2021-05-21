@@ -2,20 +2,18 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlModule } from 'src/app/helper/control.module';
-import { PitchRoutingModule } from './pitch-routing.module';
-import { PitchComponent } from './pitch.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ListSubPitchComponent } from './list-sub-pitch/list-sub-pitch.component';
-import { OrderPitchComponent } from './order-pitch/order-pitch.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ManageOrderComponent } from './manage-order.component';
+import { ManageOrderRoutingModule } from './manage-order-routing.module';
 
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        PitchRoutingModule,
+        ManageOrderRoutingModule,
         ControlModule,
         NgxPaginationModule,
         ReactiveFormsModule,
@@ -23,10 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         BsDatepickerModule.forRoot()
     ],
     declarations: [
-        PitchComponent,
-        ListSubPitchComponent,
-        OrderPitchComponent
+        ManageOrderComponent
 
     ]
 })
-export class PitchModule { }
+export class ManageOrderModule { }

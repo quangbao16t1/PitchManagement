@@ -1,0 +1,32 @@
+:host ::ng-deep {
+    ngb-datepicker,
+    ngb-datepicker-navigation,
+    .ngb-dp-month,
+    ngb-datepicker-month {
+      width: 100%;
+    }
+    .ngb-dp-navigation-select {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex: 1 1 9rem;
+      flex: 1 1 17rem;
+    }
+    ngb-datepicker-navigation-select > .custom-select {
+      font-size: 14px;
+      height: 3.5rem;
+    }
+    .ngb-dp-weekday,
+    .ngb-dp-day {
+      width: 5rem;
+      height: 4rem;
+      font-size: 14px;
+      line-height: 4rem;
+    }
+    [ngbDatepickerDayView] {
+      text-align: center;
+      width: 4rem;
+      height: 3rem;
+      line-height: 3rem;
+    }
+  }
+  

@@ -37,7 +37,7 @@ namespace PitchManagement.API.Implementaions
 
         public async Task<bool> DeleteOrderPitchAsync(int id)
         {
-            var orderInDb = await _context.Districts.FirstOrDefaultAsync(x => x.Id == id);
+            var orderInDb = await _context.OrderPitches.FirstOrDefaultAsync(x => x.Id == id);
 
             if (orderInDb == null)
             {
@@ -46,7 +46,7 @@ namespace PitchManagement.API.Implementaions
 
             try
             {
-                _context.Districts.Remove(orderInDb);
+                _context.OrderPitches.Remove(orderInDb);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -54,6 +54,27 @@ namespace PitchManagement.API.Implementaions
             {
                 throw ex;
             }
+        }
+
+        public IEnumerable<OrderPitch> GeOrderPitchByPitchId(int pitchId)
+        {
+            return _context.OrderPitches
+                .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
+                .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId).AsEnumerable();
+        }
+
+        public IEnumerable<OrderPitch> GeOrderPitchByUserId(int userId)
+        {
+            return _context.OrderPitches
+                .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
+                .ThenInclude(x => x.Pitch).Where(x => x.UserId == userId).AsEnumerable();
+        }
+
+        public IEnumerable<OrderPitch> GeOrderPitchByUserId(DateTime dateOrder)
+        {
+            return _context.OrderPitches
+                .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
+                .ThenInclude(x => x.Pitch).Where(x => x.DateOrder == dateOrder).AsEnumerable();
         }
 
         public IEnumerable<OrderPitch> GetAllOrderPitch(string keyword)
@@ -64,8 +85,13 @@ namespace PitchManagement.API.Implementaions
             }
 
             return _context.OrderPitches
-                 .Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
+                 .Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch).ThenInclude(x => x.Pitch)
                 .Include(x => x.User).Include(x => x.SubPitchDetail).AsEnumerable();
+        }
+
+        public IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<OrderPitch> GetOrderPitchByIdAsync(int id)
@@ -80,15 +106,8 @@ namespace PitchManagement.API.Implementaions
 
             try
             {
-                order.UserId = orderPitchUpdate.UserId;
-                order.Status = orderPitchUpdate.Status;
-                order.SubPitchDetailId = orderPitchUpdate.SubPitchDetailId;
-                order.DateOrder = orderPitchUpdate.DateOrder;
-                order.IsDelete = orderPitchUpdate.IsDelete;
-                order.Note = orderPitchUpdate.Note;
-                order.CreateTime = orderPitchUpdate.CreateTime;
+                order.Status = 1;
                 order.UpdateTime = DateTime.Now;
-                order.PhoneOrder = orderPitchUpdate.PhoneOrder;
                 await _context.SaveChangesAsync();
 
                 return true;

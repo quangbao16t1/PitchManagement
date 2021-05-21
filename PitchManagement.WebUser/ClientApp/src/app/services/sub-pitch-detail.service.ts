@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SubPitchDetailService {
-    baseUrl = environment.apiUrl + 'SubPitchDetail';
+    baseUrl = environment.apiUrl + 'SubPitchDetai';
 
     constructor(private http: HttpClient) {
     }
@@ -13,8 +13,11 @@ export class SubPitchDetailService {
     getAllSubPitchDetailes(keyword: string, page: number, pageSize: number): Observable<any> {
         return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
     }
-    getAllSubPitchDetailBySpId(subPitchId: any, keyword: string, page: number, pageSize: number): Observable<any> {
-        return this.http.get(`${this.baseUrl}/GetSubPitchDetailBySpId?SubPitchId=${subPitchId}&keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
+    getSubPitchDetailBySpId(subPitchId: any, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetSubPitchDetailBySpId?subPitchId=${subPitchId}&page=${page}&pageSize=${pageSize}`);
+    }
+    getSubPitchDetailEmpty(dateOrder: any, subPitchId: any): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetSubPitchDetailEmpty?dateOrder=${dateOrder}&subPitchId=${subPitchId}`);
     }
     getSubPitchDetailById(id: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`);
