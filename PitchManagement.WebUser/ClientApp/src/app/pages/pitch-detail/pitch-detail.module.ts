@@ -7,6 +7,9 @@ import { PitchDetailRoutingModule } from './pitch-detail-routing.module';
 import { PitchDetailComponent } from './pitch-detail.component';
 import { AddPitchComponent } from './add-pitch/add-pitch.component';
 import { EditPitchComponent } from './edit-pitch/edit-pitch.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -15,13 +18,16 @@ import { EditPitchComponent } from './edit-pitch/edit-pitch.component';
         FormsModule,
         PitchDetailRoutingModule,
         ControlModule,
+        NgbModule,
+        NgxPaginationModule,
         ReactiveFormsModule,
         BsDatepickerModule.forRoot()
     ],
     declarations: [
         PitchDetailComponent,
         AddPitchComponent,
-        EditPitchComponent
+        EditPitchComponent,
+        ManageOrderComponent
     ]
 })
 export class PitchDetailModule { }

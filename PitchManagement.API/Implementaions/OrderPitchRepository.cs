@@ -56,11 +56,11 @@ namespace PitchManagement.API.Implementaions
             }
         }
 
-        public IEnumerable<OrderPitch> GeOrderPitchByPitchId(int pitchId)
+        public IEnumerable<OrderPitch> GeOrderPitchByPitchId(int pitchId, int status)
         {
             return _context.OrderPitches
                 .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
-                .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId).AsEnumerable();
+                .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId && x.Status == status).AsEnumerable();
         }
 
         public IEnumerable<OrderPitch> GeOrderPitchByUserId(int userId)
@@ -70,7 +70,7 @@ namespace PitchManagement.API.Implementaions
                 .ThenInclude(x => x.Pitch).Where(x => x.UserId == userId).AsEnumerable();
         }
 
-        public IEnumerable<OrderPitch> GeOrderPitchByUserId(DateTime dateOrder)
+        public IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder)
         {
             return _context.OrderPitches
                 .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
@@ -87,11 +87,6 @@ namespace PitchManagement.API.Implementaions
             return _context.OrderPitches
                  .Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch).ThenInclude(x => x.Pitch)
                 .Include(x => x.User).Include(x => x.SubPitchDetail).AsEnumerable();
-        }
-
-        public IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<OrderPitch> GetOrderPitchByIdAsync(int id)
@@ -118,5 +113,7 @@ namespace PitchManagement.API.Implementaions
                 throw ex;
             }
         }
+
+       
     }
 }

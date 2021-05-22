@@ -71,8 +71,8 @@ const routes: Routes = [
           loadChildren: () => import('./pages/sub-pitch-detail/sub-pitch-detail.module').then(m => m.SubPitcDetailhModule)
         },
         {
-          path: 'manage-order',
-          loadChildren: () => import('./pages/manage-order/manage-order.module').then(m => m.ManageOrderModule)
+          path: 'history-order',
+          loadChildren: () => import('./pages/history-order/history-order.module').then(m => m.HistoryOrderModule)
         }
       ]
     },

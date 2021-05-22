@@ -12,7 +12,8 @@ namespace PitchManagement.API.Dtos.Pitches
         [Required]
         public string Name { get; set; }
         public string Decription { get; set; }
-        public string District { get; set; }
+        public string DistrictName { get; set; }
+        public int DistrictId { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
         public string WebSite { get; set; }

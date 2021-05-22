@@ -39,7 +39,7 @@
                                     </label>
                                 <div class="col-md-3 offset-md-3">
                                     <div class="input-group input-time-sm w-50">
-                                        <ngb-timepicker [ngModel]="startTime" (ngModelChange)="onTimeChangeStartTime($event)"></ngb-timepicker>
+                                        <ngb-timepicker [disabled]="true" [ngModel]="startTime" (ngModelChange)="onTimeChangeStartTime($event)"></ngb-timepicker>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     </label>
                                     <div class="col-md-3 offset-md-3">
                                         <div class="input-group input-time-sm w-50">
-                                            <ngb-timepicker [(ngModel)]="endTime" (ngModelChange)="onTimeChangeEndTime($event)"></ngb-timepicker>
+                                            <ngb-timepicker [disabled]="true" [(ngModel)]="endTime" (ngModelChange)="onTimeChangeEndTime($event)"></ngb-timepicker>
                                         </div>
                                     </div>
                             </div>

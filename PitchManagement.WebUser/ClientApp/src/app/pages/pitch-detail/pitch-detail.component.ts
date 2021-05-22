@@ -13,7 +13,7 @@ import { PitchService } from 'src/app/services/pitch.service';
   templateUrl: './pitch-detail.component.html',
 })
 export class PitchDetailComponent implements OnInit {
-
+  isOpenListPitch: any = true;
   pitch: Pitch;
   userId: any;
   itemsAsync: Observable<any[]>;

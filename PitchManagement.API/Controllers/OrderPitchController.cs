@@ -55,11 +55,11 @@ namespace PitchManagement.API.Controllers
 
         [Route("GetOrderByPitchId")]
         [HttpGet]
-        public IActionResult GetOrderPitchByPitchId(int pitchId, int page = 1, int pagesize = 10)
+        public IActionResult GetOrderPitchByPitchId(int pitchId, int status, int page = 1, int pagesize = 10)
         {
             try
             {
-                var listOrder = _orderPitchRepo.GeOrderPitchByPitchId(pitchId);
+                var listOrder = _orderPitchRepo.GeOrderPitchByPitchId(pitchId,status);
 
                 int totalCount = listOrder.Count();
 

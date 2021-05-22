@@ -13,11 +13,11 @@ export class OrderPitchService {
     getAllOrderPitch(keyword: string, page: number, pageSize: number): Observable<any> {
         return this.http.get(`${this.baseUrl}?keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
     }
-    getAllOrderPitchByUserId(userId: any, keyword: string, page: number, pageSize: number): Observable<any> {
-        return this.http.get(`${this.baseUrl}/GetOrderByUserId?userId=${userId}&keyword=${keyword}&page=${page}&pageSize=${pageSize}`);
+    getAllOrderPitchByUserId(userId: any, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetOrderByUserId?userId=${userId}&page=${page}&pageSize=${pageSize}`);
     }
-    getOrderPitchByPitchId(pitchId: any, page: number, pageSize: number): Observable<any> {
-        return this.http.get(`${this.baseUrl}/GetOrderByPitchId?pitchId=${pitchId}&page=${page}&pageSize=${pageSize}`);
+    getOrderPitchByPitchId(pitchId: any, status: number, page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetOrderByPitchId?pitchId=${pitchId}&status=${status}&page=${page}&pageSize=${pageSize}`);
     }
     getOrderPitchById(id: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`);

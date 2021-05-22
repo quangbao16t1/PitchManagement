@@ -1,99 +1,202 @@
-<div class="box box-primary">
-
-    <div class="box-header with-border">
-      <h3 class="box-title">Thêm mới</h3>
-    </div>
-  
-    <form [formGroup]="addPitchForm" (submit)="addPitch()" novalidate>
-      <div class="box-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Tên sân bóng</label>
-              <input type="text" class="form-control" formControlName="name" placeholder="Tên sân bóng"
-                [ngClass]="{ 'is-invalid': f.name.errors }">
-            </div>
-            <div class="form-group">
-                <label>Giới thiệu</label>
-                <input type="text" class="form-control" formControlName="description" placeholder="Giới thiệu"
-                  [ngClass]="{ 'is-invalid': f.description.errors }">
-              </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="text" class="form-control" formControlName="email" placeholder="Email"
-                [ngClass]="{ 'is-invalid': f.email.errors }">
-                <app-control-messages [control]="addPitchForm.get('email')"></app-control-messages>
-            </div>
-            <div class="form-group">
-              <label>Địa chỉ</label>
-              <input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ"
-                [ngClass]="{ 'is-invalid': f.address.errors }">
-            </div>
-            <div class="form-group">
-              <label>Quận huyện</label>
-              <select class="form-control" formControlName="district"
-                [ngClass]="{ 'is-invalid': f.district.errors }">
-                <option *ngFor="let district of district " value={{district.key}}>{{district.value[0]}}</option>
-              </select>
-            </div>
-            <!-- <div class="form-group">
-                <label class="col-sm-2 control-label">Quận huyện</label>
-                <div class="col-sm-10">
-                    <select name="parentId" class="form-control" ng-model="genre.parentId"
-                        ng-options="option.id as option.name for option in parentCategories">
-                        <option value="">Quận huyện</option>
-                    </select>
-                    <input type="hidden" name="parentId" ng-model="genre.parentId" />
-                </div>
-            </div> -->
-            <div class="form-group">
-              <label>Trang web</label>
-              <input type="text" class="form-control" formControlName="website" placeholder="Trang web"
-                [ngClass]="{ 'is-invalid': f.website.errors }">
-            </div>
-            <div class="form-group">
-                <label>Ảnh đại diện</label>
-                <input type="text" class="form-control" formControlName="avatar" placeholder="Ảnh đại diện"
-                  [ngClass]="{ 'is-invalid': f.avatar.errors }">
-              </div>
-            <div class="form-group">
-              <label>Trạng thái</label>
-              <select class="form-control" formControlName="status" [ngClass]="{ 'is-invalid': f.gender.errors }">
-            </select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Ngày tạo</label>
-              <input type="text" class="form-control" formControlName="createTime" placeholder="Ngày tạo"
-                [ngClass]="{ 'is-invalid': f.createTime.errors }">
-            </div>
-            <div class="form-group">
-              <label>Người tạo</label>
-              <input type="text" class="form-control" formControlName="createBy" placeholder="Người tạo" [ngClass]="{ 'is-invalid': f.createBy.errors }">
-            </div>
-            <div class="form-group">
-              <label>Số điện thoại</label>
-              <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Số điện thoại"
-                [ngClass]="{ 'is-invalid': f.phoneNumber.errors }">
-                <app-control-messages [control]="addPitchForm.get('phoneNumber')"></app-control-messages>
-            </div>
-          </div>
-        </div>
-        <!-- 
-  
-        <div class="form-group">
-                <label class="col-sm-2 control-label">Hình ảnh</label>
-                <div class="col-sm-10">
-                    <button class="btn btn-default" ng-click="chooseImage()" type="button">Chọn ảnh</button>
-                    <img ng-src="{{genre.image}}" width="100" />
-                </div>
-            </div>-->
-      </div> 
-      <div class="box-footer text-center">
-        <button [routerLink]="['/pitch']" class="btn btn-default">Hủy</button>
-        <button type="submit" [disabled]="addPitchForm.invalid" class="btn btn-success">Lưu</button>
+<div class="breadcrum ng-scope">
+  <div class="container">
+      <div class="breadcrum-line">
+          <a routerLink="/">Trang chủ</a>
+          <a routerLink="/pitch-detail">Sân bóng của tôi</a>
       </div>
-    </form>
-  
   </div>
+</div>
+<div class="content-wrap stadium-managment-page ng-scope">
+  <div class="container">
+      <div class="content-cts">
+          <div class="item-card">
+              <div class="row">
+                  <div class="bs-example bs-example-tabs" style="width: 100%;">
+
+                      <div id="createUpdateStadiumTabContent" class="tab-content">
+                          <div class="tab-pane active" id="detail">
+                              <form name="addPitchForm" role="form" novalidate [formGroup]="addPitchForm">
+                                  <div class="col-md-12">
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label"><strong>Thông tin cơ
+                                                  bản</strong></label>
+                                      </div>
+                                      <div class="form-group row">
+                                          <label class="col-md-3 col-form-label">Tên sân <span
+                                                  class="text-danger">(*)</span> </label>
+                                          <div class="col-md-9">
+                                              <input type="text" class="form-control" name="name"
+                                                  formControlName="name" placeholder="Nhập tên sân"
+                                                  >
+                                              <app-control-messages [control]="addPitchForm.get('name')"></app-control-messages>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 col-form-label">Giới thiệu<span
+                                                  class="text-danger">(*)</span></label>
+                                          <div class="col-md-9">
+                                              <textarea class="form-control" name="decription"
+                                                  formControlName="decription" rows="2" >
+                                              </textarea>
+                                              <app-control-messages [control]="addPitchForm.get('decription')"></app-control-messages>
+                                          </div>
+                                      </div>
+
+                                  
+                                      <div class="form-group row">
+                                          <div class="clear-bordered"></div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label"><strong>Địa chỉ</strong></label>
+                                      </div>
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label">Quận / huyện</label>
+                                          <div class="col-md-5">
+                                              <select class="form-control" name="district"
+                                               formControlName="district">
+                                                  <option *ngFor="let d of district" [value]="d.id">{{d.name}}
+                                                  </option> 
+                                              </select>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label">Số nhà/tên đường</label>
+                                          <div class="col-md-5">
+                                              <input type="address" class="form-control" name="address"
+                                                  formControlName="address">
+                                              <app-control-messages [control]="addPitchForm.get('address')"></app-control-messages>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <div class="clear-bordered"></div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label"><strong>Thông tin liên
+                                                  hệ</strong></label>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label">Điện thoại</label>
+                                          <div class="col-md-5">
+                                              <input type="phone" class="form-control" name="phoneNumber"
+                                                  formControlName="phoneNumber" [ngClass]="{ 'is-invalid': f.phoneNumber.errors }">
+                                              <app-control-messages [control]="addPitchForm.get('phoneNumber')"></app-control-messages>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label">Địa chỉ email</label>
+                                          <div class="col-md-5">
+                                              <input type="email" class="form-control" name="email"
+                                                  formControlName="email" >
+                                              <app-control-messages [control]="addPitchForm.get('email')"></app-control-messages>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label">Website</label>
+                                          <div class="col-md-5">
+                                              <input type="url" class="form-control" name="webSite"
+                                                  formControlName="webSite">
+                                              <app-control-messages [control]="addPitchForm.get('webSite')"></app-control-messages>
+                                          </div>
+                                      </div>
+                                      <div class="form-group row">
+                                          <div class="clear-bordered"></div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <label class="col-md-3 control-label"><strong>Hình ảnh sân</strong></label>
+                                      </div>
+                                      <!-- <div class="form-group row">
+                                          <label class="col-md-3 control-label">Ảnh đại diện</label>
+                                          <div class="col-md-5">
+                                              <input type="file" accept="image/x-png,image/jpeg" class="form-control"
+                                                  name="imageFile" id="fileImage" (change)="onImageChange($event)">
+                                              <small class="form-text text-danger" *ngIf="selectImageError !== ''">
+                                                  {{selectImageError}}
+                                              </small>
+                                          </div>
+                                          <div class="col-md-4">
+                                              <div class="col-md-12 text-center" *ngIf="imageUrl !=null">
+                                                  <img width="150" height="100" src="{{imageUrl}}"
+                                                      alt="Ảnh đại diện" />
+                                              </div>
+                                          </div>
+                                      </div> 
+                                      <div class="form-group row">
+                                          <label class="col-md-3 col-form-label">Slideshow</label>
+                                          <div class="col-md-5">
+                                              <div id="fileuploader">
+                                                  <div>
+                                                      <button type="button" (click)='uploadFile.click()'
+                                                          class="btn btn-sm btn-success">Đính kèm
+                                                          tập tin
+                                                      </button>
+                                                      <input type="file" accept="image/x-png,image/jpeg"
+                                                          (change)="onSlideChange($event)" multiple #uploadFile
+                                                          hidden='true'>
+
+                                                  </div>
+                                              </div>
+
+                                          </div>
+                                          <div class="col-md-4" *ngIf="selectedSlides">
+                                              <table class="table table-bordered mt-1">
+                                                  <tbody>
+                                                      <tr *ngFor="let s of slideUrl; let i=index;">
+                                                          <th scope="row">{{i + 1}}</th>
+                                                          <td>
+                                                              <img width="150" height="100" src="{{s.url}}" alt="">
+                                                          </td>
+                                                          <td>
+                                                              <i class="fa fa-times"
+                                                                  (click)="removeFileAttach(s?.id, i)"></i>
+                                                          </td>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div> -->
+
+                                      <div class="form-group row">
+                                          <div class="clear-bordered"></div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                          <div class="clear-bordered"></div>
+                                      </div>
+
+                                      <div class="form-group row" style="margin-top:30px">
+                                          <div class="col-md-3">
+                                          </div>
+                                          <div class="col-md-9 text-right">
+                                              <button [routerLink]="['/pitch-detail']" class="btn btn-default">Hủy</button>
+                                              <button  (click) ="addPitch()" [disabled]="addPitchForm.invalid"
+                                                  class="btn btn-primary btn-primary-extra ng-scope">
+                                                  <i class="fa fa-save"></i>
+                                                  <span >Lưu</span>
+                                              </button>
+
+                                          </div> <!-- /.col !pitch?.id-->
+
+                                      </div> <!-- /.form-group -->
+                                  </div>
+
+                              </form>
+
+                          </div> <!-- /.tab-pane -->
+
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

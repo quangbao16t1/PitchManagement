@@ -24,7 +24,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div id="stadiumListTabContent" class="tab-content">
+                    <div *ngIf="isOpenListPitch === true" id="stadiumListTabContent" class="tab-content">
 
                         <div class="tab-pane active" id="#/stadium">
                             <div id="listStadium" style="min-height:250px; position:relative">
@@ -124,9 +124,9 @@
                             </div>
                         </div> <!-- /.tab-pane -->
                     </div>
-                    <!-- <div *ngIf="isOpenListPitch === false" id="myTab1Content" class="tab-content">
-                        <jhi-oder-pitch (updateNotiCount)="loadTotalRequestOrder($event)" style="width: 100%;"></jhi-oder-pitch>
-                    </div> -->
+                    <div *ngIf="isOpenListPitch === false" id="myTab1Content" class="tab-content">
+                        <app-manage-order style="width: 100%;"></app-manage-order>
+                    </div>
                 </div>
 
             </div>

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CURRENT_USER } from 'src/app/constants/db.keys';
+import { PitchForAdd } from 'src/app/models/pitch/pitchForAdd.model';
+import { DistrictService } from 'src/app/services/district.service';
 import { PitchService } from 'src/app/services/pitch.service';
 import { ValidationService } from 'src/app/services/validation.service';
 
@@ -14,37 +16,42 @@ import { ValidationService } from 'src/app/services/validation.service';
 export class AddPitchComponent implements OnInit {
 
   addPitchForm: FormGroup;
-  pitch: any;
+  pitch: PitchForAdd;
+  districtName: any;
+  keyword = '';
+  district: any[];
+  editPitchForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private pitchService: PitchService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private districtService: DistrictService
   ) {
     this.addPitchForm = this.fb.group({
       name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      district: ['1'],
+      decription: ['', [Validators.required]],
+      district: [''],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       address: [''],
       phoneNumber: ['', ValidationService.phonenumberValidator],
-      website: [''],
+      webSite: [''],
       avatar: [''],
       createBy: [''],
-      status: ['true'],
-      updateTime: ['']
     });
   }
 
   ngOnInit() {
-    // if (this.authService.getRoles().filter(x => x.includes('CREATE_BRANCH')).length === 0) {
-    //   this.router.navigate(['/pitch']);
-    // }
+    this.districtService.getAllDistricts(this.keyword).subscribe((dis: any) => {
+      this.district = dis;
+      console.log(this.district);
+    });
   }
 
   addPitch() {
     this.pitch = Object.assign({}, this.addPitchForm.value);
+    this.pitch.createBy = this.getId;
     this.pitchService.createPitch(this.pitch).subscribe(
       () => {
         this.router.navigate(['/pitch-detail']).then(() => {
@@ -55,10 +62,7 @@ export class AddPitchComponent implements OnInit {
         this.toastr.error('Tạo sân bóng không thành công!')
       );
   }
-
-  get f() { return this.addPitchForm.controls; }
-
-  get isAdmin() {
+  isAdmin() {
     const user = JSON.parse(localStorage.getItem(CURRENT_USER));
     if (user != null) {
       return user.groupRole === 'Admin';
@@ -67,13 +71,21 @@ export class AddPitchComponent implements OnInit {
     return false;
   }
 
-  get isPitcher() {
+  isPitcher() {
     const user = JSON.parse(localStorage.getItem(CURRENT_USER));
     if (user != null) {
       return user.groupRole === 'Pitcher';
     }
 
     return false;
+}
+get getId() {
+  const user = JSON.parse(localStorage.getItem(CURRENT_USER));
+  if (user !== null) {
+    return user.id;
   }
+  return 0;
+}
+  get f() { return this.addPitchForm.controls; }
 
 }

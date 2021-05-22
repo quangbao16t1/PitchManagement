@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { PitchDetailComponent } from './pitch-detail.component';
 import { AddPitchComponent } from './add-pitch/add-pitch.component';
 import { EditPitchComponent } from './edit-pitch/edit-pitch.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
 
 export const routes: Routes = [
     {
@@ -13,6 +14,9 @@ export const routes: Routes = [
     },
     {
         path: 'edit/:id', component: EditPitchComponent
+    },
+    {
+        path: 'manage-order', component: ManageOrderComponent
     }
 ];
 

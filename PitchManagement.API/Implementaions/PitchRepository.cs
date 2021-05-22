@@ -24,6 +24,8 @@ namespace PitchManagement.API.Implementaions
         {
             try
             {
+                pitchCreate.Status = 1;
+                pitchCreate.CreateTime = DateTime.Now;
                 _context.Pitches.Add(pitchCreate);
                 await _context.SaveChangesAsync();
                 return true;
@@ -99,15 +101,12 @@ namespace PitchManagement.API.Implementaions
             {
                 pitchInDb.Name = pitchUpdate.Name;
                 pitchInDb.Decription = pitchUpdate.Decription;
-                pitchInDb.DistrictId = pitchUpdate.DistrictId;
                 pitchInDb.Email = pitchUpdate.Email;
                 pitchInDb.PhoneNumber = pitchUpdate.PhoneNumber;
                 pitchInDb.WebSite = pitchUpdate.WebSite;
                 pitchInDb.Avatar = pitchUpdate.Avatar;
-                pitchInDb.CreateBy = pitchUpdate.CreateBy;
                 pitchInDb.Status = pitchUpdate.Status;
-                pitchInDb.UpdateTime = pitchUpdate.UpdateTime;
-                pitchInDb.CreateTime = pitchInDb.CreateTime;
+                pitchInDb.UpdateTime = DateTime.Now;
                 pitchInDb.Address = pitchUpdate.Address;
 
                 _context.Pitches.Update(pitchInDb);

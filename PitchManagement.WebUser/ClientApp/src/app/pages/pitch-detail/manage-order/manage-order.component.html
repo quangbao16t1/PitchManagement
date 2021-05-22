@@ -51,7 +51,7 @@
                               <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
                               <tr
                                  *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }">
-                                <p class="text-danger" *ngIf="item === null ">Không có sân trống nào hãy đặt ngày khác!</p>
+                                <p class="text-danger" *ngIf="item === null ">Không có yêu cầu đặt sân nào!</p>
                                 <td> {{item.pitchName}}</td>
                                 <td>{{item.firstName}} {{item.lastName}}</td>
                                 <td>{{ item.startTime }}-{{ item.endTime }}</td>
@@ -63,7 +63,6 @@
                                    <button  *ngIf="item.status === 0" class="btn btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
                                         (click)="deleteConfirm(template,item)">Hủy
                                    </button>
-                                   <p *ngIf="item.status === 1">Đã xác nhận</p>
                                 </td> 
                               </tr>
                             </tbody>

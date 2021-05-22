@@ -56,7 +56,7 @@ export class ManageOrderComponent implements OnInit {
     });
   }
   getOrderPitchByPitchId(pitchId: number, page: number) {
-    this.itemsAsync = this.orderPitchService.getOrderPitchByPitchId(pitchId, page, this.pageSize)
+    this.itemsAsync = this.orderPitchService.getOrderPitchByPitchId(pitchId, 0, page, this.pageSize)
       .pipe(
         tap(response => {
           this.total = response.total;

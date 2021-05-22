@@ -1,0 +1,116 @@
+<div class="breadcrum ng-scope">
+    <div class="container">
+        <div class="breadcrum-line">
+            <a routerLink="/">Trang chủ</a>
+            <a routerLink="/pitch">Lịch sử đặt sân</a>
+        </div>
+    </div>
+</div>
+<div class="content-wrap stadium-managment-page ng-scope">
+    <div class="container">
+        <div class="heading-block">
+            <p class="title-box"><i class="fa fa-futbol-o" aria-hidden="true"></i> Lịch sử đặt sân</p>
+        </div>
+        <div class="content-cts">
+            <div class="item-card">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <div class="input-group" style="display: flex;">
+                            <input class="form-control" placeholder="yyyy-mm-dd" readonly
+                            [minDate]="this.minDate"  name="dp" (dateSelect)="dateSelectedEvt($event)" ngbDatepicker #d="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-default border-0" style="padding: 0 5px;" (click)="d.toggle()" type="button">
+                                    <i style="font-size: 31px;" class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 form-group" *ngIf="isUser()">
+                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="loadSpdEmpty(this.dateSelected, this.subPitchSelected)">Tìm kiếm</button>
+                    </div>
+                    <div class="col-sm-3 form-group" *ngIf="isPitcher()">
+                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="loadSpdEmpty(this.dateSelected, this.subPitchSelected)">Tìm kiếm</button>
+                    </div>
+                    <br>
+                    
+                    <div class="col-md-12" style="min-height: 500px;">
+                        <div class="heading-block">
+                            <p class="title-box"><i class="fas fa-calendar-alt" style="font-size:48px;color:blue"></i> Danh sách lịch sử đặt sân</p>
+                        </div>
+                        <table class="table table-bordered" *ngIf="isPitcher() === true">
+                            <tbody>
+                              <tr>
+                                <th>Sân</th>
+                                <th>Người đặt</th>
+                                <th>Thời gian</th>
+                                <th>Nội dung</th>
+                                <th>Ngày đặt sân</th>
+                                <th>Trạng thái</th>
+                              </tr>
+                              <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
+                              <tr
+                                 *ngFor="let item of itemsAsync1 | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }">
+                                <p class="text-danger" *ngIf="item === null ">Không có lịch sử đặt sân nào!</p>
+                                <td> {{item.pitchName}}</td>
+                                <td>{{item.firstName}} {{item.lastName}}</td>
+                                <td>{{ item.startTime }}-{{ item.endTime }}</td>
+                                <td>{{item.note}}</td>
+                                <td>{{item.dateOrder}}</td>
+                                <td>
+                                    <span class="text-success" *ngIf="item.status === 1">Đã xác nhận</span>
+                                    <span class="text-danger" *ngIf="item.status === 0">Đang chờ xác nhận</span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table table-bordered" *ngIf="isUser() === true">
+                            <tbody>
+                              <tr>
+                                <th>Sân</th>
+                                <th>Thời gian</th>
+                                <th>Nội dung</th>
+                                <th>Ngày đặt sân</th>
+                                <th>Trạng thái</th>
+                              </tr>
+                              <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
+                              <tr
+                                 *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }">
+                                <p class="text-danger" *ngIf="item === null ">Không có lịch sử đặt sân nào!</p>
+                                <td> {{item.pitchName}}</td>
+                                <td>{{ item.startTime }}-{{ item.endTime }}</td>
+                                <td>{{item.note}}</td>
+                                <td>{{item.dateOrder}}</td>
+                                <td>
+                                    <span class="text-success" *ngIf="item.status === 1">Thành công</span>
+                                    <span class="text-danger" *ngIf="item.status === 0">Đang chờ</span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="text-center">
+                            <pagination-controls class="custom-pagination" (pageChange)="loadSpdEmpty($event)" autoHide="true"
+                              responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
+                            </pagination-controls>
+                          </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <ng-template #template>
+    <div class="modal-header">
+      <button type="button" class="close" (click)="close()">&times;</button>
+      <h4 class="modal-title">Xác nhận</h4>
+    </div>
+    <div class="modal-body">
+      <p>Bạn có chắc chắn muốn hủy yêu cầu này không?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="close()">Đóng</button>
+      <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
+    </div>
+  </ng-template> -->

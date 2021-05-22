@@ -58,7 +58,7 @@ namespace PitchManagement.API.AutoMapper
                                                  .ForMember(x => x.PitchId, y => { y.MapFrom(z => z.Pitch.Id); });
             CreateMap<SubPitchUI, SubPitch>();
 
-            CreateMap<Pitch, PitchReturn>().ForMember(x => x.District, y => { y.MapFrom(z => z.District.Name); });
+            CreateMap<Pitch, PitchReturn>().ForMember(x => x.DistrictName, y => { y.MapFrom(z => z.District.Name); });
             CreateMap<PitchUI, Pitch>();
 
             CreateMap<Slide, SlideReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); });

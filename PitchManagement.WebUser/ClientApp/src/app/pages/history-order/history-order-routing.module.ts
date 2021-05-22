@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { ManageOrderComponent } from './manage-order.component';
+import { HistoryOrderComponent } from './history-order.component';
 
 export const routes: Routes = [
     {
-        path: '', component: ManageOrderComponent,
+        path: '', component: HistoryOrderComponent,
     }
 ];
 
@@ -12,5 +12,4 @@ export const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-
-export class ManageOrderRoutingModule { }
+export class HistoryOrderRoutingModule { }
