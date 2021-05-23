@@ -16,7 +16,7 @@ import { ValidationService } from 'src/app/services/validation.service';
 export class AddPitchComponent implements OnInit {
 
   addPitchForm: FormGroup;
-  pitch: PitchForAdd;
+  pitch: any;
   districtName: any;
   keyword = '';
   district: any[];
@@ -32,7 +32,7 @@ export class AddPitchComponent implements OnInit {
     this.addPitchForm = this.fb.group({
       name: ['', [Validators.required]],
       decription: ['', [Validators.required]],
-      district: [''],
+      districtId: [''],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       address: [''],
       phoneNumber: ['', ValidationService.phonenumberValidator],
@@ -52,6 +52,7 @@ export class AddPitchComponent implements OnInit {
   addPitch() {
     this.pitch = Object.assign({}, this.addPitchForm.value);
     this.pitch.createBy = this.getId;
+    console.log(this.pitch.districtId, 888);
     this.pitchService.createPitch(this.pitch).subscribe(
       () => {
         this.router.navigate(['/pitch-detail']).then(() => {

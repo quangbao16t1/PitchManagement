@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -25,7 +25,7 @@ export class SubPitchDetailComponent implements OnInit {
   subPitchDetail: any;
   keyword: string;
   subPitchId: number;
-  pitchId: number;
+  pitchId: any;
   spdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
@@ -42,6 +42,7 @@ export class SubPitchDetailComponent implements OnInit {
     private pitchService: PitchService,
     private subPitchDetailService: SubPitchDetailService,
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: BsModalService,
     private toastr: ToastrService
@@ -55,10 +56,12 @@ export class SubPitchDetailComponent implements OnInit {
     this.keyword = '';
     this.page = 1;
     this.pageSize = 10;
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitchId = res;
-      console.log(this.pitchId, 1232131);
-      this.getSubPitchByPitchId(this.pitchId);
+    this.route.paramMap.subscribe( params => {
+      this.pitchId = params.get('pId');
+      console.log(this.pitchId, 444);
+     if (this.pitchId) {
+       this.getSubPitchByPitchId(this.pitchId);
+     }
     });
   }
 
@@ -96,11 +99,11 @@ export class SubPitchDetailComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/sub-pitch-detail/add']);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail/add`]);
   }
 
   edit(id: any) {
-    this.router.navigate(['/sub-pitch-detail/edit/' + id]);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail/${id}/edit`]);
   }
 
   deleteConfirm(template: TemplateRef<any>, data: any) {
@@ -113,8 +116,8 @@ export class SubPitchDetailComponent implements OnInit {
       this.subPitchDetailService.deleteSubPitchDetail(this.subPitchDetail.id)
       .subscribe(
         () => {
-          this.toastr.success(`Xóa khung giờ thành công`);
-          this.getSubPitchDetailBySpId(this.subPitchId, this.page);
+          this.toastr.success('Xóa khung giờ thành công!');
+          this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
         },
         (_error: HttpErrorResponse) => {
           this.toastr.error(`Xóa khung giờ không thành công`);

@@ -9,9 +9,10 @@ export class PitchForAdd {
     public avatar: string;
     public phoneNumber: string;
     public createBy: number;
+    public status: number;
 
     constructor(id: number, name?: string, districtId?: number, decription?: string, address?: string,
-        email?: string, website?: string, avatar?: string, phoneNumber?: string,
+        email?: string, website?: string, avatar?: string, phoneNumber?: string, status?: number,
          createBy?: number) {
             this.id = id;
             this.name = name;
@@ -23,5 +24,6 @@ export class PitchForAdd {
             this.avatar = avatar;
             this.phoneNumber = phoneNumber;
             this.createBy = createBy;
+            this.status = status;
         }
 }

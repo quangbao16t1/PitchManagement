@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -10,7 +10,6 @@ import { CURRENT_USER } from 'src/app/constants/db.keys';
 import { Pitch } from 'src/app/models/pitch/pitch.model';
 import { SubPitchDetail } from 'src/app/models/sub-pitch-detail/sub-pitch-detail.model';
 import { SubPitch } from 'src/app/models/sub-pitch/sub-pitch.model';
-import { PitchService } from 'src/app/services/pitch.service';
 import { SubPitchDetailService } from 'src/app/services/sub-pitch-detail.service';
 import { SubPitchService } from 'src/app/services/sub-pitch.service';
 import { ValidationService } from 'src/app/services/validation.service';
@@ -26,7 +25,7 @@ export class AddSubPitchDetailComponent implements OnInit {
   subPitchDetail: SubPitchDetail;
   keyword: string;
   subPitchId: number;
-  pitchId: number;
+  pitchId: any;
   addSpdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
@@ -43,7 +42,7 @@ export class AddSubPitchDetailComponent implements OnInit {
 
   constructor(
     public subPitchService: SubPitchService,
-    private pitchService: PitchService,
+    private route: ActivatedRoute,
     private subPitchDetailService: SubPitchDetailService,
     private router: Router,
     private fb: FormBuilder,
@@ -60,10 +59,12 @@ export class AddSubPitchDetailComponent implements OnInit {
     this.keyword = '';
     this.page = 1;
     this.pageSize = 10;
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitchId = res;
-      console.log(this.pitchId, 1232131);
-      this.getSubPitchByPitchId(this.pitchId);
+    this.route.paramMap.subscribe( params => {
+      this.pitchId = params.get('pId');
+      console.log(this.pitchId, 444);
+     if (this.pitchId) {
+       this.getSubPitchByPitchId(this.pitchId);
+     }
     });
   }
 
@@ -117,7 +118,7 @@ export class AddSubPitchDetailComponent implements OnInit {
     this.subPitchDetail.endTime = this.newEndTime;
     this.subPitchDetailService.createSubPitchDetail(this.subPitchDetail).subscribe(
       () => {
-        this.router.navigate(['/sub-pitch-detail']).then(() => {
+        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]).then(() => {
           this.toastr.success('Thêm khung giờ thành công');
         });
       },

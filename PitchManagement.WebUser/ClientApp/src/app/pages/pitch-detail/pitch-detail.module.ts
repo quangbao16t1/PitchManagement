@@ -10,6 +10,12 @@ import { EditPitchComponent } from './edit-pitch/edit-pitch.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SubPitchComponent } from './sub-pitch/sub-pitch.component';
+import { AddSubPitchComponent } from './sub-pitch/add-sub-pitch/add-sub-pitch.component';
+import { EditSubPitchComponent } from './sub-pitch/edit-sub-pitch/edit-sub-pitch.component';
+import { SubPitchDetailComponent } from './sub-pitch-detail/sub-pitch-detail.component';
+import { AddSubPitchDetailComponent } from './sub-pitch-detail/add-sub-pitch-detail/add-sub-pitch-detail.component';
+import { EidtSubPitchDetailComponent } from './sub-pitch-detail/eidt-sub-pitch-detail/eidt-sub-pitch-detail.component';
 
 
 @NgModule({
@@ -27,7 +33,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
         PitchDetailComponent,
         AddPitchComponent,
         EditPitchComponent,
-        ManageOrderComponent
+        ManageOrderComponent,
+        SubPitchComponent,
+        AddSubPitchComponent,
+        EditSubPitchComponent,
+        SubPitchDetailComponent,
+        AddSubPitchDetailComponent,
+        EidtSubPitchDetailComponent
     ]
 })
 export class PitchDetailModule { }

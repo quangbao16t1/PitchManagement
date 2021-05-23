@@ -34,10 +34,10 @@ const routes: Routes = [
           path: 'users',
           loadChildren: () => import('./pages/user-management/user-management.module').then(m => m.UserManagementModule)
         },
-        {
-          path: 'sub-pitch',
-          loadChildren: () => import('./pages/sub-pitch/sub-pitch.module').then(m => m.SubPitchModule)
-        },
+        // {
+        //   path: 'sub-pitch',
+        //   loadChildren: () => import('./pages/sub-pitch/sub-pitch.module').then(m => m.SubPitchModule)
+        // },
         {
           path: 'pitch-detail',
           loadChildren: () => import('./pages/pitch-detail/pitch-detail.module').then(m => m.PitchDetailModule)
@@ -66,10 +66,10 @@ const routes: Routes = [
           path: 'invite-match',
           loadChildren: () => import('./pages/invite-match/invite-match.module').then(m => m.InviteMatchModule)
         },
-        {
-          path: 'sub-pitch-detail',
-          loadChildren: () => import('./pages/sub-pitch-detail/sub-pitch-detail.module').then(m => m.SubPitcDetailhModule)
-        },
+        // {
+        //   path: 'sub-pitch-detail',
+        //   loadChildren: () => import('./pages/sub-pitch-detail/sub-pitch-detail.module').then(m => m.SubPitcDetailhModule)
+        // },
         {
           path: 'history-order',
           loadChildren: () => import('./pages/history-order/history-order.module').then(m => m.HistoryOrderModule)

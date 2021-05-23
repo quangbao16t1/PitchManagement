@@ -99,8 +99,8 @@ namespace PitchManagement.API.Implementaions
             {
                 subPitchDt.Cost = subPitchDetail.Cost;
                 //subPitchDt.SubPitchId = subPitchDetail.SubPitchId;
-                subPitchDt.StartTime = subPitchDetail.StartTime;
-                subPitchDt.EndTime = subPitchDetail.EndTime; 
+                //subPitchDt.StartTime = subPitchDetail.StartTime;
+                //subPitchDt.EndTime = subPitchDetail.EndTime; 
                 subPitchDt.UpdateTime = DateTime.Now;
 
                 _context.SubPitchDetails.Update(subPitchDt);

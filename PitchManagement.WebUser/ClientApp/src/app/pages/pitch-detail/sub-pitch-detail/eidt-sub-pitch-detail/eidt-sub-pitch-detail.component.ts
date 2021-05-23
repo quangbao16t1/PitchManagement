@@ -25,8 +25,8 @@ export class EidtSubPitchDetailComponent implements OnInit {
   subPitchDetail: SubPitchDetail;
   keyword: string;
   subPitchId: number;
-  id: any;
-  pitchId: number;
+  pitchId: any;
+  spdId: any;
   editSpdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
@@ -44,7 +44,6 @@ export class EidtSubPitchDetailComponent implements OnInit {
   timesendArray: any[];
   constructor(
     public subPitchService: SubPitchService,
-    private pitchService: PitchService,
     private subPitchDetailService: SubPitchDetailService,
     private router: Router,
     private route: ActivatedRoute,
@@ -59,16 +58,12 @@ export class EidtSubPitchDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitchId = res;
-      console.log(this.pitchId, 1232131);
-      this.getSubPitchByPitchId(this.pitchId);
-    });
-
-    this.route.params.subscribe(params => {
-      this.id = params.id;
-      if (this.id) {
-        this.subPitchDetailService.getSubPitchDetailById(this.id).subscribe(
+    this.route.paramMap.subscribe( params => {
+      this.pitchId = params.get('pId');
+      this.spdId = params.get('spdId');
+      console.log(this.pitchId, 444);
+      if (this.spdId) {
+        this.subPitchDetailService.getSubPitchDetailById(this.spdId).subscribe(
           result => {
             console.log(result, 123456  );
             this.subPitchDetail = result;
@@ -82,7 +77,7 @@ export class EidtSubPitchDetailComponent implements OnInit {
           () => {
             this.toastr.error(`Không tìm thấy khung giờ!`);
           });
-      }
+          }
     });
   }
 
@@ -114,11 +109,11 @@ export class EidtSubPitchDetailComponent implements OnInit {
 
   editSubPitchDetail() {
     this.subPitchDetail = Object.assign({}, this.editSpdForm.value);
-    this.subPitchDetail.startTime = this.newStartTime;
-    this.subPitchDetail.endTime = this.newEndTime;
-    this.subPitchDetailService.editSubPitchDetail(this.id, this.subPitchDetail).subscribe(
+    // this.subPitchDetail.startTime = this.newStartTime;
+    // this.subPitchDetail.endTime = this.newEndTime;
+    this.subPitchDetailService.editSubPitchDetail(this.spdId, this.subPitchDetail).subscribe(
       () => {
-        this.router.navigate(['/sub-pitch-detail']).then(() => {
+        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]).then(() => {
           this.toastr.success('Cập nhật khung giờ thành công');
         });
       },

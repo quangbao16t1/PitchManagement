@@ -41,6 +41,11 @@ export class PitchDetailComponent implements OnInit {
     this.router.navigate(['/pitch-detail/edit' + id]);
   }
 
+  orderPitch(pitchId: any) {
+    console.log('qua chưa?', 123213);
+    this.router.navigate([`/pitch-detail${pitchId}/sub-pitch`]);
+  }
+
   deleteConfirm(template: TemplateRef<any>, data: any) {
     this.pitch = Object.assign({}, data);
     this.modalRef = this.modalService.show(template);

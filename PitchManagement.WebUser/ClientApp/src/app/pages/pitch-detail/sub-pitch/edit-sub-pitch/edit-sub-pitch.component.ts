@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs/operators';
 import { SubPitchForEdit } from 'src/app/models/sub-pitch/subPitchForEdit.model';
 import { SubPitchService } from 'src/app/services/sub-pitch.service';
 import { ValidationService } from 'src/app/services/validation.service';
@@ -15,7 +16,8 @@ export class EditSubPitchComponent implements OnInit {
 
   editSubPitchForm: FormGroup;
   subPitch: SubPitchForEdit;
-  id: any;
+  pitchId: any;
+  spId: any;
   status: any[] = [
     { key: 1, value: ['Đang hoạt động'] },
     {key: 0, value: ['Dừng hoạt động']}
@@ -35,29 +37,47 @@ export class EditSubPitchComponent implements OnInit {
     });
   }
   ngOnInit() {
-  this.route.params.subscribe(params => {
-    this.id = params.id;
-    if (this.id) {
-      this.subPitchService.getSubPitchById(this.id).subscribe(
-        result => {
-          console.log(result);
-          this.subPitch = result;
-          this.editSubPitchForm.controls.name.setValue(result.name);
-          this.editSubPitchForm.controls.type.setValue(result.type);
-          this.editSubPitchForm.controls.status.setValue(result.status);
-        },
-        () => {
-          this.toastr.error(`Không tìm thấy sân con này`);
-        });
-    }
-  });
+    this.route.paramMap.subscribe( params => {
+      this.pitchId = params.get('pId');
+      this.spId = params.get('spId');
+      console.log(this.pitchId, 444);
+      if (this.spId) {
+            this.subPitchService.getSubPitchById(this.spId).subscribe(
+              result => {
+                console.log(result);
+                this.subPitch = result;
+                this.editSubPitchForm.controls.name.setValue(result.name);
+                this.editSubPitchForm.controls.type.setValue(result.type);
+                this.editSubPitchForm.controls.status.setValue(result.status);
+              },
+              () => {
+                this.toastr.error(`Không tìm thấy sân con này`);
+              });
+          }
+    });
+  // this.route.params.subscribe(params => {
+  //   this.pitchId = params.id;
+  //   if (this.spId) {
+  //     this.subPitchService.getSubPitchById(this.spId).subscribe(
+  //       result => {
+  //         console.log(result);
+  //         this.subPitch = result;
+  //         this.editSubPitchForm.controls.name.setValue(result.name);
+  //         this.editSubPitchForm.controls.type.setValue(result.type);
+  //         this.editSubPitchForm.controls.status.setValue(result.status);
+  //       },
+  //       () => {
+  //         this.toastr.error(`Không tìm thấy sân con này`);
+  //       });
+  //   }
+  // });
 }
 
 editSubPitch() {
   this.subPitch = Object.assign({}, this.editSubPitchForm.value);
-  this.subPitchService.editSubPitch(this.id, this.subPitch).subscribe(
+  this.subPitchService.editSubPitch(this.spId, this.subPitch).subscribe(
     () => {
-      this.router.navigate(['/sub-pitch']).then(() => {
+      this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch`]).then(() => {
         this.toastr.success('Cập nhật sân con thành công');
       });
     },

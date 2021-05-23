@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CURRENT_USER } from 'src/app/constants/db.keys';
 import { PitchService } from 'src/app/services/pitch.service';
@@ -15,14 +15,15 @@ export class AddSubPitchComponent implements OnInit {
 
   addSubPitchForm: FormGroup;
   subPitch: any;
-  pitch: any;
+  pitchId: any;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private subPitchService: SubPitchService,
     private pitchService: PitchService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) {
     this.addSubPitchForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -36,19 +37,18 @@ export class AddSubPitchComponent implements OnInit {
   }
 
   getPitchId() {
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitch = res;
-      console.log(res);
-      // this.addSubPitchForm.controls.pitchId.setValue(this.pitch);
+    this.route.params.subscribe( prams => {
+      this.pitchId = prams.id;
+      console.log(this.pitchId, 4444);
     });
   }
 
   addSubPitch() {
     this.subPitch = Object.assign({}, this.addSubPitchForm.value);
-    this.subPitch.pitchId = this.pitch;
+    this.subPitch.pitchId = this.pitchId;
     this.subPitchService.createSubPitch(this.subPitch).subscribe(
       () => {
-        this.router.navigate(['/sub-pitch']).then(() => {
+        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch`]).then(() => {
           this.toastr.success('Thêm sân bóng con thành công');
         });
       },

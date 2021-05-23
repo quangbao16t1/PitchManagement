@@ -21,7 +21,7 @@ export class SubPitchComponent implements OnInit {
   subPitch: SubPitch;
   pitch: Pitch;
   keyword: string;
-  pitchId: number;
+  pitchId: any;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
   page: number;
@@ -32,6 +32,7 @@ export class SubPitchComponent implements OnInit {
     public subPitchService: SubPitchService,
     public pitchService: PitchService,
     private router: Router,
+    private route: ActivatedRoute,
     private modalService: BsModalService,
     private toastr: ToastrService
   ) { }
@@ -42,13 +43,11 @@ export class SubPitchComponent implements OnInit {
     this.page = 1;
     this.pageSize = 10;
     // this.getSubPitchByPitchId(this.getId, this.page);
-    this.getPitchId();
-  }
-
-  getPitchId() {
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitchId = res;
-      this.getSubPitchByPitchId(this.pitchId, this.page);
+    this.route.params.subscribe(params => {
+      this.pitchId = params.id;
+      if (this.pitchId) {
+        this.getSubPitchByPitchId(this.pitchId, this.page);
+      }
     });
   }
 
@@ -59,7 +58,7 @@ export class SubPitchComponent implements OnInit {
     }
   }
   getSubPitchByPitchId(pitchId: number, page: number) {
-    this.itemsAsync = this.subPitchService.getAllSubPitchByPitchId(this.pitchId, this.keyword, page, this.pageSize)
+    this.itemsAsync = this.subPitchService.getAllSubPitchByPitchId(pitchId, this.keyword, page, this.pageSize)
       .pipe(
         tap(response => {
           this.total = response.total;
@@ -70,15 +69,15 @@ export class SubPitchComponent implements OnInit {
   }
 
   add() {
-    this.router.navigate(['/sub-pitch/add']);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/add`]);
   }
 
-  detail(id: any) {
-    this.router.navigate(['/sub-pitch/detail/' + id]);
+  detail() {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
   }
 
   edit(id: any) {
-    this.router.navigate(['/sub-pitch/edit/' + id]);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${id}/edit`]);
   }
 
   deleteConfirm(template: TemplateRef<any>, data: any) {
@@ -108,9 +107,9 @@ export class SubPitchComponent implements OnInit {
     this.modalRef.hide();
 }
 
-search() {
-    this.getPitchId();
-}
+// search() {
+//     this.getPitchId();
+// }
 
 searchCharacter() {
   this.itemsAsync = this.subPitchService.getAllSubPitchByPitchId(this.pitchId, this.keyword, this.page, this.pageSize)
