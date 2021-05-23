@@ -14,6 +14,11 @@
         <div class="content-cts">
             <div class="item-card">
                 <div class="row">
+                    <div class="col-sm-4 form-group" *ngIf="isPitcher()">
+                      <select style="height: 34px;" class="form-control input-sm" (change)="getOrderPitchByPitchId($event.target.value, 1)"  name="pitchId" [(ngModel)]="pitchSelected">
+                          <option *ngFor="let pitch of listPitch" [value]="pitch.id">{{pitch.name}}</option>
+                      </select>
+                    </div>
                     <div class="col-sm-4 form-group">
                         <div class="input-group" style="display: flex;">
                             <input class="form-control" placeholder="yyyy-mm-dd" readonly
@@ -25,11 +30,12 @@
                             </div>
                         </div>
                     </div>
+             
                     <div class="col-sm-3 form-group" *ngIf="isUser()">
-                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="loadSpdEmpty(this.dateSelected, this.subPitchSelected)">Tìm kiếm</button>
+                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="getOrderPitchByDateUserId(this.dateSelected, this.getId, 1)">Tìm kiếm</button>
                     </div>
                     <div class="col-sm-3 form-group" *ngIf="isPitcher()">
-                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="loadSpdEmpty(this.dateSelected, this.subPitchSelected)">Tìm kiếm</button>
+                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="getOrderPitchByDatePitchId(this.dateSelected, this.pitchSelected , 1)">Tìm kiếm</button>
                     </div>
                     <br>
                     

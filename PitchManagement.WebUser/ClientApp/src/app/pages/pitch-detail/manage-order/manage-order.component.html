@@ -14,7 +14,7 @@
         <div class="content-cts">
             <div class="item-card">
                 <div class="row">
-                    <div class="col-sm-4 form-group">
+                    <!-- <div class="col-sm-4 form-group">
                         <div class="input-group" style="display: flex;">
                             <input class="form-control" placeholder="yyyy-mm-dd" readonly
                             [minDate]="this.minDate"  name="dp" (dateSelect)="dateSelectedEvt($event)" ngbDatepicker #d="ngbDatepicker">
@@ -24,20 +24,20 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <!-- <div class="col-sm-4 form-group">
-                        <select style="height: 34px;" class="form-control input-sm"  name="subPitchId" [(ngModel)]="subPitchSelected">
-                            <option *ngFor="let sub of listSubPitch" [value]="sub.id">{{sub.name}}</option>
-                        </select>
                     </div> -->
+                    <div class="col-sm-4 form-group">
+                        <select style="height: 34px;" class="form-control input-sm"  name="pitchId" [(ngModel)]="pitchSelected">
+                            <option *ngFor="let pitch of listPitch" [value]="pitch.id">{{pitch.name}}</option>
+                        </select>
+                    </div>
                     <div class="col-sm-3 form-group">
-                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="loadSpdEmpty(this.dateSelected, this.subPitchSelected)">Tìm kiếm</button>
+                        <button style="height: 34px;" type="button" class="btn btn-primary" (click)="getOrderPitchByPitchId(this.pitchSelected, 1)">Xem lịch sử</button>
                     </div>
                     <br>
                     
                     <div class="col-md-9" style="min-height: 500px;">
                         <div class="heading-block">
-                            <p class="title-box"><i class="fas fa-calendar-alt" style="font-size:48px;color:blue"></i> Danh sách các khung giờ còn trống</p>
+                            <p class="title-box"><i class="fas fa-calendar-alt" style="font-size:48px;color:blue"></i> Danh sách các yêu cầu đặt sân</p>
                         </div>
                         <table class="table table-bordered">
                             <tbody>

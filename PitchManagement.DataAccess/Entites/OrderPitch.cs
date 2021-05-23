@@ -22,7 +22,7 @@ namespace PitchManagement.DataAccess.Entites
         public string Note { get; set; }
         public bool IsDelete { get; set; }
         public string PhoneOrder { get; set; }
-        public DateTime? DateOrder { get; set; }
+        public DateTime DateOrder { get; set; }
         public DateTime? CreateTime { get; set; }
         public DateTime? UpdateTime { get; set; }
         public virtual ICollection<OrderServiceDetail> OrderServiceDetails { get; set; }

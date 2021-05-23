@@ -17,7 +17,8 @@ import Swal from 'sweetalert2';
 })
 export class ManageOrderComponent implements OnInit {
 
-  pitchId: any;
+  pitchSelected: any;
+  listPitch: any[];
   itemsAsync: Observable<any[]>;
   page: number;
   pageSize: number;
@@ -38,6 +39,7 @@ export class ManageOrderComponent implements OnInit {
   ) {
     this.searchForm = this.fb.group({
       date: ['', [Validators.required]],
+      pitchId: ['']
     });
   }
 
@@ -50,11 +52,11 @@ export class ManageOrderComponent implements OnInit {
   }
 
   getPitchId() {
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitchId = res;
-      this.getOrderPitchByPitchId(this.pitchId, this.page);
+    this.pitchService.getPitchByUserId(this.getId).subscribe( res => {
+      this.listPitch = res;
     });
   }
+
   getOrderPitchByPitchId(pitchId: number, page: number) {
     this.itemsAsync = this.orderPitchService.getOrderPitchByPitchId(pitchId, 0, page, this.pageSize)
       .pipe(
@@ -96,22 +98,23 @@ export class ManageOrderComponent implements OnInit {
     this.orderPitch = undefined;
     this.modalRef.hide();
 }
-  confirm(): void {
-    if (this.orderPitch) {
-      this.orderPitchService.deleteOrderPitch(this.orderPitch.id)
-      .subscribe(
-        () => {
-          this.toastr.success(`Xóa khung giờ thành công`);
-          this.getOrderPitchByPitchId(this.pitchId, this.page);
-        },
-        (_error: HttpErrorResponse) => {
-          this.toastr.error(`Xóa khung giờ không thành công`);
-        }
-      );
-    }
-    this.orderPitch = undefined;
-    this.modalRef.hide();
-  }
+  // confirm(): void {
+  //   if (this.orderPitch) {
+  //     this.orderPitchService.deleteOrderPitch(this.orderPitch.id)
+  //     .subscribe(
+  //       () => {
+  //         this.toastr.success(`Xóa khung giờ thành công`);
+  //         this.getOrderPitchByPitchId(this.pitchId, this.page);
+  //       },
+  //       (_error: HttpErrorResponse) => {
+  //         this.toastr.error(`Xóa khung giờ không thành công`);
+  //       }
+  //     );
+  //   }
+  //   this.orderPitch = undefined;
+  //   this.modalRef.hide();
+  // }
+
   get getId() {
     const use = JSON.parse(localStorage.getItem(CURRENT_USER));
     if (use !== null) {

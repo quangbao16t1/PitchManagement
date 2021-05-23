@@ -11,7 +11,8 @@ namespace PitchManagement.API.Interfaces
         IEnumerable<OrderPitch> GetAllOrderPitch(string keyword);
         IEnumerable<OrderPitch> GeOrderPitchByPitchId(int pitchId, int status);
         IEnumerable<OrderPitch> GeOrderPitchByUserId(int userId);
-        IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder);
+        IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder, int userId);
+        IEnumerable<OrderPitch> GetOrderByDatePitchId(DateTime dateOrder, int status, int pitchId);
         Task<OrderPitch> GetOrderPitchByIdAsync(int id);
         Task<bool> CreateOrderPitchAsync(OrderPitch orderPitchCreate);
         Task<bool> UpdateOrderPitchAsync(int id, OrderPitch orderPitchUpdate);

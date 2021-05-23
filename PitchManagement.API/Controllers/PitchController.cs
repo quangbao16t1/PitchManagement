@@ -77,10 +77,10 @@ namespace PitchManagement.API.Controllers
 
         [Route("GetPitchId")]
         [HttpGet]
-        public async Task<int> GetPitchId(int userId)
+        public  IActionResult GetPitchId(int userId)
         {
-            int pitchId =  await _PitchRepo.GetIdPitch(userId);  
-            return pitchId;
+            var pitchId =   _PitchRepo.GetIdPitch(userId);  
+            return Ok(_mapper.Map< IEnumerable<int>>(pitchId));
         }
 
         [Route("GetPitchByUserId")]

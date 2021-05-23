@@ -29,6 +29,9 @@ export class HistoryOrderComponent implements OnInit {
   orderPitch: any;
   modalRef: BsModalRef;
   userLogin: any;
+  pitchSelected: any;
+  listPitch: any[];
+  dateSelected: any;
 
   constructor(
     private orderPitchService: OrderPitchService,
@@ -41,6 +44,7 @@ export class HistoryOrderComponent implements OnInit {
   ) {
     this.searchForm = this.fb.group({
       date: ['', [Validators.required]],
+      pitchId: ['', [Validators.required]]
     });
   }
 
@@ -50,13 +54,14 @@ export class HistoryOrderComponent implements OnInit {
     this.pageSize = 10;
     console.log(this.getId);
     if (this.isPitcher()) {
-      this.getPitchId();
+      this.pitchService.getPitchByUserId(this.getId).subscribe(res => {
+        this.listPitch = res;
+      });
     }
     if (this.isUser()) {
       this.getOrderPitchByUserId(this.getId, this.page);
     }
   }
-
 
   getOrderPitchByUserId(userId: number, page: number) {
     this.itemsAsync = this.orderPitchService.getAllOrderPitchByUserId(userId, page, this.pageSize)
@@ -68,12 +73,6 @@ export class HistoryOrderComponent implements OnInit {
         map(response => response.items)
       );
   }
-  getPitchId() {
-    this.pitchService.getPitchId(this.getId).subscribe((res: number) => {
-      this.pitchId = res;
-      this.getOrderPitchByPitchId(this.pitchId, this.page);
-    });
-  }
   getOrderPitchByPitchId(pitchId: number, page: number) {
     this.itemsAsync1 = this.orderPitchService.getOrderPitchByPitchId(pitchId, 1, page, this.pageSize)
       .pipe(
@@ -84,6 +83,39 @@ export class HistoryOrderComponent implements OnInit {
         map(response => response.items)
       );
   }
+
+  getOrderPitchByDateUserId(dateOrder: any, userId: any, page: number) {
+    console.log(123);
+    this.itemsAsync = this.orderPitchService.getOrderPitchByDateUserId(dateOrder, userId, page, this.pageSize)
+      .pipe(
+        tap(response => {
+          this.total = response.total;
+          this.page = page;
+        }),
+        map(response => response.items)
+      );
+  }
+
+  getOrderPitchByDatePitchId(dateOrder: any, pitchId: any, page: number) {
+    console.log(this.pitchSelected);
+    this.itemsAsync1 = this.orderPitchService.getOrderPitchByDatePitchId(dateOrder, 1, pitchId, page, this.pageSize)
+      .pipe(
+        tap(response => {
+          this.total = response.total;
+          this.page = page;
+        }),
+        map(response => response.items)
+      );
+  }
+
+  dateSelectedEvt(event?: any) {
+    this.dateSelected = event;
+    const date = this.dateSelected.year + '-' + this.dateSelected.month + '-' + this.dateSelected.day;
+    // const date = new Date();
+    this.dateSelected = date;
+    console.log(this.dateSelected, 123);
+  }
+
   deleteConfirm(template: TemplateRef<any>, data: any) {
     this.orderPitch = Object.assign({}, data);
     this.modalRef = this.modalService.show(template);

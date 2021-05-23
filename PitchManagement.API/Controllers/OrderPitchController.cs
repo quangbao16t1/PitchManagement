@@ -113,11 +113,40 @@ namespace PitchManagement.API.Controllers
 
         [Route("GetOrderByDateOrder")]
         [HttpGet]
-        public IActionResult GetOrderPitchByDateOrder(DateTime dateOrder, int page = 1, int pagesize = 10)
+        public IActionResult GetOrderPitchByDateOrder(DateTime dateOrder, int userId, int page = 1, int pagesize = 10)
         {
             try
             {
-                var listOrder = _orderPitchRepo.GetOrderPitchByDate(dateOrder);
+                var listOrder = _orderPitchRepo.GetOrderPitchByDate(dateOrder, userId);
+
+                int totalCount = listOrder.Count();
+
+                var query = listOrder.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<OrderPitch>, IEnumerable<OrderPitchReturn>>(query);
+
+                var paginationset = new PaginationSet<OrderPitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+        }
+
+        [Route("GetByDatePitchId")]
+        [HttpGet]
+        public IActionResult GetByDatePitchId(DateTime dateOrder, int status, int pitchId, int page = 1, int pagesize = 10)
+        {
+            try
+            {
+                var listOrder = _orderPitchRepo.GetOrderByDatePitchId(dateOrder, status, pitchId);
 
                 int totalCount = listOrder.Count();
 

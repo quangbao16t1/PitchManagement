@@ -19,6 +19,14 @@ export class OrderPitchService {
     getOrderPitchByPitchId(pitchId: any, status: number, page: number, pageSize: number): Observable<any> {
         return this.http.get(`${this.baseUrl}/GetOrderByPitchId?pitchId=${pitchId}&status=${status}&page=${page}&pageSize=${pageSize}`);
     }
+    getOrderPitchByDateUserId(dateOrder: any, userId: any, page: number, pageSize: number): Observable<any> {
+        return this.http.
+        get(`${this.baseUrl}/GetOrderByDateOrder?dateOrder=${dateOrder}&userId=${userId}&page=${page}&pageSize=${pageSize}`);
+    }
+    getOrderPitchByDatePitchId(dateOrder: any, status: any, pId: any, page: number, pageSize: number): Observable<any> {
+        return this.http.
+        get(`${this.baseUrl}/GetByDatePitchId?dateOrder=${dateOrder}&status=${status}&pitchId=${pId}&page=${page}&pageSize=${pageSize}`);
+    }
     getOrderPitchById(id: any): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`);
     }

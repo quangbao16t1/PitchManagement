@@ -70,11 +70,11 @@ namespace PitchManagement.API.Implementaions
                 .ThenInclude(x => x.Pitch).Where(x => x.UserId == userId).AsEnumerable();
         }
 
-        public IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder)
+        public IEnumerable<OrderPitch> GetOrderPitchByDate(DateTime dateOrder, int userId)
         {
             return _context.OrderPitches
                 .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
-                .ThenInclude(x => x.Pitch).Where(x => x.DateOrder == dateOrder).AsEnumerable();
+                .ThenInclude(x => x.Pitch).Where(x => x.DateOrder.Year == dateOrder.Year && x.DateOrder.Month == dateOrder.Month && x.DateOrder.Day == dateOrder.Day && x.UserId == userId).AsEnumerable();
         }
 
         public IEnumerable<OrderPitch> GetAllOrderPitch(string keyword)
@@ -114,6 +114,11 @@ namespace PitchManagement.API.Implementaions
             }
         }
 
-       
+        public IEnumerable<OrderPitch> GetOrderByDatePitchId(DateTime dateOrder, int status,  int pitchId)
+        {
+            return _context.OrderPitches
+               .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
+               .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId && x.Status == 1 && x.DateOrder.Year == dateOrder.Year && x.DateOrder.Month == dateOrder.Month && x.DateOrder.Day == dateOrder.Day).AsEnumerable();
+        }
     }
 }

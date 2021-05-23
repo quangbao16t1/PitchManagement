@@ -15,6 +15,6 @@ namespace PitchManagement.API.Interfaces
         Task<bool> CreatePitchAsync(Pitch pitchCreate);
         Task<bool> UpdatePitchAsync(int id, Pitch pitchUpdate);
         Task<bool> DeletePitchAsync(int id);
-        Task<int> GetIdPitch(int userId);
+        IEnumerable<int> GetIdPitch(int userId);
     }
 }
