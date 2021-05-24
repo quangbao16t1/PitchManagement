@@ -10,28 +10,33 @@
           <div class="col-sm-9">
             <div class="form-group ">
               <label>Tên đăng nhập</label>
-              <input type="text" class="form-control" formControlName="username" placeholder="Tên đăng nhập"
-                [ngClass]="{ 'is-invalid': f.username.errors }">
+              <input type="text" class="form-control" formControlName="username" placeholder="Tên đăng nhập">
                 <app-control-messages [control]="registerForm.get('username')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Mật Khẩu</label>
               <input type="password" class="form-control" formControlName="password" placeholder="Mật khẩu"
-                [ngClass]="{ 'is-invalid': f.password.errors }">
+               >
                 <app-control-messages [control]="registerForm.get('password')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Xác nhận mật khẩu</label>
               <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" formControlName="passwordAgain"
-              [ngClass]="{ 'is-invalid': f.passwordAgain.errors }">
+             >
               <app-control-messages [control]="registerForm.get('passwordAgain')"></app-control-messages>
+            </div>
+            <div class="form-group">
+              <label>Vai trò</label>
+              <select class="form-control" formControlName="groupUserId">
+                <option *ngFor="let role of roles " value={{role.key}}>{{role.value}}</option>
+              </select>
             </div>
           </div>
         </div>
       </div>
       <div class="box-footer text-center">
         <button [routerLink]="['/login']" class="btn btn-default">Hủy</button>
-        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-success">Lưu</button>
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-success">Đăng kí</button>
       </div>
     </form>
 

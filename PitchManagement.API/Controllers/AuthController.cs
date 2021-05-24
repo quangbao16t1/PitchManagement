@@ -35,23 +35,44 @@ namespace PitchManagement.API.Controllers
             _mapper = mapper;
         }
 
+        //[HttpPost("register")]
+        //public async Task<IActionResult> Register([FromBody] UserAuthDto userAuthDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    userAuthDto.Username = userAuthDto.Username.ToLower();
+        //    if (await _authRepository.UserExists(userAuthDto.Username))
+        //        return BadRequest(new { message = false });
+
+        //    var userToCrete = new User
+        //    {
+        //        Username = userAuthDto.Username,
+        //        GroupUserId = 3
+        //    };
+
+        //    var createdUser = await _authRepository.Register(userToCrete, userAuthDto.Password);
+
+        //    return Ok(new { message = true });
+        //}
+
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserAuthDto userAuthDto)
+        public async Task<IActionResult> Register([FromBody] UserAuthRegister userAuthRegister)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            userAuthDto.Username = userAuthDto.Username.ToLower();
-            if (await _authRepository.UserExists(userAuthDto.Username))
+            userAuthRegister.Username = userAuthRegister.Username.ToLower();
+            if (await _authRepository.UserExists(userAuthRegister.Username))
                 return BadRequest(new { message = false });
 
             var userToCrete = new User
             {
-                Username = userAuthDto.Username,
-                GroupUserId = 3
+                Username = userAuthRegister.Username,
+                GroupUserId = userAuthRegister.GroupUserId,
             };
 
-            var createdUser = await _authRepository.Register(userToCrete, userAuthDto.Password);
+            var createdUser = await _authRepository.Register(userToCrete, userAuthRegister.Password);
 
             return Ok(new { message = true });
         }

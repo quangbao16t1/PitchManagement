@@ -13,7 +13,7 @@
         <nav class="mobi-none" role="navigation">
             <ul class="nav navbar-nav navbar-right ">
                 <li>
-                    <a routerLink="/find-match" title="Tìm đối đá bóng sân 7 người, sân 5 người">Tìm đối nhanh</a>
+                    <a *ngIf="isAuthenticated()" routerLink="/find-match" title="Tìm đối đá bóng sân 7 người, sân 5 người">Tìm đối nhanh</a>
                     <ul class="navbar-nav-dropdown">
                         <li class="navbar-match-finding">
                             <a routerLink="/invite-match" title="Tìm đối đá bóng tại Hà Nội">
@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li style="display:none"></li>
-                <li class="navbar-stadium">
+                <li class="navbar-stadium" *ngIf="isAuthenticated()">
                     <a routerLink="/pitch" title="Sân cỏ nhân tạo tại Hà Nội, sân cỏ nhân tạo tại HCM"><i
                         class="fa fa-futbol-o" aria-hidden="true"></i>Đặt sân nhanh</a>
 
