@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -109,6 +109,46 @@ export class InviteMatchComponent implements OnInit {
       }
     });
   }
+  deleteConfirm(template: TemplateRef<any>, data: any) {
+    this.match = Object.assign({}, data);
+    this.modalRef = this.modalService.show(template);
+  }
+
+  cancelMatch(id: any, match: MatchForUpdate) {
+    Swal.fire({
+      title: 'Bạn có chắc chắn hủy trận?',
+      text: 'Dữ liệu sẽ không thể hoàn tác sau khi bạn xóa !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xóa',
+      cancelButtonText: 'Hủy'
+    }).then(result => {
+      if (result.value) {
+        const matchUpdate = {
+          setUpTime: match.setupTime ,
+          teamId: match.teamId,
+          type: match.type,
+          pitchId: match.pitchId,
+          covenant: match.covenant,
+          level: match.level,
+          invitation: match.invitation,
+          inviteeId: this.getId,
+          receiverId: match.receiverId,
+          area: match.area ,
+          note: match.note,
+        };
+        this.matchService.cancelMatch(id, matchUpdate).subscribe(
+          () => {
+            this.getMatchByStatus(this.status, this.page);
+            this.toastr.success('Hủy trận đấu thành công!');
+        },
+        (_error: HttpErrorResponse) =>
+            this.toastr.error('Hủy trận đấu không thành công!')
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
 
   get getId() {
     const user = JSON.parse(localStorage.getItem(CURRENT_USER));
@@ -116,5 +156,28 @@ export class InviteMatchComponent implements OnInit {
       return user.id;
     }
     return 0;
+  }
+
+  deleteMatch(id: any) {
+    Swal.fire({
+      title: 'Bạn có chắc chắn muốn hủy lời mời trận này không?',
+      text: 'Bạn sẽ không thể hoàn tác khi đã xác nhận !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xóa lời mời',
+      cancelButtonText: 'Hủy'
+    }).then(result => {
+      if (result.value) {
+        this.matchService.deleteMatch(id).subscribe(
+          () => {
+           {
+            Swal.fire('Hủy mời trận thành công!', 'success');
+            this.getMatchByStatus(this.status, this.page);
+          }
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Hủy mời trận không thành công!', 'error');
+      }
+    });
   }
 }

@@ -31,6 +31,6 @@ export class DistrictService {
   }
 
   getWardByDistrictId(districtId: any): Observable<any> {
-    return this.http.get(`${this.baseUrl1}/GetWardBytDistrictId?districtId=${districtId}`);
+    return this.http.get(`${this.baseUrl1}/GetAllWardByDistrict?districtId=${districtId}`);
   }
 }

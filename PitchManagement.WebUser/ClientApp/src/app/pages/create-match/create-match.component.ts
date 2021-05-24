@@ -28,6 +28,7 @@ export class CreateMatchComponent implements OnInit {
   districtSelect?: any;
   itemsAsync1: Observable<any[]>;
   itemsAsync: Observable<any[]>;
+  listWard: any[];
   addMatchForm: FormGroup;
   keyword = '';
 
@@ -105,15 +106,15 @@ export class CreateMatchComponent implements OnInit {
     }
   }
 
-  // getWardByDistrictId(districtId: number) {
-  //   this.districtSelect = this.district.find(i => i.id === districtId);
-  //     this.districtService.getWardByDistrictId(districtId).subscribe(res => {
-  //       if (res) {
-  //         this.itemsAsync1 = res;
-  //         console.log(this.itemsAsync1, 4444);
-  //       }
-  //     });
-  // }
+  getWardByDistrictId(districtId: number) {
+     this.districtSelect = this.district.find(i => i.id === districtId);
+      this.districtService.getWardByDistrictId(districtId).subscribe(res => {
+        if (res) {
+          this.listWard = res;
+          console.log(this.listWard, 4444);
+        }
+      });
+  }
 
   // selectedDistrict(districtId: any, districtName: any, districtType: any) {
   //   if (this.listAreaSelected.some((d: any) => d.id === districtId)) {

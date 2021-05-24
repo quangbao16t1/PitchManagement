@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-3 mobile-marginlr-15">
                 <div class="sidebar-filter-container">
-                    <div class="m-btn-expand-holder mobile-only">
+                    <!-- <div class="m-btn-expand-holder mobile-only">
                         <span class="form-filter-san-span">Lọc kết quả <i class="fa fa-filter"
                                 aria-hidden="true"></i></span>
                     </div>
@@ -26,18 +26,18 @@
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeType($event.target.value)" id="fo" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
                                                     type="checkbox" [value]="0"> Có sân nhà
-                                                <!-- <span class="pull-right filter-count">27</span> -->
+                                          
                                             </label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeType($event.target.value)" id="fo" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
                                                     type="checkbox" [value]="1">Tìm sân khách
-                                                <!-- <span class="pull-right filter-count">17</span> -->
+                                             
                                             </label>
                                         </div>
                                     </li>
@@ -49,45 +49,45 @@
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeLevel($event.target.value)" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" name="fo"
                                                     type="checkbox" [value]="'Yếu'"> Yếu
-                                                <!-- <span class="pull-right filter-count">1</span> -->
+                                     
                                             </label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeLevel($event.target.value)" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" name="fo"
                                                     type="checkbox" [value]="'Trung bình yếu'">Trung bình yếu
-                                                <!-- <span class="pull-right filter-count">2</span> -->
+                                            
                                             </label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeLevel($event.target.value)" id="fo" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
                                                     type="checkbox" [value]="'Trung bình'"> Trung bình
-                                                <!-- <span class="pull-right filter-count">41</span> -->
+                                                
                                             </label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeLevel($event.target.value)" id="fo" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
                                                     type="checkbox" [value]="'Khá'"> Khá
-                                                <!-- <span class="pull-right filter-count">41</span> -->
+                                               
                                             </label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input (change)="changeLevel($event.target.value)" id="fo" name="fo"
+                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
                                                     type="checkbox" [value]="'Mạnh'"> Mạnh
-                                                <!-- <span class="pull-right filter-count">41</span> -->
+                                               
                                             </label>
                                         </div>
                                     </li>
@@ -96,7 +96,7 @@
 
                         </ul>
 
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -124,7 +124,7 @@
                                                 class="btn btn-sm btn-primary pull-right btn-batdoi">
                                                 <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
                                             </button>
-                                            <button (click)="cancelMatch(item.id, item)"
+                                            <button (click)="deleteMatch(item.id)"
                                                 style="background-color: #d9534f !important; border-color: #d9534f !important;"
                                                 *ngIf="getId===item.inviteeId"
                                                 class="btn btn-sm btn-primary pull-right btn-batdoi">

@@ -108,6 +108,29 @@ changeType(type: number) {
   this.search();
 }
 
+deleteMatch(id: any) {
+  Swal.fire({
+    title: 'Bạn có chắc chắn muốn hủy lời mời trận này không?',
+    text: 'Bạn sẽ không thể hoàn tác khi đã xác nhận !',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Xóa lời mời',
+    cancelButtonText: 'Hủy'
+  }).then(result => {
+    if (result.value) {
+      this.matchService.deleteMatch(id).subscribe(
+        () => {
+         {
+          Swal.fire('Hủy mời trận thành công!', 'success');
+          this.getListCatches(this.page);
+        }
+      });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire('Hủy mời trận không thành công!', 'error');
+    }
+  });
+}
+
 cancelMatch(id: any, match: MatchForUpdate) {
   Swal.fire({
     title: 'Bạn có chắc chắn hủy trận?',
