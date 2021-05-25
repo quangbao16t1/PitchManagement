@@ -62,7 +62,7 @@
                     </ul>
                      <div>
                         <div *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total } "class="q-items ng-scope">
-                              <div class="q-info" *ngIf="item.userInvite.id === getId">
+                              <div class="q-info" *ngIf="item.userInvite.id === getId && item.status ===0 || item.status ===1 && item.userReceive.id === getId || item.status ===3 && item.userReceive.id === getId">
                                  <h4 *ngIf="item.type===1" class="q-info-headline">Trận đấu sân khách</h4>
                                  <h4 *ngIf="item.type===0" class="q-info-headline">Trận đấu sân nhà</h4>
                                  <ul class="list-item-san">

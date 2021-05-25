@@ -1,4 +1,4 @@
-<div class="box box-primary">
+<!-- <div class="box box-primary">
 
     <div class="box-header with-border">
       <h3 class="box-title">Cập nhật thông tin tài khoản</h3>
@@ -15,7 +15,7 @@
                 <app-control-messages [control]="editUserForm.get('email')"></app-control-messages>
             </div>
             <div class="form-group">
-              <label>Họ và tên</label>
+              <label>Họ</label>
               <input type="text" class="form-control" formControlName="firstName" placeholder="Họ và tên"
                 [ngClass]="{ 'is-invalid': f.firstName.errors }">
             </div>
@@ -44,10 +44,6 @@
                 <option *ngFor="let gender1 of genders " value={{gender1.key}}>{{gender1.value[0]}}</option>
             </select>
             </div>
-            <div class="form-group">
-              <label>Hình ảnh</label>
-              <input type="text" class="form-control" formControlName="imageUrl" placeholder="Hình Ảnh" [ngClass]="{ 'is-invalid': f.imageUrl.errors }">
-            </div>
             <div class="form-group" *ngIf="getId != 1">
               <label>Vai trò</label>
               <select class="form-control" formControlName="groupUserId" disabled
@@ -64,5 +60,244 @@
       </div>
     </form>
   
-  </div>
-  
+  </div> -->
+
+  <div class="tabs-chi-tiet-doi">
+    <div class="container">
+
+        <div class="title-doi">
+
+        </div>
+        <div class="wrap-ul-doi">
+            <ul class="list-link-doi tabs">
+                <li [ngClass]="isOpenChangePassForm === false ? 'active' : ''"><a href="javascript:void(0)" (click)="isOpenChangePassForm = false;">Chỉnh sửa thông tin
+                   cá nhân</a></li>
+                <li [ngClass]="isOpenChangePassForm === true ? 'active' : ''"><a href="javascript:void(0)" (click)="isOpenChangePassForm = true;">Thay đổi mật
+                    khẩu</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content-wrap">
+    <!-- Nav Tabs -->
+
+
+    <!-- Tab Content -->
+    <div class="container">
+
+        <!-- PROFILE -->
+        <div id="profile" *ngIf="isOpenChangePassForm === false">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <ul class="list-item-san">
+                        <li class="item-card">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="img-profile" title="Tải lên một hình ảnh đại diện">
+                                        <img id="profile-avatar" class="media-object" width="100%"
+                                            src="assets/images/default-user.png"
+                                             alt="avatar">
+                                    </div>
+                                    <span style="display:none">
+                                        <input id="btnprofileUpload" onchange="return sport.account.readURL(this);"
+                                               name="profileUpload" type="file">
+                                    </span> 
+
+                                </div>
+                                <div class="profile-edit col-md-9 right-item-san" *ngIf="!isOpenEditProfileForm">
+                                    <form name="editUserForm" role="form" [formGroup]="editUserForm" (submit)="editUser()" novalidate id="frmEditProfile" method="post" class="ng-pristine ng-valid"
+                                          novalidate="novalidate">
+                                        <div class="row">
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label class="control-label ">Họ</label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-9">
+                                                <input type="text" class="form-control" formControlName="firstName" placeholder="Họ"
+                                                  [ngClass]="{ 'is-invalid': f.firstName.errors }"> 
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label class="control-label ">Tên</label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <input type="text"  class="form-control" formControlName="lastName" placeholder="Tên"
+                                                  >
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label class="control-label ">Email</label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                              <input type="text" class="form-control" formControlName="email" placeholder="Email"
+                                              [ngClass]="{ 'is-invalid': f.email.errors }">
+                                              <app-control-messages [control]="editUserForm.get('email')"></app-control-messages>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label class="control-label">Điện thoại</label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <span class="field-validation-valid" data-valmsg-for="UserMobile"
+                                                      data-valmsg-replace="true"></span>
+                                                        <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Số điện thoại"
+                                                          >
+                                                          <app-control-messages [control]="editUserForm.get('phoneNumber')"></app-control-messages>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                          <div class="col-sm-3 col-xs-6">
+                                              <label class="control-label">Giới tính</label>
+                                          </div>
+                                          <div class="col-sm-6 col-xs-6">
+                                            <select class="form-control" formControlName="gender" >
+                                              <option *ngFor="let gender1 of genders " value={{gender1.key}}>{{gender1.value}}</option>
+                                          </select>
+                                          </div>
+                                      </div>
+                                      <div class="row form-group">
+                                        <div class="col-sm-3 col-xs-6">
+                                            <label class="control-label">Địa chỉ</label>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                          <input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ"
+                                            [ngClass]="{ 'is-invalid': f.address.errors }">
+                                          <app-control-messages [control]="editUserForm.get('address')"></app-control-messages>
+                                        </div>
+                                    </div>
+                                    <div class=" row form-group" *ngIf="getId != 1">
+                                      <div class="col-sm-3 col-xs-6">
+                                        <label class="control-label">Vai trò</label>
+                                       </div>
+                                      <div class="col-sm-6 col-xs-6">
+                                        <select class="form-control" formControlName="groupUserId" disabled
+                                          [ngClass]="{ 'is-invalid': f.groupUserId.errors }">
+                                          <option *ngFor="let role of roles1 " value={{role.key}}>{{role.value[0]}}</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="box-footer text-center">
+                                      <button [routerLink]="['/user-profile']" class="btn btn-default">Hủy</button>
+                                      <button type="submit" [disabled]="editUserForm.invalid" class="btn btn-success">Lưu</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Jobs -->
+        <div id="changepass" *ngIf="isOpenChangePassForm === true">
+            <form id="frmChangePassword" (ngSubmit)="changePassword()" [formGroup]="changePasswordForm" method="post" class="ng-pristine ng-valid" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="profile-main">
+                            <div class="profile-in">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-body">
+                                    <div class="sidebar">
+                                        <div class="sidebar-information">
+                                            <div class="single-category">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="alert alert-success" *ngIf="changePasswordSuccess">
+                                                            <strong>Thành công !</strong> Cập nhật mật khẩu mới thành công.
+                                                        </div>
+                                                        <div class="alert alert-danger" *ngIf="changePasswordFail">
+                                                            <strong>Thất bại !</strong> Mật khẩu cũ không chính xác.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="control-label col-sm-3 col-xs-6">Mật khẩu hiện
+                                                        tại</label>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <input value="" class="form-control"
+                                                            id="UserPassword" name="currentPassword" formControlName="currentPassword"  type="password">
+                                                            <div *ngIf="changePasswordForm.get('currentPassword')!.invalid && (changePasswordForm.get('currentPassword')!.dirty || changePasswordForm.get('currentPassword')!.touched)">
+                                                                <small class="form-text text-danger"
+                                                                        *ngIf="changePasswordForm.get('currentPassword')?.errors?.required">
+                                                                    Mật khẩu hiện tại không được để trống !
+                                                                </small>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+
+                                                    <label class="control-label col-sm-3 col-xs-6">Mật khẩu mới</label>
+
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <input class="form-control"
+                                                               id="NewUserPassword" name="newPassword" formControlName="newPassword"
+                                                               type="password">
+                                                            <div *ngIf="changePasswordForm.get('newPassword')!.invalid && (changePasswordForm.get('newPassword')!.dirty || changePasswordForm.get('newPassword')!.touched)">
+                                                                <small class="form-text text-danger"
+                                                                        *ngIf="changePasswordForm.get('newPassword')?.errors?.required">
+                                                                    Mật khẩu không được để trống !
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                        *ngIf="changePasswordForm.get('newPassword')?.errors?.minlength">
+                                                                    Mật khẩu tối thiểu 4 kí tự !
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                        *ngIf="changePasswordForm.get('newPassword')?.errors?.maxlength">
+                                                                    Mật khẩu tối đa 50 kí tự !
+                                                                </small>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="control-label col-sm-3 col-xs-6">Xác nhận lại mật khẩu
+                                                        mới</label>
+                                                    <div class="col-sm-6 col-xs-6">
+                                                        <input class="form-control"
+                                                               id="ConfirmNewUserPassword" name="confirmNewPassword"
+                                                               type="password" formControlName="confirmNewPassword">
+                                                        <div *ngIf="changePasswordForm.get('confirmNewPassword')!.invalid && (changePasswordForm.get('confirmNewPassword')!.dirty || changePasswordForm.get('confirmNewPassword')!.touched)">
+                                                                <small class="form-text text-danger"
+                                                                        *ngIf="changePasswordForm.get('confirmNewPassword')?.errors?.required">
+                                                                    Xác nhận mật khẩu không được để trống !
+                                                                </small>
+                                                        </div>
+                                                        <small class="form-text text-danger"
+                                                                *ngIf="doNotMatch">
+                                                            Xác nhận mật khẩu không khớp với mật khẩu mới !
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-sm-6 col-sm-offset-3">
+                                                        <button type="submit" [disabled]="changePasswordForm.invalid" class="btn btn-primary">
+                                                            <span>Lưu thông tin</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

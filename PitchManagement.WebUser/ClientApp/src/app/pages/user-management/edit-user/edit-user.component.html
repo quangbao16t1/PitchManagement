@@ -15,14 +15,17 @@
                 <app-control-messages [control]="editUserForm.get('email')"></app-control-messages>
             </div>
             <div class="form-group">
-              <label>Họ và tên</label>
+              <label>Họ</label>
               <input type="text" class="form-control" formControlName="firstName" placeholder="Họ và tên"
                 [ngClass]="{ 'is-invalid': f.firstName.errors }">
+                <app-control-messages [control]="editUserForm.get('firstName')"></app-control-messages>
             </div>
+
             <div class="form-group">
               <label>Tên</label>
               <input type="text"  class="form-control" formControlName="lastName" placeholder="Tên"
                 >
+                <app-control-messages [control]="editUserForm.get('lastName')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Số điện thoại</label>
@@ -37,6 +40,7 @@
               <label>Địa chỉ</label>
               <input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ"
               [ngClass]="{ 'is-invalid': f.address.errors }">
+              <app-control-messages [control]="editUserForm.get('address')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Giới tính</label>
@@ -44,10 +48,10 @@
                 <option *ngFor="let gender1 of genders " value={{gender1.key}}>{{gender1.value[0]}}</option>
             </select>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Hình ảnh</label>
               <input type="text" class="form-control" formControlName="imageUrl" placeholder="Hình Ảnh" [ngClass]="{ 'is-invalid': f.imageUrl.errors }">
-            </div>
+            </div> -->
             <div class="form-group" *ngIf="getId == 1">
               <label>Vai trò</label>
               <select class="form-control" formControlName="groupUserId"

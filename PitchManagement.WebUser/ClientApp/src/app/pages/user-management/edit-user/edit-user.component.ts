@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -20,7 +20,6 @@ export class EditUserComponent implements OnInit {
   id: any;
   groupUser: Observable<any[]>;
   roles1: any[] = [
-    { key: 1, value: ['Admin'] },
     { key: 2, value: ['Pitcher'] },
     { key: 3, value: ['User'] },
   ];
@@ -40,9 +39,9 @@ export class EditUserComponent implements OnInit {
   ) {
     this.editUserForm = this.fb.group({
       email: ['', [ValidationService.emailValidator]],
-      firstName: [''],
-      lastName: [''],
-      address: [''],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       phoneNumber: ['', ValidationService.phonenumberValidator],
       imageUrl: [''],
       gender: [''],

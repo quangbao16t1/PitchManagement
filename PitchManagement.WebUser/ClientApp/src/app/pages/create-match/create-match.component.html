@@ -35,9 +35,9 @@
                                 <label class="control-label col-sm-3">Đội bóng: <span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <div style="margin-bottom: 5px;">
-                                        <select *ngIf="teamUser" class="form-control" name="teamId" formControlName="teamId">
+                                        <select *ngIf="listTeamUser" class="form-control" name="teamId" formControlName="teamId">
                                             <option [ngValue]="0">Chọn đội bóng của mình</option>
-                                            <option [value]="teamUser.teamId">{{teamUser.teamName}}</option>
+                                            <option *ngFor="let item of listTeamUser" [value]="item.teamId">{{item.teamName}}</option>
                                         </select>
                                     </div>
                                     <!-- <div>

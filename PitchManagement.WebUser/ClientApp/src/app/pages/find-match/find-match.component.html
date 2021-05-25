@@ -12,115 +12,29 @@
         <div class="row">
             <div class="col-md-3 mobile-marginlr-15">
                 <div class="sidebar-filter-container">
-                    <!-- <div class="m-btn-expand-holder mobile-only">
-                        <span class="form-filter-san-span">Lọc kết quả <i class="fa fa-filter"
-                                aria-hidden="true"></i></span>
-                    </div>
-                    <h2 id="a" class="title-intent title-pages mobile-hidden"><i class="fa fa-filter"
-                            aria-hidden="true"></i>Lọc kết quả</h2>
-                    <div class="sidebar sidebar-tim-doi">
-                        <ul class="list-left-links list-left-check">
-                            <li>
-                                <strong>Sân nhà</strong>
-                                <ul>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
-                                                    type="checkbox" [value]="0"> Có sân nhà
-                                          
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
-                                                    type="checkbox" [value]="1">Tìm sân khách
-                                             
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <strong>Trình độ</strong>
-                                <ul>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" name="fo"
-                                                    type="checkbox" [value]="'Yếu'"> Yếu
-                                     
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" name="fo"
-                                                    type="checkbox" [value]="'Trung bình yếu'">Trung bình yếu
-                                            
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
-                                                    type="checkbox" [value]="'Trung bình'"> Trung bình
-                                                
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
-                                                    type="checkbox" [value]="'Khá'"> Khá
-                                               
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input (change)="getMatchByLevel($event.target.value, 1)" id="fo" name="fo"
-                                                    type="checkbox" [value]="'Mạnh'"> Mạnh
-                                               
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-
-                    </div> -->
                 </div>
-
             </div>
             <div class="col-md-6">
-                <div class="p-content">
+                <div class="p-content"  *ngFor="let team of listTeamUser">
                     <h1 class="title-intent title-pages mobile-marginlr-15"><i class="fa fa-futbol-o"
                             aria-hidden="true"></i>Tìm đối đá bóng</h1>
                     <div class="form-group row mobile-marginlr-15">
                         <div class="col-md-9 col-xs-9 margin-b10">
                             <input [(ngModel)]="keyword" type="text" class="form-control"
-                                placeholder="Nhập tên sân bóng">
+                                placeholder="Nhập tên sân bóng hoặc Cấp độ">
                         </div>
                         <div class="col-md-3 col-xs-3 margin-b10">
                             <button (click)="search()" class="btn btn-primary" type="button">Tìm kiếm</button>
                         </div>
                     </div>
                     <ul  *ngFor= "let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }" class="list-item-san">
-                        <li class="item-card match-finding-item" id="96056">
-                            <div class="row">
+                        <li   class="item-card match-finding-item" id="96056">
+                            <div class="row" >
                                 <div class="col-md-12 right-item-san right-item-doi">
                                     <div class="header-item-doi header-tim-doi ">
                                         <div class="btn-doi-top pull-right">
                                             <button (click)="open(content, item)"
-                                                *ngIf="getId!==item.inviteeId && item.status !==3 && checkOverTime(item.setupTime)"
+                                                *ngIf="getId!=item.inviteeId && item.status !=3 && checkOverTime(item.setupTime) && team.teamId!=item.teamId"
                                                 class="btn btn-sm btn-primary pull-right btn-batdoi">
                                                 <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
                                             </button>
@@ -143,11 +57,6 @@
                                         <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Sân nhà:</strong>
                                         <a href="#" target="_blank">{{item.pitchName}} </a>
                                     </p>
-                                    <!-- <p *ngIf="item.type===0" class="item-stadium-address"><i class="fa fa-shirtsinbulk"
-                                            aria-hidden="true"></i><strong>Địa
-                                            chỉ:</strong>{{(item.d)?m.pitchBO?.adrress:"" + " " +
-                                        (m.pitchBO?.districtBO?.name)?m.pitchBO?.districtBO?.name:"" + " " +
-                                        (m.pitchBO?.provinceBO?.name)?m.pitchBO?.provinceBO?.name:""}}</p> -->
                                     <p *ngIf="item.type===1" class="item-stadium-address"><i class="fa fa-shirtsinbulk"
                                             aria-hidden="true"></i><strong>Khu vực:</strong><span
                                             style="color:#337ab7">{{item.area}}</span></p>
@@ -180,7 +89,7 @@
 
                                     <div class="btn-doi-bottom mobile-only mobile-only">
                                         <button (click)="open(content, item)"
-                                            *ngIf="getId!==item.inviteeId && item.status !=3 && checkOverTime(item.setupTime)"
+                                            *ngIf="getId !== item.inviteeId && item.status !==3 && item.teamId !== team.teamId && checkOverTime(item.setupTime) "
                                             class="btn btn-sm btn-primary pull-right btn-batdoi">
                                             <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
                                         </button>

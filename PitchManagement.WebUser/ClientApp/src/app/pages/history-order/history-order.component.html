@@ -51,6 +51,7 @@
                                 <th>Thời gian</th>
                                 <th>Nội dung</th>
                                 <th>Ngày đặt sân</th>
+                                <th>Giá tiền</th>
                                 <th>Trạng thái</th>
                               </tr>
                               <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
@@ -62,6 +63,7 @@
                                 <td>{{ item.startTime }}-{{ item.endTime }}</td>
                                 <td>{{item.note}}</td>
                                 <td>{{item.dateOrder}}</td>
+                                <td>{{item.cost}}</td>
                                 <td>
                                     <span class="text-success" *ngIf="item.status === 1">Đã xác nhận</span>
                                     <span class="text-danger" *ngIf="item.status === 0">Đang chờ xác nhận</span>
@@ -77,6 +79,7 @@
                                 <th>Thời gian</th>
                                 <th>Nội dung</th>
                                 <th>Ngày đặt sân</th>
+                                <th>Giá tiền</th>
                                 <th>Trạng thái</th>
                               </tr>
                               <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
@@ -87,6 +90,7 @@
                                 <td>{{ item.startTime }}-{{ item.endTime }}</td>
                                 <td>{{item.note}}</td>
                                 <td>{{item.dateOrder}}</td>
+                                <td>{{item.cost}}</td>
                                 <td>
                                     <span class="text-success" *ngIf="item.status === 1">Thành công</span>
                                     <span class="text-danger" *ngIf="item.status === 0">Đang chờ</span>

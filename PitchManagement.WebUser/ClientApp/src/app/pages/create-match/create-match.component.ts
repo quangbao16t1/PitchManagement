@@ -23,7 +23,7 @@ export class CreateMatchComponent implements OnInit {
 
   match: MatchForAdd;
   pitch: Pitch;
-  teamUser: TeamUser;
+  listTeamUser: any[];
   district?: any[];
   districtSelect?: any;
   itemsAsync1: Observable<any[]>;
@@ -72,9 +72,9 @@ export class CreateMatchComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.teamService.getTeamByUserId(this.getId).subscribe((res: any) => {
-      this.teamUser = res;
-      console.log(this.teamUser.teamId, 544443);
+    this.teamService.getTeamByUser(this.getId).subscribe((res: any) => {
+      this.listTeamUser = res;
+      console.log(this.listTeamUser, 1111);
     });
 
     this.districtService.getAllDistricts(this.keyword).subscribe((dis: any) => {

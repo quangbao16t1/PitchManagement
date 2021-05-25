@@ -81,4 +81,11 @@ export class HeaderComponent implements OnInit {
       }
     return false;
   }
+  isAdmin(): boolean {
+    const user = JSON.parse(localStorage.getItem(CURRENT_USER));
+    if (user != null) {
+      return user.groupRole === 'Admin';
+    }
+  return false;
+}
 }

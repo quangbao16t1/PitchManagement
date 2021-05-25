@@ -15,7 +15,6 @@ export class AddUserComponent implements OnInit {
   addUserForm: FormGroup;
   user: any;
   roles1: any[] = [
-    { key: 1, value: ['Admin'] },
     { key: 2, value: ['Pitcher'] },
     { key: 3, value: ['User'] },
   ];
@@ -35,9 +34,9 @@ export class AddUserComponent implements OnInit {
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       passwordAgain: ['', [Validators.required, ValidationService.passwordMatch]],
       email: ['', [Validators.required, ValidationService.emailValidator]],
-      lastName: [''],
-      firstName: [''],
-      address: [''],
+      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       phoneNumber: ['', ValidationService.phonenumberValidator],
       gender: [true],
       imageUrl: [''],

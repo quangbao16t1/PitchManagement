@@ -11,65 +11,69 @@
             <div class="form-group">
               <label>Tên đăng nhập</label>
               <input type="text" class="form-control" formControlName="username" placeholder="Tên đăng nhập"
-                [ngClass]="{ 'is-invalid': f.username.errors }">
+              >
                 <app-control-messages [control]="addUserForm.get('username')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Email</label>
               <input type="text" class="form-control" formControlName="email" placeholder="Email"
-                [ngClass]="{ 'is-invalid': f.email.errors }">
+                >
                 <app-control-messages [control]="addUserForm.get('email')"></app-control-messages>
             </div>
             <div class="form-group">
-              <label>Họ và tên</label>
+              <label>Họ</label>
               <input type="text" class="form-control" formControlName="firstName" placeholder="Họ"
-                [ngClass]="{ 'is-invalid': f.firstName.errors }">
+                >
+                <app-control-messages [control]="addUserForm.get('firstName')"></app-control-messages>
             </div>
             <div class="form-group">
-                <label>Họ và tên</label>
+                <label>Tên</label>
                 <input type="text" class="form-control" formControlName="lastName" placeholder="Tên"
-                  [ngClass]="{ 'is-invalid': f.lastName.errors }">
+                 >
+                 <app-control-messages [control]="addUserForm.get('lastName')"></app-control-messages>
               </div>
             <div class="form-group">
               <label>Vai trò</label>
               <select class="form-control" formControlName="groupUserId"
-                [ngClass]="{ 'is-invalid': f.groupUserId.errors }">
+               >
                 <option *ngFor="let role of roles1 " value={{role.key}}>{{role.value[0]}}</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Địa chỉ</label>
-              <input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ"
-                [ngClass]="{ 'is-invalid': f.address.errors }">
-            </div>
-            <div class="form-group">
-              <label>Giới tính</label>
-              <select class="form-control" formControlName="gender" [ngClass]="{ 'is-invalid': f.gender.errors }">
-                <option *ngFor="let gender1 of genders " value={{gender1.key}}>{{gender1.value[0]}}</option>
-            </select>
-            </div>
+           
           </div>
           <div class="col-sm-6">
             <div class="form-group">
+              <label>Địa chỉ</label>
+              <input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ"
+                >
+                <app-control-messages [control]="addUserForm.get('address')"></app-control-messages>
+            </div>
+            <div class="form-group">
+              <label>Giới tính</label>
+              <select class="form-control" formControlName="gender" >
+                <option *ngFor="let gender1 of genders " value={{gender1.key}}>{{gender1.value[0]}}</option>
+            </select>
+            </div>
+            <div class="form-group">
               <label>Mật Khẩu</label>
-              <input type="text" class="form-control" formControlName="password" placeholder="Mật khẩu"
-                [ngClass]="{ 'is-invalid': f.password.errors }">
+              <input type="password" class="form-control" formControlName="password" placeholder="Mật khẩu"
+               >
                 <app-control-messages [control]="addUserForm.get('password')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Xác nhận mật khẩu</label>
-              <input type="text" class="form-control" placeholder="Nhập lại mật khẩu" formControlName="passwordAgain"
-              [ngClass]="{ 'is-invalid': f.passwordAgain.errors }">
+              <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" formControlName="passwordAgain"
+             >
               <app-control-messages [control]="addUserForm.get('passwordAgain')"></app-control-messages>
             </div>
             <div class="form-group">
               <label>Hình ảnh</label>
-              <input type="text" class="form-control" formControlName="imageUrl" placeholder="Hình Ảnh" [ngClass]="{ 'is-invalid': f.image.errors }">
+              <input type="text" class="form-control" formControlName="imageUrl">
             </div>
             <div class="form-group">
               <label>Số điện thoại</label>
               <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Số điện thoại"
-                [ngClass]="{ 'is-invalid': f.phoneNumber.errors }">
+                >
                 <app-control-messages [control]="addUserForm.get('phoneNumber')"></app-control-messages>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -14,8 +14,10 @@ import { ValidationService } from 'src/app/services/validation.service';
   templateUrl: './edit-user-proflie.component.html',
 })
 export class EditUserProflieComponent implements OnInit {
-
+  isOpenChangePassForm: any = false;
+  isOpenEditProfileForm: any = false;
   editUserForm: FormGroup;
+  changePasswordForm: FormGroup;
   user: UserUpdate;
   id: any;
   groupUser: Observable<any[]>;
@@ -48,6 +50,13 @@ export class EditUserProflieComponent implements OnInit {
       gender: [''],
       groupUserId: []
     });
+
+    this.changePasswordForm = this.fb.group({
+      currentPassword: ['', [ValidationService.passwordMatch]],
+      newPassword: ['', [Validators.required, ValidationService.passwordValidator]],
+      confirmNewPassword: ['', [Validators.required, ValidationService.passwordMatch]],
+    });
+
   }
 
   ngOnInit() {
@@ -77,6 +86,7 @@ export class EditUserProflieComponent implements OnInit {
   editUser() {
     this.user = Object.assign({}, this.editUserForm.value);
     this.user.gender = this.editUserForm.value.gender === 'true';
+    console.log(this.user.gender, 111);
     this.user.groupUserId = Number(this.user.groupUserId);
     this.userService.editUser(this.id, this.user).subscribe(
       () => {

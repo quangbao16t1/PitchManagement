@@ -1,18 +1,7 @@
-<div class="tabs-chi-tiet-doi">
-    <div class="container">
-
-        <div class="title-doi">
-
-        </div>
-        <div class="wrap-ul-doi">
-            <ul class="list-link-doi tabs">
-                <li [ngClass]="isOpenChangePassForm === false ? 'active' : ''"><a href="javascript:void(0)" (click)="isOpenChangePassForm = false;">Thông tin cá
-                    nhân</a></li>
-                <li [ngClass]="isOpenChangePassForm === true ? 'active' : ''"><a href="javascript:void(0)" (click)="isOpenChangePassForm = true;">Thay đổi mật
-                    khẩu</a></li>
-            </ul>
-        </div>
-    </div>
+<div class="breadcrum">
+  <div class="container">
+      <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="#">Thông tin tài khoản</a></div>
+  </div>
 </div>
 <div class="content-wrap">
     <!-- Nav Tabs -->
@@ -22,7 +11,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Thông tin tài khoản</h3>
         </div>
-      
+        
         <form [formGroup]="profileForm" novalidate>
             <div class="col-md-3">
                 <div class="img-profile" title="Tải lên một hình ảnh đại diện">

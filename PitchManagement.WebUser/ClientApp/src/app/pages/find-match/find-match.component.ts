@@ -38,6 +38,7 @@ export class FindMatchComponent implements OnInit {
   listType?: any[] = [];
   listDistrict?: any[] = [];
   loadingCatch = false;
+  listTeamUser: any[];
 
   // level: any[] = [
   //   { key: 'yếu', value: ['Yếu'] },
@@ -64,6 +65,10 @@ export class FindMatchComponent implements OnInit {
     this.getListCatches(this.page);
     console.log(this.getId);
     this.getUserById(this.getId);
+    this.teamService.getTeamByUser(this.getId).subscribe((res: any) => {
+      this.listTeamUser = res;
+      console.log(this.listTeamUser, 1111);
+    });
   }
 
   getListCatches(page: number) {
@@ -80,32 +85,6 @@ export class FindMatchComponent implements OnInit {
 
   search() {
     this.getListCatches(this.page);
-}
-
-changeLevel(level: number) {
-  if (this.listLevel.includes(level)) {
-    const index = this.listLevel.indexOf(level, 0);
-    if (index > -1) {
-      this.listLevel.splice(index, 1);
-    }
-  } else {
-    this.listLevel.push(level);
-  }
-  this.level = this.listLevel.join(',');
-  this.search();
-}
-
-changeType(type: number) {
-  if (this.listType.includes(type)) {
-    const index = this.listType.indexOf(type, 0);
-    if (index > -1) {
-      this.listType.splice(index, 1);
-    }
-  } else {
-    this.listType.push(type);
-  }
-  this.type = this.listType.join(',');
-  this.search();
 }
 
 deleteMatch(id: any) {
