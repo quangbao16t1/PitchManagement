@@ -10,6 +10,7 @@ namespace PitchManagement.API.Interfaces
     {
         IEnumerable<TeamUser> GetAllTeamUsers(string keyword);
         IEnumerable<TeamUser> GetMemBerByTeamId(int teamId, string keyword);
+        IEnumerable<TeamUser> GetTeamByUser(int userId);
         Task<TeamUser> GetTeamByUserId(int userId);
         Task<TeamUser> GetTeamUserByIdAsnyc(int id);
         Task<bool> CreateTeamUserAsync(TeamUser teamUser);

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PitchManagement.API.Dtos;
 using PitchManagement.API.Dtos.Teams;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -17,11 +18,13 @@ namespace PitchManagement.API.Controllers
     {
         private readonly ITeamRepository _teamRepo;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepo;
 
-        public TeamController(ITeamRepository teamRepo, IMapper mapper)
+        public TeamController(ITeamRepository teamRepo, IMapper mapper, IUserRepository userRepo)
         {
             _teamRepo = teamRepo;
              _mapper = mapper;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -37,12 +40,42 @@ namespace PitchManagement.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeamById(int id)
         {
-            var team = await _teamRepo.GetTeamByIdAsync(id);
-            if(team == null)
+             try
             {
-                return NotFound();
+                var team = await _teamRepo.GetTeamByIdAsync(id);
+
+                if (team == null)
+                {
+                    return NotFound();
+                }
+
+                var response = _mapper.Map<TeamUI>(team);
+
+                var userCreate1 = await _userRepo.GetUserByIdAsync(response.CreateBy);
+
+                    UserDto userCreate = _mapper.Map<UserDto>(userCreate1);
+
+                    TeamReturn teamReturn = new TeamReturn
+                    {
+                        Id = response.Id,
+                        Name = response.Name,
+                        UserCreate = userCreate,
+                        Description = response.Description,
+                        Level = response.Level,
+                        Logo = response.Logo,
+                        ImageUrl = response.ImageUrl,
+                        AgeFrom = response.AgeFrom,
+                        AgeTo = response.AgeTo,
+                        DateOfWeek = response.DateOfWeek,
+                        StartTime = response.StartTime
+                    };
+                
+                return Ok(teamReturn);
             }
-            return Ok(_mapper.Map<TeamUI>(team));
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]

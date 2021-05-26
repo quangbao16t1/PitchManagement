@@ -1,3 +1,4 @@
+
 <div class="box box-primary">
     <div class="box-header with-border">
       <h3 class="box-title">Danh sách thành viên đội bóng</h3>
@@ -18,7 +19,7 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <button class="btn btn-success"  (click)="addMember()">Thêm mới</button>
+          <button *ngIf="this.userCreateId == getId" class="btn btn-success"  (click)="open(content)">Thêm mới</button>
         </div>
       </div>
       <br />
@@ -30,7 +31,7 @@
                 <th style="width: 5%">Id</th>
                 <th>Tên đội bóng</th>
                 <th>Tên thành viên</th>
-                <th>Tên đăng nhập</th>
+                <th>Số điện thoại</th>
                 <th style="text-align: center;">Hành động</th>
               </tr>
               <!-- *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }"> -->
@@ -38,13 +39,19 @@
                 *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }">
                 <td>{{ item.id }}</td>
                 <td>{{ item.teamName }}</td>
-                <td>{{ item.firstname }} {{item.lastName}}</td>
-                <td>{{ item.userName }}</td>
+                <td *ngIf="this.userCreateId == item.userId">
+                  {{ item.firstName }} {{item.lastName}} (Đội trưởng)
+                </td>
+                <td *ngIf="this.userCreateId != item.userId">
+                  {{ item.firstName }} {{item.lastName}}
+                </td>
+                <td>{{ item.phoneNumber }}</td>
                 <td style=" text-align: center;">
-                  <button class="btn btn-sm btn-primary"  style="margin-right: 10px; margin-bottom: 5px;">
-                    <i class="fa fa-pencil"></i>
-                  </button>
-                  <button class="btn btn-sm btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
+                  <button  class="btn btn-sm btn-info"  style="margin-right: 10px; margin-bottom: 5px;"
+                  (click)="memberInfo(item.userId)">
+                  <i class="fa fa-info" aria-hidden="true"></i>
+                </button>
+                  <button *ngIf="this.userCreateId == getId"  class="btn btn-sm btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
                     (click)="deleteConfirm(template,item)">
                     <i class="fa fa-trash"></i>
                   </button>
@@ -72,7 +79,44 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" (click)="close()">Đóng</button>
-      <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
+      <button type="button" class="btn btn-danger" (click)="confirm()">OK</button>
     </div>
   </ng-template>
+  
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Thêm thành viên</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  
+  <div class="modal-body">
+      <form [formGroup]="addMemberForm" class="form-horizontal " id="formMatchFindingRecipientCreate">
+        <!-- <div class="form-group">
+          <label class="control-label col-md-3">Tên Đội bóng: <span
+                  class="required">*</span></label>
+          <div class="col-md-9">
+            <input>
+          </div>
+      </div> -->
+        <div class="form-group">
+          <label class="control-label col-md-3">Tên thành viên: <span
+                  class="required">*</span></label>
+          <div class="col-md-9">
+            <select class="form-control" name="userId" formControlName="userId">
+              <option [ngValue]="0">Chọn thành viên</option>
+              <option *ngFor="let m of member" [value]="m.id">{{m.firstName}} {{m.lastName}}</option>
+           </select>
+          </div>
+      </div>             
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="modal.close()">Thoát</button>
+    <button (click)="addMember()" class="btn btn-info btn-primary-extra"> Thêm thành viên
+    </button>
+</div>
+</ng-template>
+
   

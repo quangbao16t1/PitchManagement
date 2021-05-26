@@ -86,7 +86,7 @@ namespace PitchManagement.API.Implementaions
             {
                 teamInDb.Name = teamForUpdate.Name;
                 teamInDb.Level = teamForUpdate.Level;
-                teamInDb.ImageUrl = teamForUpdate.ImageUrl;
+                //teamInDb.ImageUrl = teamForUpdate.ImageUrl;
                 teamInDb.Logo = teamForUpdate.Logo;
                 teamInDb.TeamImage = teamForUpdate.TeamImage;
                 teamInDb.StartTime = teamForUpdate.StartTime;

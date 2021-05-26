@@ -36,10 +36,11 @@ namespace PitchManagement.API.AutoMapper
             CreateMap<UserForUpdateDto, User>();
 
             CreateMap<Team, TeamUI>();
+            CreateMap<TeamReturn, Team>();
             CreateMap<TeamForCreate, Team>();
 
             CreateMap<TeamUser, TeamUserReturn>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
-                                                 .ForMember(x => x.CreateBy, y => { y.MapFrom(z => z.User.LastName); })
+                                                 .ForMember(x => x.CreateBy, y => { y.MapFrom(z => z.Team.CreateBy); })
                                                  .ForMember(x => x.TeamId, y => { y.MapFrom(z => z.Team.Id); })
                                                  .ForMember(x => x.Level, y => { y.MapFrom(z => z.Team.Level); })
                                                  .ForMember(x => x.Logo, y => { y.MapFrom(z => z.Team.Logo); })
@@ -48,10 +49,13 @@ namespace PitchManagement.API.AutoMapper
                                                  .ForMember(x => x.DateOfWeek, y => { y.MapFrom(z => z.Team.DateOfWeek); })
                                                  .ForMember(x => x.StartTime, y => { y.MapFrom(z => z.Team.StartTime); });
             CreateMap<TeamUserUI, TeamUser>();
+            CreateMap<AllTeamUser, TeamUser>();
 
             CreateMap<TeamUser, TeamUserMember>().ForMember(x => x.TeamName, y => { y.MapFrom(z => z.Team.Name); })
                                                  .ForMember(x => x.UserName, y => { y.MapFrom(z => z.User.Username); })
                                                  .ForMember(x => x.FirstName, y => { y.MapFrom(z => z.User.FirstName); })
+                                                 .ForMember(x => x.PhoneNumber, y => { y.MapFrom(z => z.User.PhoneNumber); })
+                                                 .ForMember(x => x.UserId, y => { y.MapFrom(z => z.User.Id); })
                                                  .ForMember(x => x.LastName, y => { y.MapFrom(z => z.User.LastName); });
 
             CreateMap<SubPitch, SubPitchReturn>().ForMember(x => x.PitchName, y => { y.MapFrom(z => z.Pitch.Name); })

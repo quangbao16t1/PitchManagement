@@ -16,7 +16,9 @@ export class UserService {
   getUserById(id: any): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
-
+  getUserNotTeam(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/GetUserNotTeam`);
+  }
   createUser(user: any) {
     return this.http.post(this.baseUrl, user);
   }

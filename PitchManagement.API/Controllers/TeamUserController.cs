@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PitchManagement.API.Core;
+using PitchManagement.API.Dtos;
 using PitchManagement.API.Dtos.TeamUser;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess.Entites;
@@ -18,11 +19,13 @@ namespace PitchManagement.API.Controllers
     {
         private readonly ITeamUserRepository _teamUserRepo;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepo;
 
-        public TeamUserController(ITeamUserRepository teamUserRepo, IMapper mapper)
+        public TeamUserController(ITeamUserRepository teamUserRepo, IMapper mapper, IUserRepository userRepo)
         {
             _teamUserRepo = teamUserRepo;
             _mapper = mapper;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -49,6 +52,50 @@ namespace PitchManagement.API.Controllers
             catch (Exception ex)
             {
 
+                return BadRequest();
+            }
+        }
+
+        [Route("GetTeamByUser")]
+        [HttpGet]
+        public async Task<IActionResult> GetTeamByUser(int userId)
+        {
+            try
+            {
+                var listTeamUser = _teamUserRepo.GetTeamByUser(userId);
+
+                var response = _mapper.Map<IEnumerable<TeamUser>, IEnumerable<TeamUserReturn>>(listTeamUser);
+
+                List<AllTeamUser> listTeam = new List<AllTeamUser>();
+
+                foreach (TeamUserReturn item in response)
+                {
+                    var userCreate1 = await _userRepo.GetUserByIdAsync(item.CreateBy);
+
+                    UserDto userCreate = _mapper.Map<UserDto>(userCreate1);
+
+                    AllTeamUser temp = new AllTeamUser
+                    {
+                        Id = item.Id,
+                        TeamId = item.TeamId,
+                        TeamName = item.TeamName,
+                        UserCreate =userCreate,
+                        Description = item.Description,
+                        Level = item.Level,
+                        Logo = item.Logo,
+                        ImageUrl = item.ImageUrl,
+                        AgeFrom = item.AgeFrom,
+                        AgeTo = item.AgeTo,
+                        DateOfWeek = item.DateOfWeek,
+                        StartTime = item.StartTime
+                    };
+
+                    listTeam.Add(temp);
+                }
+                return Ok(listTeam);
+            }
+            catch (Exception ex)
+            {
                 return BadRequest();
             }
         }

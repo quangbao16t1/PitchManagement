@@ -1,1 +1,104 @@
-<p>update-team works!</p>
+<div class="breadcrum">
+    <div class="container">
+        <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="#">Cập nhật thông tin đội bóng</a></div>
+    </div>
+</div>
+<!-- <app-menu-top ></app-menu-top> -->
+<div class="content-wrap is-admin-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-xs-9  sidebar team-management-page">
+                <div class="layout-main">
+                    <!-- ngView: -->
+                    <div id="settings-content" class="tab-content stacked-content ng-scope" >
+                        <div class="page-team-setting layout-main-content ng-scope">
+                            <div class="heading-block">
+                                <p  class="title-box ng-scope text-center"><i class="fa fa-wrench" aria-hidden="true"></i> Cập nhật thông tin đội bóng</p>
+                            </div> <!-- /.heading-block -->
+                            <form class="form-horizontal" name="updateForm" role="form" novalidate (submit)="editTeam()" [formGroup]="updateForm">
+                                <!-- <div class="form-group alert alert-warning">
+                                    <label class="control-label col-sm-3"><strong>Địa chỉ truy cập:</strong></label>
+                                    <div class="col-sm-9">
+                                        <a target="_blank" href="http://localhost:9000/">http://localhost:9000/</a>
+                                        <input type="text" class="input-transparent" name="url" formControlName="url">
+                                        <button type="button" (click)="checkUrl()" class="btn btn-primary inlineBlock btn-sm">Kiểm tra
+                                        </button>
+                                        <p *ngIf="urlValid !== null && urlValid === true" style="font-style:italic; color:blue"
+                                           class="ng-hide">
+                                            <i class="fa fa-check"></i> Địa chỉ khả dụng
+                                        </p>
+                                        <p *ngIf="urlValid !== null && urlValid === false" style="font-style:italic; color:red"
+                                           class="ng-hide">
+                                            <i class="fa fa-ban"></i> Địa chỉ KHÔNG khả dụng
+                                        </p>
+                                    </div>
+                                </div> -->
+                                    <div class="box-body ">
+                                      <div class="row">
+                                        <div class="col-sm-12 ">
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Tên đội bóng</label>
+                                              <input type="text" class="form-control" name="name" formControlName="name"  placeholder="Nhập tên đội bóng">
+                                              <app-control-messages [control]="updateForm.get('name')"></app-control-messages>
+                                         </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Đội trưởng</label>
+                                            <select class="form-control" name="createBy" formControlName="createBy">
+                                                <option [ngValue]="0">Chọn đội trưởng</option>
+                                                <option *ngFor="let item of listMember" [value]="item.userId">{{item.lastName}}</option>
+                                             </select>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Cấp độ</label>
+                                            <select class="form-control" name="level" formControlName="level">
+                                                <option [ngValue]="0">Chọn cấp độ</option>
+                                                <option *ngFor="let le of level" [value]="le.key">{{le.value}}</option>
+                                             </select>
+                                          </div>
+                                          <div class="form-group age-range ">
+                                            <label class="col-sm-3">Độ tuổi:</label>
+                                            <div class="col-md-9 row">
+                                                <div class="col-sm-5 inlineBlock">
+                                                    <input type="text" class="form-control " name="ageFrom" formControlName="ageFrom" placeholder="Ít tuổi nhất">
+                                                    <app-control-messages [control]="updateForm.get('ageForm')"></app-control-messages>
+                                                </div>
+                                                
+                                                <div class="col-sm-5 inlineBlock mobile-pull-right">
+                                                    <input type="text" class="form-control" name="ageTo" formControlName="ageTo"
+                                                           id="inpOldestAge" placeholder="Lớn tuổi nhất">
+                                                           <app-control-messages [control]="updateForm.get('ageTo')"></app-control-messages>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Thời gian đá</label>
+                                            <input type="text" class="form-control" formControlName="startTime" placeholder="Thời gian đá" >
+                                            <app-control-messages [control]="updateForm.get('startTime')"></app-control-messages>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Ngày trong tuần</label>
+                                            <input type="text" class="form-control" formControlName="dateOfWeek" placeholder="Lịch đá của đội" >
+                                            <app-control-messages [control]="updateForm.get('dateOfWeek')"></app-control-messages>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Lời giới thiệu</label>
+                                            <input type="text" class="form-control" formControlName="description" placeholder="Giới thiệu đội bóng" >
+                                            <app-control-messages [control]="updateForm.get('description')"></app-control-messages>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="box-footer text-center">
+                                      <button [routerLink]="['/team']" class="btn btn-default">Quay lại</button>
+                                      <button type="submit" [disabled]="updateForm.invalid" class="btn btn-success">Lưu</button>
+                                    </div>
+                            </form>
+                        </div>
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.col -->
+
+            </div>
+        </div>
+    </div>
+</div>

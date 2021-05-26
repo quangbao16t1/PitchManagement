@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace PitchManagement.API.Dtos.TeamUser
 {
-    public class TeamUserReturn
+    public class AllTeamUser
     {
         public int Id { get; set; }
         public string TeamName { get; set; }
         public string TeamId { get; set; }
-        public int CreateBy { get; set; }
+        public UserDto UserCreate { get; set; }
         public string Description { get; set; }
         public string Level { get; set; }
         public string Logo { get; set; }

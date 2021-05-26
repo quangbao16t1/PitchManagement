@@ -70,6 +70,11 @@ namespace PitchManagement.API.Implementaions
                 .Where(z => z.TeamId == teamId).Where(y => y.User.Username.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
+        public IEnumerable<TeamUser> GetTeamByUser(int userId)
+        {
+            return _context.TeamUsers.Include(x => x.Team).Include(y => y.User).Where(x => x.UserId == userId).AsEnumerable();
+        }
+
         public async Task<TeamUser> GetTeamByUserId(int userId)
         {
             return await _context.TeamUsers.Include(x => x.Team).Include(y => y.User).FirstOrDefaultAsync(x => x.UserId == userId);

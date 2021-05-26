@@ -117,5 +117,17 @@ namespace PitchManagement.API.Implementaions
             var userInDb = await _context.Users.FirstOrDefaultAsync(p => p.Username == username);
             return userInDb != null;
         }
+
+        public IEnumerable<User> GetUserByGroupId()
+        {
+            //var productInBranch = _context.BranchProducts.Where(x => x.BrachId == branchId).Select(x => x.ProductId).ToList();
+            //var productNotInBranch = _context.Products.Where(x => !productInBranch.Contains(x.Id));
+            //return productNotInBranch.AsEnumerable();
+            var userInTeam = _context.TeamUsers.Select(x => x.UserId).ToList();
+
+            var userNotTeam = _context.Users.Include(x => x.GroupUser).Include(x => x.TeamUsers)
+                .Where(x => (x.GroupUserId == 3) && (!userInTeam.Contains(x.Id)));
+            return userNotTeam.AsEnumerable();
+        }
     }
 }

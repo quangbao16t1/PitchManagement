@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class TeamService {
     baseUrl = environment.apiUrl + 'TeamUser';
+    baseUrl1 = environment.apiUrl + 'Team';
 
     constructor(private http: HttpClient) {
     }
@@ -22,8 +23,12 @@ export class TeamService {
         return this.http.get(`${this.baseUrl}/GetTeamByUserId?userId=${userId}`);
       }
 
+    getTeamByUser(userId: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/GetTeamByUser?userId=${userId}`);
+      }
+
     getTeamById(id: any): Observable<any> {
-        return this.http.get(`${this.baseUrl}/${id}`);
+        return this.http.get(`${this.baseUrl1}/${id}`);
     }
 
     createTeam(team: any) {
@@ -31,7 +36,7 @@ export class TeamService {
     }
 
     editTeam(id: any, team: any) {
-        return this.http.put(`${this.baseUrl}/${id}`, team);
+        return this.http.put(`${this.baseUrl1}/${id}`, team);
     }
 
     deleteTeam(id: any) {

@@ -6,36 +6,34 @@
   </div>
 </div>
 <div class="box box-primary">
-
   <div class="box-header with-border text-center" >
     <h3 class="box-title">Đội bóng của tôi</h3>
   </div>
+
   <form [formGroup]="myTeamForm"  novalidate>
     <div class="col-md-3">
       <div class="img-profile" title="Tải lên một hình ảnh đại diện">
           <img id="profile-avatar" class="media-object" width="100%"
-               src="assets/images/default-user.png"
+               src="assets/images/Barcelona.png"
                alt="avatar">
       </div>
-      <!-- <span style="display:none">
-          <input id="btnprofileUpload" onchange="return sport.account.readURL(this);"
-                 name="profileUpload" type="file">
-      </span> -->
-
-  </div>
+    </div>
     <div class="box-body ">
       <div class="row">
         <div class="col-sm-9 ">
-          <div class="form-group ">
+          <div class="form-group">
             <label>Tên đội bóng</label>
-            <input  type="text" class="form-control" formControlName="teamName" placeholder="" disabled>
-          </div>
+              <select *ngIf="listTeamUser"  (change)="getTeamById($event.target.value)" class="form-control" name="teamId" formControlName="teamId">
+                 <option [ngValue]="0">Chọn đội bóng</option>
+                 <option *ngFor="let item of listTeamUser" [value]="item.teamId">{{item.teamName}}</option>
+              </select>
+         </div>
           <div class="form-group">
             <label>Đội trưởng</label>
             <input type="text" class="form-control" formControlName="createBy" placeholder="" disabled>
           </div>
           <div class="form-group">
-            <label>Level</label>
+            <label>Cấp độ</label>
             <input type="text" class="form-control" formControlName="level" placeholder="" disabled>
           </div>
           <div class="form-group">
@@ -46,18 +44,25 @@
               <label>Tuổi đến</label>
               <input type="text" class="form-control" formControlName="ageTo" placeholder="" disabled>
           </div>
-          <div class="cl">
-            <div class="title-img">Giới thiệu về {{team?.teamName}}</div>
-            <div class="content-sans">
-                <p>{{team?.description}}</p>
-            </div>
-        </div>
+          <div class="form-group">
+            <label>Thời gian đá</label>
+            <input type="text" class="form-control" formControlName="startTime" placeholder="" disabled>
+          </div>
+          <div class="form-group">
+            <label>Ngày trong tuần</label>
+            <input type="text" class="form-control" formControlName="dateOfWeek" placeholder="" disabled>
+          </div>
+          <div class="form-group">
+            <label>Lời giới thiệu</label>
+            <input type="text" class="form-control" formControlName="description" placeholder="" disabled>
+          </div>
         </div>
       </div>
     </div>
     <div class="box-footer text-center">
       <button [routerLink]="['/home']" class="btn btn-default">Quay lại</button>
-      <button [routerLink]="['/team/member']"  class="btn btn-success">Danh sách thành viên</button>
+      <button (click)="member()" class="btn btn-success">Thành viên</button>
+      <button *ngIf="this.getId === this.userId" (click)="edit()"  class="btn btn-success">Cập nhật đội</button>
     </div>
   </form>
 </div>

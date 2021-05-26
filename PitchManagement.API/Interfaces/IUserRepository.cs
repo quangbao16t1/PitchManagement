@@ -10,6 +10,7 @@ namespace PitchManagement.API.Interfaces
     public interface IUserRepository
     {
         IEnumerable<User> GetAllUsers(string keyword);
+        IEnumerable<User> GetUserByGroupId();
         Task<User> GetUserByIdAsync(int id);
         Task<bool> CreateUserAsync(UserForCreateDto userCreate);
         Task<bool> EditUserAsync(int id, UserForUpdateDto userUpdate);

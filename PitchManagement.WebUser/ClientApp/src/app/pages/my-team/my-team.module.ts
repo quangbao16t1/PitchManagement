@@ -6,8 +6,11 @@ import { ControlModule } from 'src/app/helper/control.module';
 import { MyTeamComponent } from './my-team.component';
 import { MyTeamRoutingModule } from './my-team-routing.module';
 import { MemberComponent } from './member/member.component';
-import { AddMemberComponent } from './member/add-member/add-member.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { UpdateTeamComponent } from './update-team/update-team.component';
+import { MenuTopComponent } from './menu-top/menu-top.component';
+import { MenuLeftComponent } from './menu-left/menu-left.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -17,12 +20,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
         ControlModule,
         NgxPaginationModule,
         MyTeamRoutingModule,
+        NgbModule,
         BsDatepickerModule.forRoot()
     ],
     declarations: [
         MyTeamComponent,
         MemberComponent,
-        AddMemberComponent
+        UpdateTeamComponent,
+        MenuTopComponent,
+        MenuLeftComponent
     ]
 })
 export class MyTeamModule { }

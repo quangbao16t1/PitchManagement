@@ -2,17 +2,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MyTeamComponent } from './my-team.component';
 import { MemberComponent } from './member/member.component';
-import { AddMemberComponent } from './member/add-member/add-member.component';
+import { UpdateTeamComponent } from './update-team/update-team.component';
 
 export const routes: Routes = [
     {
         path: '', component: MyTeamComponent,
     },
     {
-        path: 'member', component: MemberComponent
+        path: ':pId/member', component: MemberComponent
     },
     {
-        path: 'member/add', component: AddMemberComponent
+        path: ':pId/update-team', component: UpdateTeamComponent
     }
 ];
 

@@ -53,6 +53,25 @@ namespace PitchManagement.API.Controllers
 
         }
 
+        [Route("GetUserNotTeam")]
+        [HttpGet]
+        public IActionResult GetUserNotTeam()
+        {
+            try
+            {
+                var listUsers = _userRepo.GetUserByGroupId();
+
+                return Ok(_mapper.Map<IEnumerable<UserDto>>(listUsers));
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {

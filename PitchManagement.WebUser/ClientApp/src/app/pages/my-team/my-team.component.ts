@@ -9,6 +9,7 @@ import { debounceTime, map, tap } from 'rxjs/operators';
 import { CURRENT_USER } from 'src/app/constants/db.keys';
 import { TeamUser } from 'src/app/models/team/teamUser.model';
 import { TeamService } from 'src/app/services/team.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-my-team',
@@ -17,66 +18,84 @@ import { TeamService } from 'src/app/services/team.service';
 export class MyTeamComponent implements OnInit {
 
   myTeamForm: FormGroup;
+  teamIdForm: FormGroup;
   team: TeamUser;
-  userId: number;
+  userId: any;
+  id: any;
   keyword: string;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
+  teamSelected: any;
+  listTeamUser: any[];
+  name: any;
+  description: string;
 
   constructor(
     private fb: FormBuilder,
     public teamService: TeamService,
+    public userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private toastr: ToastrService
   ) {
     this.myTeamForm = this.fb.group({
-      teamName: ['', [Validators.required]],
+      teamId: ['', [Validators.required]],
       createBy: ['', [Validators.required]],
       description: ['', [Validators.required]],
       level: ['', [Validators.required]],
       dateOfWeek: ['', [Validators.required]],
       startTime: ['', [Validators.required]],
       ageFrom: ['', [Validators.required]],
-      ageTo: ['', [Validators.required]]
+      ageTo: ['', [Validators.required]],
    });
   }
 
   ngOnInit() {
-    this.teamService.getTeamByUserId(this.getId).subscribe(
-          result => {
-            console.log(result);
-            this.team = result;
-            console.log(result.teamName);
-            this.myTeamForm.controls.teamName.setValue(result.teamName);
-            this.myTeamForm.controls.createBy.setValue(result.createBy);
-            this.myTeamForm.controls.level.setValue(result.level);
-            this.myTeamForm.controls.ageFrom.setValue(result.ageFrom);
-            this.myTeamForm.controls.ageTo.setValue(result.ageTo);
-            this.myTeamForm.controls.dateOfWeek.setValue(result.dateOfWeek);
-            this.myTeamForm.controls.description.setValue(result.description);
-            if (this.team.logo) {
-              // this.team.logo = this.loadImage(this.team.logo);
-            } else {
-              this.team.logo = 'assets/images/sport.png';
-            }
-          },
-          () => {
-            this.toastr.error(`Không tìm thấy sân con này`);
-          });
+    this.teamService.getTeamByUser(this.getId).subscribe((res: any) => {
+      this.listTeamUser = res;
+      console.log(this.listTeamUser, 1111);
+    });
       }
 
   getTeamByUserId(userId: number) {
     this.itemsAsync = this.teamService.getTeamByUserId(this.getId);
   }
 
-  add() {
-    this.router.navigate(['/my-team/add']);
+  getTeamById(id: any) {
+    this.teamService.getTeamById(id).subscribe(
+      result => {
+        console.log(result);
+        this.userId = result.userCreate.id;
+        this.id = result.id;
+        console.log(this.id, 4444);
+        this.myTeamForm.controls.createBy.setValue(result.userCreate.lastName);
+        this.myTeamForm.controls.level.setValue(result.level);
+        this.myTeamForm.controls.ageFrom.setValue(result.ageFrom);
+        this.myTeamForm.controls.ageTo.setValue(result.ageTo);
+        this.myTeamForm.controls.dateOfWeek.setValue(result.dateOfWeek);
+        this.myTeamForm.controls.description.setValue(result.description);
+        this.myTeamForm.controls.startTime.setValue(result.startTime);
+        // if (this.team.logo) {
+        //   // this.team.logo = this.loadImage(this.team.logo);
+        // } else {
+        //   this.team.logo = 'assets/images/sport.png';
+        // }
+      },
+      () => {
+        this.toastr.error(`Không tìm thấy sân con này`);
+      });
   }
 
-  edit(id: any) {
-    this.router.navigate(['/my-team/edit' + id]);
+add() {
+    this.router.navigate(['/team/add']);
+  }
+member() {
+  console.log(this.id, 7777);
+  this.router.navigate([`/team/${this.id}/member`]);
+}
+  edit() {
+    this.router.navigate([`/team/${this.id}/update-team`]);
   }
 
   deleteConfirm(template: TemplateRef<any>, data: any) {
