@@ -111,9 +111,9 @@ export class MemberComponent implements OnInit {
   open(content: any) {
     this.modalService1.open(content, { centered: true });
   }
-  // addMember() {
-  //   this.router.navigate(['/team/member/add']);
-  // }
+  memberInfo(userId: any) {
+    this.router.navigate([`/team/${this.teamId}/member/${userId}/member-info`]);
+  }
 
   edit(id: any) {
     this.router.navigate(['/sub-pitch/edit/' + id]);

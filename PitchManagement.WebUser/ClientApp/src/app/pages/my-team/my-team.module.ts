@@ -11,6 +11,7 @@ import { UpdateTeamComponent } from './update-team/update-team.component';
 import { MenuTopComponent } from './menu-top/menu-top.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MemberInfoComponent } from './member/member-info/member-info.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         MemberComponent,
         UpdateTeamComponent,
         MenuTopComponent,
-        MenuLeftComponent
+        MenuLeftComponent,
+        MemberInfoComponent
     ]
 })
 export class MyTeamModule { }
