@@ -23,6 +23,11 @@ namespace PitchManagement.API.Implementaions
         {
             try
             {
+                var result = _context.SubPitchDetails.Where(x => x.SubPitchId == subPitchDetail.SubPitchId).Select(x => x.StartTime);
+                foreach(TimeSpan i in result)
+                {
+                    if (i == subPitchDetail.StartTime) return false;
+                }    
                 subPitchDetail.CreateTime = DateTime.Now;
                 subPitchDetail.UpdateTime = null;
                 _context.SubPitchDetails.Add(subPitchDetail);

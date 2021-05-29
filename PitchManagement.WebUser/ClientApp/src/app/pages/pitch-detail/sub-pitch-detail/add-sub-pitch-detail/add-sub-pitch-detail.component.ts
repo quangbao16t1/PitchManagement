@@ -123,7 +123,7 @@ export class AddSubPitchDetailComponent implements OnInit {
         });
       },
       (_error: HttpErrorResponse) =>
-        this.toastr.error('Thêm khung giờ không thành công!')
+        this.toastr.error('Khung giờ đã tồn tại!Thêm khung giờ không thành công!')
       );
   }
 
