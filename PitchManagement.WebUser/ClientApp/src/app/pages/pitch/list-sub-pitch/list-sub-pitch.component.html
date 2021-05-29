@@ -44,7 +44,8 @@
                 </td>
                 <td style=" text-align: center;" >
                   <div >
-                    <button class="btn btn-sm btn-info" (click)="orderPitch(item.id)" style="margin-right: 10px; margin-bottom: 5px;">
+                    <span *ngIf="item.status === 0" class="text-danger" >Tạm ngừng phục vụ</span>
+                    <button *ngIf="item.status === 1"  class="btn btn-sm btn-info" (click)="orderPitch(item.id)" style="margin-right: 10px; margin-bottom: 5px;">
                       <i class="fa fa-eye"></i>
                      </button>
                   </div>

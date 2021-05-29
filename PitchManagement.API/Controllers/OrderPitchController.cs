@@ -227,5 +227,20 @@ namespace PitchManagement.API.Controllers
 
             return BadRequest();
         }
+
+        [Route("Revenue")]
+        [HttpGet]
+        public IActionResult GetRevenueMonth(int pitchId, DateTime date)
+        {
+
+            var revenue = _orderPitchRepo.GetRevenueMonth(pitchId, date);
+
+            var totalRevenueMonth = new TotalRevenueMonth()
+            {
+                Revenues = revenue,
+                Total = revenue.Sum(x => x.TotalRevenue)
+            };
+            return Ok(totalRevenueMonth);
+        }
     }
 }

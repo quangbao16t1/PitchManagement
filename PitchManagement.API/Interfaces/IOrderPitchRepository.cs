@@ -1,4 +1,5 @@
-﻿using PitchManagement.DataAccess.Entites;
+﻿using PitchManagement.API.Dtos.OrderPitches;
+using PitchManagement.DataAccess.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace PitchManagement.API.Interfaces
         Task<bool> CreateOrderPitchAsync(OrderPitch orderPitchCreate);
         Task<bool> UpdateOrderPitchAsync(int id, OrderPitch orderPitchUpdate);
         Task<bool> DeleteOrderPitchAsync(int id);
+        IEnumerable<RevenueUI> GetRevenueMonth(int pitchId, DateTime date);
     }
 }

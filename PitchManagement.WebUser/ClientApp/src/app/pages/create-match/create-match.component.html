@@ -71,7 +71,7 @@
                                 <label class="control-label col-sm-3">Quận/Huyện: <span
                                         class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <select (change)="getPitchByDistrict($event.target.value)" (change)="getWardByDistrictId($event.target.value)" class="form-control"
+                                    <select (change)="getPitchByDistrict($event.target.value)"(change)="getWardByDistrictId($event.target.value)" class="form-control"
                                         name="district" formControlName="district">
                                         <option [value]="00">Chọn Quận/Huyện</option>
                                         <option *ngFor="let d of district" [value]="d.id">{{ d.name }}</option>
@@ -92,15 +92,15 @@
                                                 [items]="listStadium" 
                                                 bindLabel="name" 
                                                 bindValue="id"
-                                                [(ngModel)]="itemStadiumSelected">
+                                                [(ngModel)]="itemStadiumSelected"
+                                                (change)="getArea()">
                                              </ng-select>
                                         </div>
                                     </div>
                                 </div>
                                 
                             </div><!-- end ngIf: vm.matchRequest.hasStadium -->
-
-                            <div class="form-group form-group-sm ng-scope"
+                            <div *ngIf="type===1" class="form-group form-group-sm ng-scope"
                                 ng-if="!vm.matchRequest.hasStadium">
                                 <div class="form-group form-group-sm">
                                     <label class="control-label col-sm-3">Khu vực: <span
@@ -111,6 +111,23 @@
                                             <option [value]="00">Chọn Khu vực</option>
                                             <option *ngFor="let d of listWard" [value]="d.name">{{ d.name }}</option>
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="type ===0" class="form-group form-group-sm ng-scope"
+                                ng-if="!vm.matchRequest.hasStadium">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-3">Khu vực: <span
+                                            class="required">*</span></label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control"
+                                        name="area" formControlName="area">
+                                        <!-- <select class="form-control"
+                                            name="area" formControlName="area">
+                                            <option [value]="00">Chọn Khu vực</option>
+                                            <option *ngFor="let d of listWard" [value]="d.name">{{ d.name }}</option>
+                                        </select> -->
                                     </div>
                                 </div>
                             </div>

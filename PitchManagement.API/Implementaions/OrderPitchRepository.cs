@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PitchManagement.API.Dtos.OrderPitches;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess;
 using PitchManagement.DataAccess.Entites;
@@ -120,5 +121,34 @@ namespace PitchManagement.API.Implementaions
                .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
                .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId && x.Status == 1 && x.DateOrder.Year == dateOrder.Year && x.DateOrder.Month == dateOrder.Month && x.DateOrder.Day == dateOrder.Day).AsEnumerable();
         }
+
+        public IEnumerable<RevenueUI> GetRevenueMonth(int pitchId, DateTime date)
+        {
+            List<RevenueUI> list = new List<RevenueUI>();
+            int totalRevenue;
+            RevenueUI RevenueUI;
+            dynamic revenue;
+
+               revenue = _context.OrderPitches.Include(x =>x.SubPitchDetail).ThenInclude(x => x.SubPitch).Where(x => x.DateOrder.Year == date.Year && x.DateOrder.Month == date.Month  && x.SubPitchDetail.SubPitch.PitchId == pitchId).AsEnumerable();
+            for (int i = 1; i <= DateTime.DaysInMonth(date.Year, date.Month); i++)
+            {
+                totalRevenue = 0;
+                RevenueUI = new RevenueUI();
+
+                foreach (var item in revenue)
+                {
+                    if (item.DateOrder.Day == i)
+                    {
+                        totalRevenue += item.SubPitchDetail.Cost;
+                    }
+                }
+                RevenueUI.TotalRevenue = totalRevenue;
+                RevenueUI.datetime = new DateTime(date.Year, date.Month, i);
+
+                list.Add(RevenueUI);
+            }
+            return list.AsEnumerable();
+        }
     }
 }
+    

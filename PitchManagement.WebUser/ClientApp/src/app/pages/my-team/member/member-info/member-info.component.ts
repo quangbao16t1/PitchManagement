@@ -48,7 +48,7 @@ export class MemberInfoComponent implements OnInit {
       this.userId = params.userId;
       this.teamId = params.pId;
       if (this.userId) {
-        this.userService.getUserById(this.getId).subscribe(
+        this.userService.getUserById(this.userId).subscribe(
           result => {
                 console.log(result);
                 this.user = result;

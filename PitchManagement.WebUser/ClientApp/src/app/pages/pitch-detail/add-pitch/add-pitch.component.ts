@@ -52,6 +52,7 @@ export class AddPitchComponent implements OnInit {
   addPitch() {
     this.pitch = Object.assign({}, this.addPitchForm.value);
     this.pitch.createBy = this.getId;
+    this.pitch.avatar = 'https://4.bp.blogspot.com/-kR5VIHt1SmI/Wj4YPOkxhlI/AAAAAAAANO0/PIz-ulu4BoUWZzmtNTiU-r8LSQt4iYWDQCLcBGAs/s640/day%2Bbong%2Bda%2B8.jpg';
     console.log(this.pitch.districtId, 888);
     this.pitchService.createPitch(this.pitch).subscribe(
       () => {

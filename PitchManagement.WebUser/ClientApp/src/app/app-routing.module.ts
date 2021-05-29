@@ -73,6 +73,10 @@ const routes: Routes = [
         {
           path: 'history-order',
           loadChildren: () => import('./pages/history-order/history-order.module').then(m => m.HistoryOrderModule)
+        },
+        {
+          path: 'chart-demo',
+          loadChildren: () => import('./pages/chartdemo/chartdemo.module').then(m => m.ChartdemoModule)
         }
       ]
     },

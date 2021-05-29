@@ -72,7 +72,7 @@ namespace PitchManagement.API
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IServiceDetailRepository, ServiceDetailRepository>();
             services.AddScoped<IOrderPitchRepository, OrderPitchRepository>();
-            services.AddScoped<IOrderServiceDetailRepository, OrderServiceDetailRepository>();
+            //services.AddScoped<IOrderServiceDetailRepository, OrderServiceDetailRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
 

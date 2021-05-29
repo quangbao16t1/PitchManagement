@@ -48,6 +48,7 @@ export class CreateMatchComponent implements OnInit {
   listAreaSelected2?: any = [];
   listAreaSelectedName?: any = [];
   itemStadiumSelected: any;
+  aera: any;
 
   constructor(
     private toastr: ToastrService,
@@ -116,31 +117,13 @@ export class CreateMatchComponent implements OnInit {
       });
   }
 
-  // selectedDistrict(districtId: any, districtName: any, districtType: any) {
-  //   if (this.listAreaSelected.some((d: any) => d.id === districtId)) {
-  //     const index = this.listAreaSelected.findIndex((d: any) => d.id === districtId);
-  //     if (index > -1) {
-  //       this.listAreaSelected.splice(index, 1);
-  //       this.listAreaSelected2.splice(index, 1);
-  //       this.listAreaSelectedName.splice(index, 1);
-  //     }
-  //   } else {
-  //     this.listAreaSelected.push({ id: districtId, name: districtName, provinceId: null, type: districtType });
-  //     this.listAreaSelected2.push(districtId);
-  //     this.listAreaSelectedName.push(districtName);
-  //   }
-  // }
-  // removeDistrict(districtId: any) {
-  //   if (this.listAreaSelected.some((d: any) => d.id === districtId)) {
-  //     const index = this.listAreaSelected.findIndex((d: any) => d.id === districtId);
-  //     if (index > -1) {
-  //       this.listAreaSelected.splice(index, 1);
-  //       this.listAreaSelected2.splice(index, 1);
-  //       this.listAreaSelectedName.splice(index, 1);
-  //     }
-  //   }
-  // }
-
+  getArea() {
+   this.pitchService.getPitchById(this.itemStadiumSelected).subscribe(res => {
+     this.aera = res.address;
+     this.addMatchForm.controls.area.setValue(this.aera);
+     console.log(this.aera, 2222);
+   });
+  }
   open(content: any) {
     this.modalService.open(content, { centered: true });
   }

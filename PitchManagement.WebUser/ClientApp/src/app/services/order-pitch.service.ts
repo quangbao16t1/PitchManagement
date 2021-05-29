@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -42,6 +43,10 @@ export class OrderPitchService {
     deleteOrderPitch(id: any) {
         return this.http.delete(`${this.baseUrl}/${id}`);
     }
+    getRevenue(pitchId: any, date: Date): Observable<any> {
+        const dateFormat = formatDate(date, 'MM-dd-yyyy', 'en-US');
+        return this.http.get(`${this.baseUrl}/Revenue?pitchId=${pitchId}&date=${dateFormat}`);
+      }
 }
 
 
