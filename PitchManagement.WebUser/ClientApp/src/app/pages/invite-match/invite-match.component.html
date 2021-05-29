@@ -62,7 +62,9 @@
                     </ul>
                      <div>
                         <div *ngFor="let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total } "class="q-items ng-scope">
-                              <div class="q-info" *ngIf="item.userInvite.id === getId && item.status ===0 || item.status ===1 && item.userReceive.id === getId || item.status ===3 && item.userReceive.id === getId">
+                              <div class="q-info" *ngIf="item.userInvite.id === getId && item.status == 0 || item.status ===1 && item.userReceive.id === getId 
+                              || item.status ===3 && item.userReceive.id === getId || item.status ===1 && item.userInvite.id === getId
+                              || item.status ===3 && item.userInvite.id === getId">
                                  <h4 *ngIf="item.type===1" class="q-info-headline">Trận đấu sân khách</h4>
                                  <h4 *ngIf="item.type===0" class="q-info-headline">Trận đấu sân nhà</h4>
                                  <ul class="list-item-san">
@@ -78,14 +80,14 @@
                                                       </h2>
                                                       <!-- ngIf: settings.showFullInfo && match.ownerUserName -->
                                                    </div>
-                                                   <div *ngIf="item.status===3 && item.userInvite.id === getId" class="pull-right">
+                                                   <div *ngIf="item.status===3 && item.userInvite.id ===getId" class="pull-right">
                                                       <span>
                                                          <button (click)="confirmCatchMatch(item.id, item)" type="button" class="btn btn-xs btn-primary"><i class="fa fa-check"></i> Chấp nhận</button>
                                                          <button (click)="cancleCatchMatch(item.id, item)" type="button" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> Từ chối</button>
                                                       </span>
                                                    </div>
 
-                                                   <div *ngIf="item.status===0 && item.userInvite.id === getId" class="pull-right">
+                                                   <div *ngIf="item.status==0 && item.userInvite.id == getId" class="pull-right">
                                                       <span>
                                                          <!-- <button  (click)="cancelMatch(item.id, item)" type="button" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> Hủy trận</button> -->
                                                          <button  (click)="deleteMatch(item.id)" type="button" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> Hủy lời mời</button>

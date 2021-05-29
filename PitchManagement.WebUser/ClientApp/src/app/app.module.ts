@@ -65,7 +65,7 @@ export function tokenGetter() {
     MatchService,
     DistrictService,
     SubPitchDetailService,
-    OrderPitchService
+    OrderPitchService,
   ],
   bootstrap: [AppComponent
   ],

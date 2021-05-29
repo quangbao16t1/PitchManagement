@@ -32,6 +32,7 @@ export class InviteMatchComponent implements OnInit {
   pageSize: number;
   total: number;
   status: any = -1;
+  matchSelected: any[];
   constructor(
     public matchService: MatchService,
     public userService: UserService,
@@ -58,7 +59,10 @@ export class InviteMatchComponent implements OnInit {
         }),
         map( response =>  response.items)
         );
-      console.log(this.itemsAsync, 444);
+        this.itemsAsync.subscribe(res => {
+          this.matchSelected = res;
+        });
+      console.log(this.matchSelected, 444);
   }
 
   search() {

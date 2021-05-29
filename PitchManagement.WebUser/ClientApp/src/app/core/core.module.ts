@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { FirstPageComponent } from './first-page/first-page.component';
 
 @NgModule({
     imports: [
@@ -18,6 +19,7 @@ import { FooterComponent } from './footer/footer.component';
     declarations: [
         HeaderComponent,
         FooterComponent,
+        FirstPageComponent
     ],
     exports: [
         BrowserModule,
@@ -25,6 +27,7 @@ import { FooterComponent } from './footer/footer.component';
         HttpClientModule,
         HeaderComponent,
         FooterComponent,
+        FirstPageComponent
       ]
 })
 export class CoreModule { }

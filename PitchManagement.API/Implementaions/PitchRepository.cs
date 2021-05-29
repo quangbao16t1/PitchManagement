@@ -103,7 +103,7 @@ namespace PitchManagement.API.Implementaions
                 pitchInDb.Email = pitchUpdate.Email;
                 pitchInDb.PhoneNumber = pitchUpdate.PhoneNumber;
                 pitchInDb.WebSite = pitchUpdate.WebSite;
-                pitchInDb.Avatar = pitchUpdate.Avatar;
+                //pitchInDb.Avatar = pitchUpdate.Avatar;
                 pitchInDb.Status = pitchUpdate.Status;
                 pitchInDb.UpdateTime = DateTime.Now;
                 pitchInDb.Address = pitchUpdate.Address;
