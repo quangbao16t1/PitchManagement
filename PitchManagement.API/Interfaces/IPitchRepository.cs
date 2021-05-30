@@ -11,6 +11,7 @@ namespace PitchManagement.API.Interfaces
         IEnumerable<Pitch> GetAllPitch(string keyword);
         Task<Pitch> GetPitchByIdAsync(int id);
         IEnumerable<Pitch> GetPitchByDistrict(int districtId);
+        IEnumerable<Pitch> GetPitchByDistrictPage(int districtId, string keyword);
         IEnumerable<Pitch> GetPitchCreateBy(int userId);
         Task<bool> CreatePitchAsync(Pitch pitchCreate);
         Task<bool> UpdatePitchAsync(int id, Pitch pitchUpdate);

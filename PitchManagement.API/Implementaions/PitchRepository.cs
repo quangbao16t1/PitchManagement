@@ -65,7 +65,7 @@ namespace PitchManagement.API.Implementaions
             }
 
             return _context.Pitches
-                .Include(x => x.District).Where(x => x.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
+                .Include(x => x.District).Where(x => x.Name.ToLower().Contains(keyword.ToLower()) || x.District.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
         public  IEnumerable<int> GetIdPitch(int userId)
@@ -76,6 +76,16 @@ namespace PitchManagement.API.Implementaions
         public IEnumerable<Pitch> GetPitchByDistrict(int districtId)
         {
             return _context.Pitches.Include(x => x.District).Where(y => y.DistrictId == districtId).AsEnumerable();
+        }
+
+        public IEnumerable<Pitch> GetPitchByDistrictPage(int districtId, string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                keyword = "";
+            }
+            return _context.Pitches.Include(x => x.District)
+                .Where(y => y.DistrictId == districtId && y.Name.ToLower().Contains(keyword.ToLower()) || y.DistrictId == districtId && y.District.Name.ToLower().Contains(keyword.ToLower())).AsEnumerable();
         }
 
         public async Task<Pitch> GetPitchByIdAsync(int id)

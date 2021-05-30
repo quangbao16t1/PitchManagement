@@ -55,6 +55,36 @@ namespace PitchManagement.API.Controllers
 
         }
 
+        [Route("GetByDistrictPage")]
+        [HttpGet]
+        public IActionResult GetPitchByDistritctPage(int districtId, string keyword, int page = 1, int pagesize = 10)
+        {
+            try
+            {
+                var listPicth = _PitchRepo.GetPitchByDistrictPage(districtId, keyword);
+
+                int totalCount = listPicth.Count();
+
+                var query = listPicth.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<PitchReturn>>(query);
+
+                var paginationset = new PaginationSet<PitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+
+        }
+
         [Route("GetPitchByDistrict")]
         [HttpGet]
         public IActionResult GetPicthByDistrict(int districtId)
