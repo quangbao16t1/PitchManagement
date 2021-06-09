@@ -26,6 +26,7 @@
               "src/styles.css",
               "src/assets/css/loading.css",
               "src/assets/scss/_bootstrap-variables.scss",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/assets/scss/main.scss",
               "src/assets/scss/global.scss",

@@ -22,7 +22,7 @@ namespace PitchManagement.API.Dtos.OrderPitches
         public string Note { get; set; }
         public bool IsDelete { get; set; }
         public string PhoneOrder { get; set; }
-        public DateTime? DateOrder { get; set; }
+        public string? DateOrder { get; set; }
         public DateTime? CreateTime { get; set; }
         public DateTime? UpdateTime { get; set; }
     }

@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-offset-2 col-sm-3">
           <div class="form-group">
-            <input type="text" [bsConfig]="bsConfig" bsDatepicker class="form-control" placeholder="Tu"
+            <input type="text" [bsConfig]="bsConfig" bsDatepicker  class="form-control" placeholder="Tu"
               [maxDate]="maxDate" formControlName="datePre">
           </div>
         </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <input type="text" [bsConfig]="bsConfig" bsDatepicker class="form-control" placeholder="Den"
+            <input type="text" [bsConfig]="bsConfig" bsDatepicker  class="form-control" placeholder="Den"
               [maxDate]="maxDate" formControlName="dateAfter">
           </div>
         </div>
@@ -53,4 +53,8 @@
       <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
         [legend]="barChartLegend" [chartType]="barChartType"></canvas>
     </div>
-  </div>
+    <div  *ngIf="checkData">
+      <h3 style="padding-left: 50px; color: #cc2895;">Tổng doanh thu tháng {{this.dateTruoc}}: {{this.total1}} </h3>
+      <h3 style="padding-left: 50px; color: #ada2aa;">Tổng doanh thu tháng {{this.dateSau}}: {{this.total2}}</h3>
+    </div>
+</div>

@@ -135,11 +135,11 @@ export class OrderPitchComponent implements OnInit {
             phoneOrder: this.userOrderPitch.phoneNumber
           }).subscribe(
             () => {
-              this.toastr.success('Thêm khung giờ thành công');
+              this.toastr.success('Đặt sân thành công');
               this.loadSpdEmpty(this.dateSelected, this.subPitchSelected);
             },
             (_error: HttpErrorResponse) =>
-              this.toastr.error('Thêm khung giờ không thành công!')
+              this.toastr.error('Thông tin không hợp lệ, đặt sân không thành công!')
           );
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }

@@ -79,7 +79,7 @@ export class ManageOrderComponent implements OnInit {
       if (result.value) {
         this.orderPitchService.editOrderPitch(orderId, orderPitch).subscribe(
           () => {
-            this.getPitchId();
+            this.getOrderPitchByPitchId(this.pitchSelected, this.page);
             this.toastr.success('Xác nhận yêu cầu đặt sân thành công!');
         },
         (_error: HttpErrorResponse) =>

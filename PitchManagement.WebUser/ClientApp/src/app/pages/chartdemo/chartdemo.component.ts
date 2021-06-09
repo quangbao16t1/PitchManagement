@@ -33,8 +33,10 @@ export class ChartdemoComponent implements OnInit {
 
 
   maxDate: Date;
-  datePre: Date;
-  dateAfter: Date;
+  // datePre: Date;
+  dateTruoc: any;
+  dateSau: any;
+  // dateAfter: Date;
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +55,7 @@ export class ChartdemoComponent implements OnInit {
   bsValue: Date = new Date(2020, 3);
   minMode: BsDatepickerViewMode = 'month'; // change for month:year
 
-  bsConfig: Partial<BsDatepickerConfig>;
+  bsConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
 
   ngOnInit() {
     if (this.isPitcher()) {
@@ -66,7 +68,8 @@ export class ChartdemoComponent implements OnInit {
   getPitchId(pitchId: number) {
     this.bsConfig = Object.assign({}, {
       minMode: this.minMode,
-      dateInputFormat: 'MM/YYYY'
+      dateInputFormat: 'MM/YYYY',
+      containerClass: 'theme-green'
     });
     for (let i = 1; i <= 31; i++) {
       this.barChartLabels[i - 1] = '' + i;
@@ -75,7 +78,9 @@ export class ChartdemoComponent implements OnInit {
   }
   drawChart() {
     const date = new Date(this.dateForm.value.datePre);
+    this.dateTruoc = date.getMonth() + 1;
     const dateCompare = new Date(this.dateForm.value.dateAfter);
+    this.dateSau = dateCompare.getMonth() + 1;
     this.barChartData = [];
     this.orderService.getRevenue(this.pitchId, date).subscribe(data => {
       this.total1 = data.total;
