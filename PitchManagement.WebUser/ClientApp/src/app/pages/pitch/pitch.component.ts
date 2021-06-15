@@ -38,7 +38,7 @@ export class PitchComponent implements OnInit {
   ngOnInit() {
     this.keyword = '';
     this.page = 1;
-    this.pageSize = 10;
+    this.pageSize = 5;
     this.getAllPitches(this.page);
     this.districtService.getAllDistricts(this.keyword).subscribe((dis: any) => {
       this.listDistrict = dis;

@@ -27,7 +27,7 @@ namespace PitchManagement.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllPitches(string keyword, int page = 1, int pagesize = 10)
+        public IActionResult GetAllPitches(string keyword, int page = 1, int pagesize = 5)
         {
             try
             {

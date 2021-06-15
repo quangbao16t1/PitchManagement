@@ -64,7 +64,7 @@
             </tbody>
           </table>
           <div class="text-center">
-            <pagination-controls class="custom-pagination" (pageChange)="getPitchId($event)" autoHide="true"
+            <pagination-controls class="custom-pagination" (pageChange)="getSubPitchByPitchId(this.pitchId, $event)" autoHide="true"
               responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
             </pagination-controls>
           </div>
