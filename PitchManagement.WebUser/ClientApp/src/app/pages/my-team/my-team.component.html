@@ -12,9 +12,9 @@
 
   <form [formGroup]="myTeamForm"  novalidate>
     <div class="col-md-3">
-      <div class="img-profile" title="Tải lên một hình ảnh đại diện">
-          <img  *ngFor="let i of listTeamUser" id="profile-avatar" class="media-object" width="100%"
-               src="{{i.logo}}"
+      <div *ngIf="this.teamSelected" class="img-profile" title="Tải lên một hình ảnh đại diện">
+          <img id="profile-avatar" class="media-object" width="100%"
+               src="{{this.teamSelected.logo}}"
                alt="avatar">
       </div>
     </div>

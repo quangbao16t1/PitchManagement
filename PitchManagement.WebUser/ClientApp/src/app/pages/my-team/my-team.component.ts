@@ -40,7 +40,7 @@ export class MyTeamComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.myTeamForm = this.fb.group({
-      teamId: ['', [Validators.required]],
+      teamId: [{value:'',disable: true}, [Validators.required]],
       createBy: ['', [Validators.required]],
       description: ['', [Validators.required]],
       level: ['', [Validators.required]],
@@ -48,6 +48,7 @@ export class MyTeamComponent implements OnInit {
       startTime: ['', [Validators.required]],
       ageFrom: ['', [Validators.required]],
       ageTo: ['', [Validators.required]],
+      logo: ['']
    });
   }
 
@@ -65,6 +66,7 @@ export class MyTeamComponent implements OnInit {
   getTeamById(id: any) {
     this.teamService.getTeamById(id).subscribe(
       result => {
+        this.teamSelected = result;
         console.log(result);
         this.userId = result.userCreate.id;
         this.id = result.id;
@@ -76,6 +78,7 @@ export class MyTeamComponent implements OnInit {
         this.myTeamForm.controls.dateOfWeek.setValue(result.dateOfWeek);
         this.myTeamForm.controls.description.setValue(result.description);
         this.myTeamForm.controls.startTime.setValue(result.startTime);
+        this.myTeamForm.controls.logo.setValue(result.logo);
         // if (this.team.logo) {
         //   // this.team.logo = this.loadImage(this.team.logo);
         // } else {
@@ -83,7 +86,7 @@ export class MyTeamComponent implements OnInit {
         // }
       },
       () => {
-        this.toastr.error(`Không tìm thấy sân con này`);
+        this.toastr.error(`Xem đội bóng không thành công!`);
       });
   }
 
