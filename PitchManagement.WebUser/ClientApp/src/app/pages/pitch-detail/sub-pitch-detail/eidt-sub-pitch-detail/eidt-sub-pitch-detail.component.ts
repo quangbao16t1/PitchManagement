@@ -122,7 +122,9 @@ export class EidtSubPitchDetailComponent implements OnInit {
       }
     );
   }
-
+  close() {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+  }
 isPitcher(): boolean {
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));
   if (user != null) {

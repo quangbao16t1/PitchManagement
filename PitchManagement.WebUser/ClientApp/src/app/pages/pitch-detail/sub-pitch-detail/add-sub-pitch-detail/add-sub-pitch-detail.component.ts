@@ -126,7 +126,9 @@ export class AddSubPitchDetailComponent implements OnInit {
         this.toastr.error('Khung giờ đã tồn tại!Thêm khung giờ không thành công!')
       );
   }
-
+  close() {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+  }
 isPitcher(): boolean {
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));
   if (user != null) {

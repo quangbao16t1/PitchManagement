@@ -81,6 +81,7 @@ export class SubPitchDetailComponent implements OnInit {
 
   getSubPitchDetailBySpId(subPitchId: number, page: number) {
     this.subPitchSelect = this.listSubPitch.find(i => i.id === subPitchId);
+    this.subPitchId = subPitchId;
     this.itemsAsync = this.subPitchDetailService.getSubPitchDetailBySpId(subPitchId, page, this.pageSize)
       .pipe(
         tap(response => {
@@ -101,11 +102,13 @@ export class SubPitchDetailComponent implements OnInit {
   add() {
     this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail/add`]);
   }
-
+  detail() {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+  }
+  
   edit(id: any) {
     this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail/${id}/edit`]);
   }
-
   deleteConfirm(template: TemplateRef<any>, data: any) {
     this.subPitchDetail = Object.assign({}, data);
     this.modalRef = this.modalService.show(template);

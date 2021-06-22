@@ -86,7 +86,9 @@ editSubPitch() {
     }
   );
 }
-
+close() {
+  this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch`]);
+}
 get f() { return this.editSubPitchForm.controls; }
 
 }

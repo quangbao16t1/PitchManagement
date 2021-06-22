@@ -1,7 +1,7 @@
 <div class="box box-primary">
 
     <div class="box-header with-border">
-      <h3 class="box-title">Cập nhật thông tin sân con</h3>
+      <h3 class="box-title" style="padding-top:60px;padding-bottom: 20px;text-align: center;">Cập nhật thông tin sân con</h3>
     </div>
   
     <form [formGroup]="editSubPitchForm" (submit)="editSubPitch()" novalidate>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="box-footer text-center">
-        <button [routerLink]="['/sub-pitch']" class="btn btn-default">Hủy</button>
+        <button (click)="close()" class="btn btn-default">Hủy</button>
         <button type="submit" [disabled]="editSubPitchForm.invalid" class="btn btn-success">Lưu</button>
       </div>
     </form>

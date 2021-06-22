@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="box-footer text-center">
-                        <button [routerLink]="['/sub-pitch-detail']" class="btn btn-default">Hủy</button>
+                        <button (click) ="close()" class="btn btn-default">Hủy</button>
                         <button (click) ="editSubPitchDetail()" [disabled]="editSpdForm.invalid" class="btn btn-success">Lưu</button>
                     </div>
                 </div>

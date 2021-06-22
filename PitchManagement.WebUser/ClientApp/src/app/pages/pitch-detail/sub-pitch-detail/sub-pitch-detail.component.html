@@ -1,7 +1,7 @@
 
 <div class="breadcrum">
     <div class="container">
-        <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="#">Bắt đối</a></div>
+        <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="#">Giá thuê và khung giờ</a></div>
     </div>
 </div>
 <div class="content-wrap">
@@ -35,6 +35,7 @@
                                         </div>
                                     </form>
                                 </div>
+                              
                                 <div class="col-sm-4">
                                   <button class="btn btn-success"  (click)="add()">Thêm khung giờ</button>
                                 </div>
@@ -74,7 +75,7 @@
                             </tbody>
                           </table>
                           <div class="text-center">
-                            <pagination-controls class="custom-pagination" (pageChange)="getSubPitchDetailBySpId($event)" autoHide="true"
+                            <pagination-controls class="custom-pagination" (pageChange)="getSubPitchDetailBySpId(this.subPitchId, $event)" autoHide="true"
                               responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
                             </pagination-controls>
                           </div>

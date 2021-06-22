@@ -35,14 +35,15 @@ export class AddSubPitchComponent implements OnInit {
   ngOnInit() {
     this.getPitchId();
   }
-
   getPitchId() {
     this.route.params.subscribe( prams => {
       this.pitchId = prams.id;
       console.log(this.pitchId, 4444);
     });
   }
-
+  close() {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch`]);
+  }
   addSubPitch() {
     this.subPitch = Object.assign({}, this.addSubPitchForm.value);
     this.subPitch.pitchId = this.pitchId;
