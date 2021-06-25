@@ -98,22 +98,22 @@ export class ManageOrderComponent implements OnInit {
     this.orderPitch = undefined;
     this.modalRef.hide();
 }
-  // confirm(): void {
-  //   if (this.orderPitch) {
-  //     this.orderPitchService.deleteOrderPitch(this.orderPitch.id)
-  //     .subscribe(
-  //       () => {
-  //         this.toastr.success(`Xóa khung giờ thành công`);
-  //         this.getOrderPitchByPitchId(this.pitchId, this.page);
-  //       },
-  //       (_error: HttpErrorResponse) => {
-  //         this.toastr.error(`Xóa khung giờ không thành công`);
-  //       }
-  //     );
-  //   }
-  //   this.orderPitch = undefined;
-  //   this.modalRef.hide();
-  // }
+  confirm(): void {
+    if (this.orderPitch) {
+      this.orderPitchService.deleteOrderPitch(this.orderPitch.id)
+      .subscribe(
+        () => {
+          this.toastr.success(`Hủy yêu cầu đặt sân thành công!`);
+          this.getOrderPitchByPitchId(this.pitchSelected, this.page);
+        },
+        (_error: HttpErrorResponse) => {
+          this.toastr.error(`Hủy yêu cầu không thành công không thành công!`);
+        }
+      );
+    }
+    this.orderPitch = undefined;
+    this.modalRef.hide();
+  }
 
   get getId() {
     const use = JSON.parse(localStorage.getItem(CURRENT_USER));

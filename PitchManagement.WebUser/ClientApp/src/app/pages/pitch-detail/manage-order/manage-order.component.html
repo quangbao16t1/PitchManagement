@@ -45,6 +45,7 @@
                                 <th>Sân</th>
                                 <th>Người đặt</th>
                                 <th>Thời gian</th>
+                                <th>Ngày đặt sân</th>
                                 <th>Nội dung</th>
                                 <th style="text-align: center;">Hành động</th>
                               </tr>
@@ -55,6 +56,7 @@
                                 <td> {{item.pitchName}}</td>
                                 <td>{{item.firstName}} {{item.lastName}}</td>
                                 <td>{{ item.startTime }}-{{ item.endTime }}</td>
+                                <td>{{item.dateOrder}}</td>
                                 <td>{{item.note}}</td>
                                 <td style=" text-align: center;" >
                                     <button *ngIf="item.status === 0" class="btn btn-primary"  style="margin-right: 10px; margin-bottom: 5px;"

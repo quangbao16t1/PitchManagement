@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-sm-4 form-group">
                         <select style="height: 34px;" class="form-control input-sm"  name="subPitchId" [(ngModel)]="subPitchSelected">
-                            <option *ngFor="let sub of listSubPitch" [value]="sub.id">{{sub.name}}</option>
+                            <option *ngFor="let sub of listSubPitch" [value]="sub.id">{{sub.name}}(Kiểu sân {{sub.type}})</option>
                         </select>
                     </div>
                     <div class="col-sm-3 form-group">

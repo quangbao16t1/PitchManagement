@@ -33,6 +33,9 @@
              
                     <div class="col-sm-3 form-group" *ngIf="isUser()">
                         <button style="height: 34px;" type="button" class="btn btn-primary" (click)="getOrderPitchByDateUserId(this.dateSelected, this.getId, 1)">Tìm kiếm</button>
+                        <button class="btn btn-default" type="button" (click)="this.getOrderPitchByUserId(this.getId, 1)">
+                          <i class="fa fa-refresh"></i>
+                      </button>
                     </div>
                     <div class="col-sm-3 form-group" *ngIf="isPitcher()">
                         <button style="height: 34px;" type="button" class="btn btn-primary" (click)="getOrderPitchByDatePitchId(this.dateSelected, this.pitchSelected , 1)">Tìm kiếm</button>
