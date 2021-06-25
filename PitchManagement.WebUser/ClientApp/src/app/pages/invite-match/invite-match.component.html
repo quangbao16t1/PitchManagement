@@ -96,7 +96,9 @@
 
                                                 </div>
                                                 <div>
-                                                   <p class="tim-doi-time ng-binding"><i class="fa fa-calendar-check-o" aria-hidden="true"></i><strong>Thời gian:</strong>{{item.setupTime | date:'HH:mm dd-MM-yyyy':'utc'}}</p>
+                                                   <p class="tim-doi-time"><i class="fa fa-calendar-check-o"
+                                                      aria-hidden="true"></i><strong>Thời gian:</strong>{{item.setupTime |
+                                                  date:'HH:mm dd/MM/yyyy '}}</p>
                                                    <!-- ngIf: match.hasStadium -->
                                                    <p *ngIf="item.pitchId" class="item-stadium-p ng-scope">
                                                       <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Sân:</strong><a href="#" target="_blank" class="ng-binding">{{item.pitchName}}</a>

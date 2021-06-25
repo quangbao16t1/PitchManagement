@@ -133,7 +133,8 @@ namespace PitchManagement.API.Controllers
                         CreateTime = item.CreateTime,
                         UpdateTime = item.UpdateTime,
                         Area = item.Area,
-                        Note = item.Note
+                        Note = item.Note,
+                        SetupTime = item.SetupTime
                         
                     };
 

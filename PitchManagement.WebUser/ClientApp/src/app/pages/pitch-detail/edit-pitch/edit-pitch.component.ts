@@ -38,10 +38,10 @@ export class EditPitchComponent implements OnInit {
       decription: ['', [Validators.required, ValidationService.requireValue]],
       phoneNumber: ['', [Validators.required, ValidationService.numberValidator]],
       address: ['', [Validators.required, ValidationService.requireValue]],
-      district: ['', [Validators.required, ValidationService.requireValue]],
+      district: [''],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       webSite: ['', [Validators.required, ValidationService.requireValue]],
-      status: ['', [Validators.required]],
+      status: [''],
     });
   }
 

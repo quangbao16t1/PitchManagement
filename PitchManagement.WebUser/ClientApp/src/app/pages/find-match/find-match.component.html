@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="p-content"  *ngFor="let team of listTeamUser">
+                <div class="p-content" >
                     <h1 class="title-intent title-pages mobile-marginlr-15"><i class="fa fa-futbol-o"
                             aria-hidden="true"></i>Tìm đối đá bóng</h1>
                     <div class="form-group row mobile-marginlr-15">
@@ -27,14 +27,15 @@
                             <button (click)="search()" class="btn btn-primary" type="button">Tìm kiếm</button>
                         </div>
                     </div>
-                    <ul  *ngFor= "let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }" class="list-item-san">
+                <div >
+                    <ul *ngFor= "let item of itemsAsync | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }" class="list-item-san">
                         <li   class="item-card match-finding-item" id="96056">
                             <div class="row" >
                                 <div class="col-md-12 right-item-san right-item-doi">
                                     <div class="header-item-doi header-tim-doi ">
-                                        <div class="btn-doi-top pull-right">
+                                        <div  class="btn-doi-top pull-right">
                                             <button (click)="open(content, item)"
-                                                *ngIf="getId!=item.inviteeId && item.status !=3 && checkOverTime(item.setupTime) && team.teamId!=item.teamId"
+                                                *ngIf="getId!=item.inviteeId && item.status !=3 && checkOverTime(item.setupTime)"
                                                 class="btn btn-sm btn-primary pull-right btn-batdoi">
                                                 <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
                                             </button>
@@ -48,7 +49,7 @@
                                     </div>
                                     <p class="tim-doi-time"><i class="fa fa-calendar-check-o"
                                             aria-hidden="true"></i><strong>Thời gian:</strong>{{item.setupTime |
-                                        date:'HH:mm dd-MM-yyyy':'utc'}}</p>
+                                        date:' HH:mm dd/MM/yyyy '}}</p>
                                     <p class="item-stadium-p">
                                         <i class="fa fa-shirtsinbulk" aria-hidden="true"></i><strong>Tên đội bóng:</strong>
                                         <a href="#" target="_blank">{{item.teamName}} </a>
@@ -89,7 +90,7 @@
 
                                     <div class="btn-doi-bottom mobile-only mobile-only">
                                         <button (click)="open(content, item)"
-                                            *ngIf="getId !== item.inviteeId && item.status !==3 && item.teamId !== team.teamId && checkOverTime(item.setupTime) "
+                                            *ngIf="getId !== item.inviteeId && item.status !==3  && checkOverTime(item.setupTime) "
                                             class="btn btn-sm btn-primary pull-right btn-batdoi">
                                             <i class="fa fa-send" aria-hidden="true"></i> Bắt đối
                                         </button>
@@ -104,6 +105,7 @@
                             </div>
                         </li>
                     </ul>
+                </div>
                         <div class="row justify-content-center">
                             <pagination-controls class="custom-pagination" (pageChange)="getListCatches($event)" autoHide="true"
                                   responsive="true" previousLabel="Trước" nextLabel="Sau" directionLinks="true">
