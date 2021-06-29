@@ -27,6 +27,7 @@ export class EidtSubPitchDetailComponent implements OnInit {
   subPitchId: number;
   pitchId: any;
   spdId: any;
+  spId: any;
   editSpdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
@@ -60,6 +61,7 @@ export class EidtSubPitchDetailComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe( params => {
       this.pitchId = params.get('pId');
+      this.spId = params.get('spId');
       this.spdId = params.get('spdId');
       console.log(this.pitchId, 444);
       if (this.spdId) {
@@ -113,7 +115,7 @@ export class EidtSubPitchDetailComponent implements OnInit {
     // this.subPitchDetail.endTime = this.newEndTime;
     this.subPitchDetailService.editSubPitchDetail(this.spdId, this.subPitchDetail).subscribe(
       () => {
-        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]).then(() => {
+        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${this.spId}/sub-detail`]).then(() => {
           this.toastr.success('Cập nhật khung giờ thành công');
         });
       },
@@ -123,7 +125,7 @@ export class EidtSubPitchDetailComponent implements OnInit {
     );
   }
   close() {
-    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${this.spId}/sub-detail`]);
   }
 isPitcher(): boolean {
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));

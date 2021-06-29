@@ -34,13 +34,13 @@ export const routes: Routes = [
         path: ':pId/sub-pitch/:spId/edit', component: EditSubPitchComponent
     },
     {
-        path: ':pId/sub-pitch/sub-detail', component: SubPitchDetailComponent
+        path: ':pId/sub-pitch/:spId/sub-detail', component: SubPitchDetailComponent
     },
     {
-        path: ':pId/sub-pitch/sub-detail/add', component: AddSubPitchDetailComponent
+        path: ':pId/sub-pitch/:spId/sub-detail/add', component: AddSubPitchDetailComponent
     },
     {
-        path: ':pId/sub-pitch/sub-detail/:spdId/edit', component: EidtSubPitchDetailComponent
+        path: ':pId/sub-pitch/:spId/sub-detail/:spdId/edit', component: EidtSubPitchDetailComponent
     }
 ];
 

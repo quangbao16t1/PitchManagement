@@ -26,6 +26,7 @@ export class SubPitchDetailComponent implements OnInit {
   keyword: string;
   subPitchId: number;
   pitchId: any;
+  spId: any;
   spdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
@@ -58,9 +59,11 @@ export class SubPitchDetailComponent implements OnInit {
     this.pageSize = 10;
     this.route.paramMap.subscribe( params => {
       this.pitchId = params.get('pId');
+      this.spId = params.get('spId');
       console.log(this.pitchId, 444);
      if (this.pitchId) {
        this.getSubPitchByPitchId(this.pitchId);
+       this.getSubPitchDetailBySpId1(this.spId, this.page);
      }
     });
   }
@@ -79,9 +82,7 @@ export class SubPitchDetailComponent implements OnInit {
     }
   }
 
-  getSubPitchDetailBySpId(subPitchId: number, page: number) {
-    this.subPitchSelect = this.listSubPitch.find(i => i.id === subPitchId);
-    this.subPitchId = subPitchId;
+  getSubPitchDetailBySpId1(subPitchId: number, page: number) {
     this.itemsAsync = this.subPitchDetailService.getSubPitchDetailBySpId(subPitchId, page, this.pageSize)
       .pipe(
         tap(response => {
@@ -90,24 +91,37 @@ export class SubPitchDetailComponent implements OnInit {
         }),
         map(response => response.items)
         );
-        console.log(this.itemsAsync, 88888);
-        this.itemsAsync.subscribe(res => {
-          if (res) {
-            this.listSubPitchDetail = res;
-            console.log(this.listSubPitchDetail, 4444);
-          }
-        });
   }
 
-  add() {
-    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail/add`]);
+  // getSubPitchDetailBySpId(subPitchId: number, page: number) {
+  //   this.subPitchSelect = this.listSubPitch.find(i => i.id === subPitchId);
+  //   this.subPitchId = subPitchId;
+  //   this.itemsAsync = this.subPitchDetailService.getSubPitchDetailBySpId(subPitchId, page, this.pageSize)
+  //     .pipe(
+  //       tap(response => {
+  //         this.total = response.total;
+  //         this.page = page;
+  //       }),
+  //       map(response => response.items)
+  //       );
+  //       console.log(this.itemsAsync, 88888);
+  //       this.itemsAsync.subscribe(res => {
+  //         if (res) {
+  //           this.listSubPitchDetail = res;
+  //           console.log(this.listSubPitchDetail, 4444);
+  //         }
+  //       });
+  // }
+
+  add(id: any) {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${id}/sub-detail/add`]);
   }
   detail() {
     this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
   }
   
   edit(id: any) {
-    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail/${id}/edit`]);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${this.spId}/sub-detail/${id}/edit`]);
   }
   deleteConfirm(template: TemplateRef<any>, data: any) {
     this.subPitchDetail = Object.assign({}, data);
@@ -120,7 +134,7 @@ export class SubPitchDetailComponent implements OnInit {
       .subscribe(
         () => {
           this.toastr.success('Xóa khung giờ thành công!');
-          this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+          this.getSubPitchDetailBySpId1(this.spId, this.page);
         },
         (_error: HttpErrorResponse) => {
           this.toastr.error(`Xóa khung giờ không thành công`);

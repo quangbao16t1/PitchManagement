@@ -72,8 +72,8 @@ export class SubPitchComponent implements OnInit {
     this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/add`]);
   }
 
-  detail() {
-    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+  detail(id: any) {
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${id}/sub-detail`]);
   }
 
   edit(id: any) {

@@ -26,6 +26,7 @@ export class AddSubPitchDetailComponent implements OnInit {
   keyword: string;
   subPitchId: number;
   pitchId: any;
+  spId: any;
   addSpdForm: FormGroup;
   itemsAsync: Observable<any[]>;
   modalRef: BsModalRef;
@@ -61,6 +62,7 @@ export class AddSubPitchDetailComponent implements OnInit {
     this.pageSize = 10;
     this.route.paramMap.subscribe( params => {
       this.pitchId = params.get('pId');
+      this.spId = params.get('spId');
       console.log(this.pitchId, 444);
      if (this.pitchId) {
        this.getSubPitchByPitchId(this.pitchId);
@@ -92,7 +94,16 @@ export class AddSubPitchDetailComponent implements OnInit {
       return user.id;
     }
   }
-
+  getSubPitchDetailBySpId1(subPitchId: number, page: number) {
+    this.itemsAsync = this.subPitchDetailService.getSubPitchDetailBySpId(subPitchId, page, this.pageSize)
+      .pipe(
+        tap(response => {
+          this.total = response.total;
+          this.page = page;
+        }),
+        map(response => response.items)
+        );
+  }
   getSubPitchDetailBySpId(subPitchId: number, page: number) {
     this.subPitchSelect = this.listSubPitch.find(i => i.id === subPitchId);
     this.itemsAsync = this.subPitchDetailService.getSubPitchDetailBySpId(subPitchId, page, this.pageSize)
@@ -118,16 +129,17 @@ export class AddSubPitchDetailComponent implements OnInit {
     this.subPitchDetail.endTime = this.newEndTime;
     this.subPitchDetailService.createSubPitchDetail(this.subPitchDetail).subscribe(
       () => {
-        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]).then(() => {
+        this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${this.spId}/sub-detail`]).then(() => {
           this.toastr.success('Thêm khung giờ thành công');
         });
+        
       },
       (_error: HttpErrorResponse) =>
         this.toastr.error('Khung giờ đã tồn tại!Thêm khung giờ không thành công!')
       );
   }
   close() {
-    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/sub-detail`]);
+    this.router.navigate([`/pitch-detail/${this.pitchId}/sub-pitch/${this.spId}/sub-detail`]);
   }
 isPitcher(): boolean {
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));
