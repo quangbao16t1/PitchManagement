@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PitchManagement.API.AutoMapper;
+using PitchManagement.API.Helper;
 using PitchManagement.API.Implementaions;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess;
@@ -38,6 +39,13 @@ namespace PitchManagement.API
             services.AddDbContext<DataContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("PitchManagement.DataAccess")));
+            
+            var emailConfig = Configuration
+                               .GetSection("EmailConfiguration")
+                               .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -76,7 +84,6 @@ namespace PitchManagement.API
             services.AddScoped<IAuthRepository, AuthRepository>();
 
 
-           
             //services.AddAuthorization();
 
             services.AddMvc(ops => {

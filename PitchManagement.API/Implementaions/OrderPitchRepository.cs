@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PitchManagement.API.Dtos.OrderPitches;
+using PitchManagement.API.Helper;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess;
 using PitchManagement.DataAccess.Entites;
@@ -15,10 +16,12 @@ namespace PitchManagement.API.Implementaions
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public OrderPitchRepository(DataContext context, IMapper mapper)
+        private readonly IEmailSender _emailSender;
+        public OrderPitchRepository(DataContext context, IMapper mapper, IEmailSender emailSender)
         {
             _context = context;
             _mapper = mapper;
+            _emailSender = emailSender;
         }
         public async Task<bool> CreateOrderPitchAsync(OrderPitch orderPitchCreate)
         {
@@ -105,6 +108,17 @@ namespace PitchManagement.API.Implementaions
                 order.Status = 1;
                 order.UpdateTime = DateTime.Now;
                 await _context.SaveChangesAsync();
+
+                var pitch = await _context.OrderPitches
+                  .Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch).ThenInclude(x => x.Pitch)
+                 .Include(x => x.User).Include(x => x.SubPitchDetail).FirstOrDefaultAsync(x => x.Id == id);
+
+                //Test send mail
+                User customerUser = _context.Users.FirstOrDefault(x => x.Id == order.UserId);
+                string content = "Xin Chào, " + customerUser.FirstName + " " + customerUser.LastName + "\n Cảm ơn bạn đã tin tưởng chúng tôi. \n Bạn đã đặt sân bóng " + pitch.SubPitchDetail.SubPitch.Pitch.Name + " thành công!"
+                    + " Trận đấu của bạn bắt đầu lúc " + pitch.SubPitchDetail.StartTime + " ngày " + pitch.DateOrder.ToString("dd/MM/yyyy") + " \n Hãy đến đúng giờ. Chúc bạn sức khỏe." ;
+                var message = new Message(new string[] { customerUser.Email }, "Đặt sân bóng đá", content);
+                await _emailSender.SendEmailAsync(message);
 
                 return true;
             }
