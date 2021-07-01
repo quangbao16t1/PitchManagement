@@ -130,11 +130,11 @@ export class HistoryOrderComponent implements OnInit {
       this.orderPitchService.deleteOrderPitch(this.orderPitch.id)
       .subscribe(
         () => {
-          this.toastr.success(`Xóa khung giờ thành công`);
+          this.toastr.success(`Xóa yêu cầu đặt sân thành công!`);
           this.getOrderPitchByUserId(this.getId, this.page);
         },
         (_error: HttpErrorResponse) => {
-          this.toastr.error(`Xóa khung giờ không thành công`);
+          this.toastr.error(`Xóa yêu cầu đặt sân không thành công!`);
         }
       );
     }

@@ -94,9 +94,12 @@
                                 <td>{{item.note}}</td>
                                 <td>{{item.dateOrder}}</td>
                                 <td>{{item.cost}}</td>
-                                <td>
+                                <td style="text-align: center;">
                                     <span class="text-success" *ngIf="item.status === 1">Thành công</span>
-                                    <span class="text-danger" *ngIf="item.status === 0">Đang chờ</span>
+                                    <!-- <span class="text-danger" *ngIf="item.status === 0">Đang chờ</span> -->
+                                    <button  *ngIf="item.status === 0" class="btn btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
+                                    (click)="deleteConfirm(template,item)">Hủy
+                               </button>
                                 </td>
                               </tr>
                             </tbody>
@@ -117,7 +120,7 @@
         </div>
     </div>
 </div>
-<!-- <ng-template #template>
+<ng-template #template>
     <div class="modal-header">
       <button type="button" class="close" (click)="close()">&times;</button>
       <h4 class="modal-title">Xác nhận</h4>
@@ -129,4 +132,4 @@
       <button type="button" class="btn btn-default" (click)="close()">Đóng</button>
       <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
     </div>
-  </ng-template> -->
+  </ng-template>
