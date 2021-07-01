@@ -12,6 +12,7 @@ import { MenuTopComponent } from './menu-top/menu-top.component';
 import { MenuLeftComponent } from './menu-left/menu-left.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MemberInfoComponent } from './member/member-info/member-info.component';
+import { CreateTeamComponent } from './create-team/create-team.component';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { MemberInfoComponent } from './member/member-info/member-info.component'
         UpdateTeamComponent,
         MenuTopComponent,
         MenuLeftComponent,
-        MemberInfoComponent
+        MemberInfoComponent,
+        CreateTeamComponent
     ]
 })
 export class MyTeamModule { }

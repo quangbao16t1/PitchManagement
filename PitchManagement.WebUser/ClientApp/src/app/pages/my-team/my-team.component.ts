@@ -57,6 +57,7 @@ export class MyTeamComponent implements OnInit {
       this.listTeamUser = res;
       console.log(this.listTeamUser, 1111);
     });
+    this.getTeamByUserId(this.getId);
       }
 
   getTeamByUserId(userId: number) {

@@ -1,0 +1,97 @@
+<div class="breadcrum">
+    <div class="container">
+        <div class="breadcrum-line"><a href="/">Trang chủ</a><a href="#">Tạo đội bóng</a></div>
+    </div>
+</div>
+<!-- <app-menu-top ></app-menu-top> -->
+<div class="content-wrap is-admin-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12  sidebar team-management-page">
+                <div class="layout-main">
+                    <!-- ngView: -->
+                    <div id="settings-content" class="tab-content stacked-content ng-scope" >
+                        <div class="page-team-setting layout-main-content ng-scope">
+                            <div class="heading-block">
+                                <p  class="title-box ng-scope text-center"><i class="icon-expand-alt" aria-hidden="true"></i> Tạo đội bóng</p>
+                            </div> <!-- /.heading-block -->
+                            <form class="form-horizontal" name="addTeamForm" method="post" role="form" novalidate (submit)="createTeam()" [formGroup]="addTeamForm">
+                                    <div class="box-body ">
+                                      <div class="row">
+                                        <div class="col-sm-12 ">
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Tên đội bóng</label>
+                                            <div class="col-md-9 ">
+                                                <input type="text" class="form-control" name="name" formControlName="name"  placeholder="Nhập tên đội bóng">
+                                                <app-control-messages [control]="addTeamForm.get('name')"></app-control-messages>
+                                            </div>
+                                         </div>
+                                          <!-- <div class="form-group">
+                                            <label class="col-sm-3">Đội trưởng</label>
+                                            <select class="form-control" name="createBy" formControlName="createBy">
+                                                <option [ngValue]="0">Chọn đội trưởng</option>
+                                                <option *ngFor="let item of listMember" [value]="item.userId">{{item.lastName}}</option>
+                                             </select>
+                                          </div> -->
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Cấp độ</label>
+                                            <div class="col-md-9 ">
+                                                <select class="form-control" name="level" formControlName="level">
+                                                    <option [ngValue]="0">Chọn cấp độ</option>
+                                                    <option *ngFor="let le of level" [value]="le.key">{{le.value}}</option>
+                                                </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group age-range ">
+                                            <label class="col-sm-3">Độ tuổi:</label>
+                                            <div class="col-md-9 row">
+                                                <div class="col-sm-5 inlineBlock">
+                                                    <input type="text" class="form-control " name="ageFrom" formControlName="ageFrom" placeholder="Ít tuổi nhất">
+                                                    <app-control-messages [control]="addTeamForm.get('ageFrom')"></app-control-messages>
+                                                </div>
+                                                
+                                                <div class="col-sm-5 inlineBlock mobile-pull-right">
+                                                    <input type="text" class="form-control" name="ageTo" formControlName="ageTo"
+                                                           placeholder="Lớn tuổi nhất">
+                                                           <app-control-messages [control]="addTeamForm.get('ageTo')"></app-control-messages>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Thời gian đá</label>
+                                            <div class="col-md-9 ">
+                                                <input type="text" class="form-control" formControlName="startTime" placeholder="Thời gian đá" >
+                                                <app-control-messages [control]="addTeamForm.get('startTime')"></app-control-messages>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Ngày trong tuần</label>
+                                            <div class="col-md-9 ">
+                                                <input type="text" class="form-control" formControlName="dateOfWeek" placeholder="Lịch đá của đội" >
+                                                  <app-control-messages [control]="addTeamForm.get('dateOfWeek')"></app-control-messages>
+                                            </div>
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="col-sm-3">Lời giới thiệu</label>
+                                            <div class="col-md-9 ">
+                                                <input type="text" class="form-control" formControlName="description" placeholder="Giới thiệu đội bóng" >
+                                                
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="box-footer text-center">
+                                      <button [routerLink]="['/team']" class="btn btn-default">Quay lại</button>
+                                      <button type="submit" [disabled]="addTeamForm.invalid" class="btn btn-success">Tạo đội</button>
+                                    </div>
+                            </form>
+                        </div>
+
+                    </div> <!-- /.tab-content -->
+                </div> <!-- /.col -->
+
+            </div>
+        </div>
+    </div>
+</div>

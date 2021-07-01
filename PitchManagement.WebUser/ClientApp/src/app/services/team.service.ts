@@ -34,7 +34,9 @@ export class TeamService {
     createTeam(team: any) {
         return this.http.post(this.baseUrl, team);
     }
-
+    createMyTeam(myTeam: any) {
+      return this.http.post(this.baseUrl1, myTeam);
+  }
     editTeam(id: any, team: any) {
         return this.http.put(`${this.baseUrl1}/${id}`, team);
     }
