@@ -160,7 +160,13 @@ export class CreateMatchComponent implements OnInit {
     }
     return 0;
   }
-
+  isUser(): boolean {
+    const user = JSON.parse(localStorage.getItem(CURRENT_USER));
+    if (user != null) {
+      return user.groupRole === 'User';
+    }
+  return false;
+  }
   get getName() {
     const user = JSON.parse(localStorage.getItem(CURRENT_USER));
     if (user != null) {

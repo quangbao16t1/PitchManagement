@@ -62,7 +62,9 @@ export class FindMatchComponent implements OnInit {
     this.keyword = '';
     this.page = 1;
     this.pageSize = 10;
-    this.getListCatches(this.page);
+    if(this.isUser()) {
+      this.getListCatches(this.page);
+    }
     console.log(this.getId);
     this.getUserById(this.getId);
     this.teamService.getTeamByUser(this.getId).subscribe((res: any) => {
@@ -192,5 +194,12 @@ catchMatch() {
   }
   getTeamByUserId() {
     this.teamUser = this.teamService.getTeamByUserId(this.getId);
+  }
+  isUser(): boolean {
+    const user = JSON.parse(localStorage.getItem(CURRENT_USER));
+    if (user != null) {
+      return user.groupRole === 'User';
+    }
+  return false;
   }
 }
