@@ -19,12 +19,14 @@ namespace PitchManagement.API.Controllers
         private readonly ITeamRepository _teamRepo;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepo;
+        private readonly ITeamUserRepository _teamUserRepo;
 
-        public TeamController(ITeamRepository teamRepo, IMapper mapper, IUserRepository userRepo)
+        public TeamController(ITeamRepository teamRepo, IMapper mapper, IUserRepository userRepo, ITeamUserRepository teamUserRepo)
         {
             _teamRepo = teamRepo;
              _mapper = mapper;
             _userRepo = userRepo;
+            _teamUserRepo = teamUserRepo;
         }
 
         [HttpGet]
@@ -78,6 +80,27 @@ namespace PitchManagement.API.Controllers
             }
         }
 
+
+        [HttpGet("GetTeamByUserCreate/{userId}")]
+        public async Task<IActionResult> GetTeamByUserCreate(int userId)
+        {
+            try
+            {
+                var team = await _teamRepo.GetTeamByUserCreate(userId);
+
+                if (team == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<TeamUI>(team));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateTeam([FromBody] TeamForCreate teamForCreate)
         {
@@ -86,6 +109,17 @@ namespace PitchManagement.API.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _teamRepo.CreateTeamAsync(teamForCreate);
+            
+            var team = await _teamRepo.GetTeamByUserCreate(teamForCreate.CreateBy);
+            TeamUser teamUser = new TeamUser
+            {
+                TeamId = team.Id,
+                UserId = team.CreateBy,
+                Description = "",
+            };
+
+            await _teamUserRepo.CreateTeamUserAsync(teamUser);
+
             if (result)
                 return Ok();
 

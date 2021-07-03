@@ -14,5 +14,6 @@ namespace PitchManagement.API.Interfaces
         Task<bool> CreateTeamAsync(TeamForCreate teamForCreate);
         Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate);
         Task<bool> DeleteTeamAsync(int id);
+        Task<Team> GetTeamByUserCreate(int userId);
     }
 }

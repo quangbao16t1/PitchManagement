@@ -26,6 +26,7 @@ namespace PitchManagement.API.Implementaions
             var team = _mapper.Map<Team>(teamForCreate);
             try
             {
+                team.CreateTime = DateTime.Now;
                 _context.Teams.Add(team);
                 await _context.SaveChangesAsync();
                 return true;
@@ -73,6 +74,11 @@ namespace PitchManagement.API.Implementaions
         public async Task<Team> GetTeamByIdAsync(int id)
         {
             return await _context.Teams.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Team> GetTeamByUserCreate(int userId)
+        {
+            return await _context.Teams.Where(x => x.CreateBy == userId).OrderByDescending(x => x.CreateTime).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateTeamAsync(int id, TeamForUpdate teamForUpdate)

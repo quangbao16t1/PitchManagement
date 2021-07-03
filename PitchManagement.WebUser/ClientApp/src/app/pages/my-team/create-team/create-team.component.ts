@@ -53,7 +53,7 @@ export class CreateTeamComponent implements OnInit {
   createTeam() {
     this.teamAdd = Object.assign({}, this.addTeamForm.value);
     this.teamAdd.createBy = this.getId;
-    this.teamAdd.logo = 'sadsada';
+    this.teamAdd.logo = 'https://mondaycareer.com/wp-content/uploads/2020/10/26.-Logo-Bong-Da-Doc.png';
     this.teamService.createMyTeam(this.teamAdd).subscribe(
       () => {
         this.router.navigate(['/team']).then(() => {
