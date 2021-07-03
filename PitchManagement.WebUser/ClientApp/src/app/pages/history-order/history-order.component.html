@@ -70,6 +70,7 @@
                                 <td>
                                     <span class="text-success" *ngIf="item.status === 1">Đã xác nhận</span>
                                     <span class="text-danger" *ngIf="item.status === 0">Đang chờ xác nhận</span>
+                                    <span class="text-warning" *ngIf="item.status === 2">Đã hủy</span>
                                 </td>
                               </tr>
                             </tbody>
@@ -96,6 +97,7 @@
                                 <td>{{item.cost}}</td>
                                 <td style="text-align: center;">
                                     <span class="text-success" *ngIf="item.status === 1">Thành công</span>
+                                    <span class="text-warning" *ngIf="item.status === 2">Bị hủy</span>
                                     <!-- <span class="text-danger" *ngIf="item.status === 0">Đang chờ</span> -->
                                     <button  *ngIf="item.status === 0" class="btn btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
                                     (click)="deleteConfirm(template,item)">Hủy

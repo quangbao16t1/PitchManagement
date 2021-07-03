@@ -82,6 +82,35 @@ namespace PitchManagement.API.Controllers
             }
         }
 
+        [Route("HistoryOrderpitcher")]
+        [HttpGet]
+        public IActionResult HistoryOrderpitcher(int pitchId, int page = 1, int pagesize = 10)
+        {
+            try
+            {
+                var listOrder = _orderPitchRepo.HistoryOrderPitcher(pitchId);
+
+                int totalCount = listOrder.Count();
+
+                var query = listOrder.OrderByDescending(x => x.Id).Skip((page - 1) * pagesize).Take(pagesize);
+
+                var response = _mapper.Map<IEnumerable<OrderPitch>, IEnumerable<OrderPitchReturn>>(query);
+
+                var paginationset = new PaginationSet<OrderPitchReturn>()
+                {
+                    Items = response,
+                    Total = totalCount
+                };
+                return Ok(paginationset);
+            }
+
+            catch (Exception ex)
+            {
+
+                return BadRequest();
+            }
+        }
+
         [Route("GetOrderByUserId")]
         [HttpGet]
         public IActionResult GetOrderPitchByUserId(int userId, int page = 1, int pagesize = 10)
@@ -142,11 +171,11 @@ namespace PitchManagement.API.Controllers
 
         [Route("GetByDatePitchId")]
         [HttpGet]
-        public IActionResult GetByDatePitchId(DateTime dateOrder, int status, int pitchId, int page = 1, int pagesize = 10)
+        public IActionResult GetByDatePitchId(DateTime dateOrder, int pitchId, int page = 1, int pagesize = 10)
         {
             try
             {
-                var listOrder = _orderPitchRepo.GetOrderByDatePitchId(dateOrder, status, pitchId);
+                var listOrder = _orderPitchRepo.GetOrderByDatePitchId(dateOrder, pitchId);
 
                 int totalCount = listOrder.Count();
 
@@ -208,6 +237,23 @@ namespace PitchManagement.API.Controllers
             var order = _mapper.Map<OrderPitch>(orderPitchUpdate);
 
             var result = await _orderPitchRepo.UpdateOrderPitchAsync(id, order);
+            if (result)
+                return Ok();
+
+            return BadRequest();
+        }
+
+        [HttpPut("CancelOrderPitch/{id}")]
+        public async Task<IActionResult> CancelOrderPitch(int id, [FromBody] OrderPitchUI orderPitchUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var order = _mapper.Map<OrderPitch>(orderPitchUpdate);
+
+            var result = await _orderPitchRepo.CancelOrderPitchAsync(id, order);
             if (result)
                 return Ok();
 

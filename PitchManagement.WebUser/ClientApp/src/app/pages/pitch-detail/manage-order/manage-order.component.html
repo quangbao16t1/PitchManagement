@@ -63,7 +63,7 @@
                                         (click)="updateStatus(item.id, item)">Xác nhận
                                    </button>
                                    <button  *ngIf="item.status === 0" class="btn btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
-                                        (click)="deleteConfirm(template,item)">Hủy
+                                        (click)="cancelStatus(item.id, item)">Hủy
                                    </button>
                                 </td> 
                               </tr>

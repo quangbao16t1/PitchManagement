@@ -89,6 +89,27 @@ export class ManageOrderComponent implements OnInit {
     });
   }
 
+  cancelStatus(orderId: number, orderPitch: any) {
+    Swal.fire({
+      title: 'Chắc chắn thực hiện thao tác này??',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Chắc chắn',
+      cancelButtonText: 'Hủy'
+    }).then(result => {
+      if (result.value) {
+        this.orderPitchService.cancelOrderPitch(orderId, orderPitch).subscribe(
+          () => {
+            this.getOrderPitchByPitchId(this.pitchSelected, this.page);
+            this.toastr.success('Hủy yêu cầu đặt sân thành công!');
+        },
+        (_error: HttpErrorResponse) =>
+          this.toastr.error('Hủy yêu cầu không thành công!'));
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
+
   deleteConfirm(template: TemplateRef<any>, data: any) {
     this.orderPitch = Object.assign({}, data);
     this.modalRef = this.modalService.show(template);

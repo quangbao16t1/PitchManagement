@@ -117,7 +117,7 @@ namespace PitchManagement.API.Implementaions
                 User customerUser = _context.Users.FirstOrDefault(x => x.Id == order.UserId);
                 string content = "Xin Chào, " + customerUser.FirstName + " " + customerUser.LastName + "\n Cảm ơn bạn đã tin tưởng chúng tôi. \n Bạn đã đặt sân bóng " + pitch.SubPitchDetail.SubPitch.Pitch.Name + " thành công!"
                     + " Trận đấu của bạn bắt đầu lúc " + pitch.SubPitchDetail.StartTime + " ngày " + pitch.DateOrder.ToString("dd/MM/yyyy") + " \n Hãy đến đúng giờ. Chúc bạn sức khỏe." ;
-                var message = new Message(new string[] { customerUser.Email }, "Đặt sân bóng đá", content);
+                var message = new Message(new string[] { customerUser.Email }, "Đặt sân thành công", content);
                 await _emailSender.SendEmailAsync(message);
 
                 return true;
@@ -129,11 +129,11 @@ namespace PitchManagement.API.Implementaions
             }
         }
 
-        public IEnumerable<OrderPitch> GetOrderByDatePitchId(DateTime dateOrder, int status,  int pitchId)
+        public IEnumerable<OrderPitch> GetOrderByDatePitchId(DateTime dateOrder, int pitchId)
         {
             return _context.OrderPitches
                .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
-               .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId && x.Status == 1 && x.DateOrder.Year == dateOrder.Year && x.DateOrder.Month == dateOrder.Month && x.DateOrder.Day == dateOrder.Day).AsEnumerable();
+               .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId && x.DateOrder.Year == dateOrder.Year && x.DateOrder.Month == dateOrder.Month && x.DateOrder.Day == dateOrder.Day).AsEnumerable();
         }
 
         public IEnumerable<RevenueUI> GetRevenueMonth(int pitchId, DateTime date)
@@ -143,7 +143,7 @@ namespace PitchManagement.API.Implementaions
             RevenueUI RevenueUI;
             dynamic revenue;
 
-               revenue = _context.OrderPitches.Include(x =>x.SubPitchDetail).ThenInclude(x => x.SubPitch).Where(x => x.DateOrder.Year == date.Year && x.DateOrder.Month == date.Month  && x.SubPitchDetail.SubPitch.PitchId == pitchId).AsEnumerable();
+               revenue = _context.OrderPitches.Include(x =>x.SubPitchDetail).ThenInclude(x => x.SubPitch).Where(x => x.DateOrder.Year == date.Year && x.DateOrder.Month == date.Month  && x.SubPitchDetail.SubPitch.PitchId == pitchId && x.Status == 1).AsEnumerable();
             for (int i = 1; i <= DateTime.DaysInMonth(date.Year, date.Month); i++)
             {
                 totalRevenue = 0;
@@ -162,6 +162,44 @@ namespace PitchManagement.API.Implementaions
                 list.Add(RevenueUI);
             }
             return list.AsEnumerable();
+        }
+
+        public async Task<bool> CancelOrderPitchAsync(int id, OrderPitch orderPitchUpdate)
+        {
+            var order = await _context.OrderPitches.FirstOrDefaultAsync(x => x.Id == id);
+            if (order == null) return false;
+
+            try
+            {
+                order.Status = 2; // đã hủy
+                order.UpdateTime = DateTime.Now;
+                await _context.SaveChangesAsync();
+
+                var pitch = await _context.OrderPitches
+                  .Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch).ThenInclude(x => x.Pitch)
+                 .Include(x => x.User).Include(x => x.SubPitchDetail).FirstOrDefaultAsync(x => x.Id == id);
+
+                //Test send mail
+                User customerUser = _context.Users.FirstOrDefault(x => x.Id == order.UserId);
+                string content = "Xin Chào, " + customerUser.FirstName + " " + customerUser.LastName + "\n Cảm ơn bạn đã tin tưởng chúng tôi. \n Yêu cầu đặt sân bóng " + pitch.SubPitchDetail.SubPitch.Pitch.Name + " của bạn không thành công!"
+                    + " \n Xin lỗi vì sự bất tiện này. Chúc bạn sức khỏe.";
+                var message1 = new Message(new string[] { customerUser.Email }, "Đặt sân không thành công", content);
+                await _emailSender.SendEmailAsync(message1);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public IEnumerable<OrderPitch> HistoryOrderPitcher(int pitchId)
+        {
+            return _context.OrderPitches
+                .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
+                .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId).AsEnumerable();
         }
     }
 }

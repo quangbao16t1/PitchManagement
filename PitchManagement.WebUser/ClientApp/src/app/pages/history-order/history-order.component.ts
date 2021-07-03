@@ -74,7 +74,7 @@ export class HistoryOrderComponent implements OnInit {
       );
   }
   getOrderPitchByPitchId(pitchId: number, page: number) {
-    this.itemsAsync1 = this.orderPitchService.getOrderPitchByPitchId(pitchId, 1, page, this.pageSize)
+    this.itemsAsync1 = this.orderPitchService.getHistoryOrderpitcher(pitchId, page, this.pageSize)
       .pipe(
         tap(response => {
           this.total = response.total;
@@ -98,7 +98,7 @@ export class HistoryOrderComponent implements OnInit {
 
   getOrderPitchByDatePitchId(dateOrder: any, pitchId: any, page: number) {
     console.log(this.pitchSelected);
-    this.itemsAsync1 = this.orderPitchService.getOrderPitchByDatePitchId(dateOrder, 1, pitchId, page, this.pageSize)
+    this.itemsAsync1 = this.orderPitchService.getOrderPitchByDatePitchId(dateOrder, pitchId, page, this.pageSize)
       .pipe(
         tap(response => {
           this.total = response.total;
