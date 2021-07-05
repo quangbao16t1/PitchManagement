@@ -50,6 +50,9 @@ export class OrderPitchService {
     cancelOrderPitch(id: any, orderPitch: any) {
         return this.http.put(`${this.baseUrl}/CancelOrderPitch/${id}`, orderPitch);
     }
+    userCancelOrderPitch(id: any, orderPitch: any) {
+        return this.http.put(`${this.baseUrl}/UserCancelOrderPitch/${id}`, orderPitch);
+    }
     deleteOrderPitch(id: any) {
         return this.http.delete(`${this.baseUrl}/${id}`);
     }

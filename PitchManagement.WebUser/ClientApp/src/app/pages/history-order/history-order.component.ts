@@ -127,14 +127,14 @@ export class HistoryOrderComponent implements OnInit {
 }
   confirm(): void {
     if (this.orderPitch) {
-      this.orderPitchService.deleteOrderPitch(this.orderPitch.id)
+      this.orderPitchService.userCancelOrderPitch(this.orderPitch.id, this.orderPitch)
       .subscribe(
         () => {
-          this.toastr.success(`Xóa yêu cầu đặt sân thành công!`);
+          this.toastr.success(`Hủy yêu cầu đặt sân thành công!`);
           this.getOrderPitchByUserId(this.getId, this.page);
         },
         (_error: HttpErrorResponse) => {
-          this.toastr.error(`Xóa yêu cầu đặt sân không thành công!`);
+          this.toastr.error(`Hủy yêu cầu đặt sân không thành công!`);
         }
       );
     }

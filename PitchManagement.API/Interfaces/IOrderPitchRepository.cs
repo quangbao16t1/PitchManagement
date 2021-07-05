@@ -19,6 +19,7 @@ namespace PitchManagement.API.Interfaces
         Task<bool> CreateOrderPitchAsync(OrderPitch orderPitchCreate);
         Task<bool> UpdateOrderPitchAsync(int id, OrderPitch orderPitchUpdate);
         Task<bool> CancelOrderPitchAsync(int id, OrderPitch orderPitchUpdate);
+        Task<bool> UserCancelOrderPitchAsync(int id, OrderPitch orderPitchUpdate);
         Task<bool> DeleteOrderPitchAsync(int id);
         IEnumerable<RevenueUI> GetRevenueMonth(int pitchId, DateTime date);
     }

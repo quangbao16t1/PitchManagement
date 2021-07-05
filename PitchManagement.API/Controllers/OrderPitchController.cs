@@ -260,6 +260,23 @@ namespace PitchManagement.API.Controllers
             return BadRequest();
         }
 
+        [HttpPut("UserCancelOrderPitch/{id}")]
+        public async Task<IActionResult> UserCancelOrderPitch(int id, [FromBody] OrderPitchUI orderPitchUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var order = _mapper.Map<OrderPitch>(orderPitchUpdate);
+
+            var result = await _orderPitchRepo.UserCancelOrderPitchAsync(id, order);
+            if (result)
+                return Ok();
+
+            return BadRequest();
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderPitch(int id)
         {

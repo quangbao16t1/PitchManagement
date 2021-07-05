@@ -171,7 +171,7 @@ namespace PitchManagement.API.Implementaions
 
             try
             {
-                order.Status = 2; // đã hủy
+                order.Status = 2; // bị hủy
                 order.UpdateTime = DateTime.Now;
                 await _context.SaveChangesAsync();
 
@@ -200,6 +200,26 @@ namespace PitchManagement.API.Implementaions
             return _context.OrderPitches
                 .Include(x => x.User).Include(x => x.SubPitchDetail).ThenInclude(x => x.SubPitch)
                 .ThenInclude(x => x.Pitch).Where(x => x.SubPitchDetail.SubPitch.PitchId == pitchId).AsEnumerable();
+        }
+
+        public async Task<bool> UserCancelOrderPitchAsync(int id, OrderPitch orderPitchUpdate)
+        {
+            var order = await _context.OrderPitches.FirstOrDefaultAsync(x => x.Id == id);
+            if (order == null) return false;
+
+            try
+            {
+                order.Status = 3; // đã hủy
+                order.UpdateTime = DateTime.Now;
+                await _context.SaveChangesAsync();
+ 
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }
