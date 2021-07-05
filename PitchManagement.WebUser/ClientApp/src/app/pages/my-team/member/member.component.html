@@ -51,7 +51,7 @@
                   (click)="memberInfo(item.userId)">
                   <i class="fa fa-info" aria-hidden="true"></i>
                 </button>
-                  <button *ngIf="this.userCreateId == getId"  class="btn btn-sm btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
+                  <button *ngIf="this.userCreateId == getId && this.userCreateId !== item.userId"  class="btn btn-sm btn-danger"  style="margin-right: 10px; margin-bottom: 5px;"
                     (click)="deleteConfirm(template,item)">
                     <i class="fa fa-trash"></i>
                   </button>
