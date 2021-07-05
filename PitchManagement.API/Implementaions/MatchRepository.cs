@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PitchManagement.API.Helper;
 using PitchManagement.API.Interfaces;
 using PitchManagement.DataAccess;
 using PitchManagement.DataAccess.Entites;
@@ -14,11 +15,13 @@ namespace PitchManagement.API.Implementaions
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IEmailSender _emailSender;
 
-        public MatchRepository(DataContext context, IMapper mapper)
+        public MatchRepository(DataContext context, IMapper mapper, IEmailSender emailSender)
         {
             _context = context;
             _mapper = mapper;
+            _emailSender = emailSender;
         }
         public async Task<bool> CatchMatch(int id, Match matchUpdate)
         {
@@ -32,6 +35,14 @@ namespace PitchManagement.API.Implementaions
                 matchInDb.UpdateTime = DateTime.Now;
                 matchInDb.Note = matchUpdate.Note;
                 await _context.SaveChangesAsync();
+
+                //Test send mail
+                User userReciveder = _context.Users.FirstOrDefault(x => x.Id == matchInDb.InviteeId);
+                string content = "Xin Chào, " + userReciveder.FirstName + " " + userReciveder.LastName + "\n Cảm ơn bạn đã tin tưởng chúng tôi. \n Lời mời đội giao lưu của bạn vào ngày " + matchInDb.SetupTime + " đã có người bắt đội "
+                    + " \n Vui lòng vào trang web để kiểm tra. Chúc bạn sức khỏe.";
+                var message1 = new Message(new string[] { userReciveder.Email }, "Xác nhận yêu cầu mời đội", content);
+                await _emailSender.SendEmailAsync(message1);
+
                 return true;
             }
             catch (Exception ex)
@@ -100,6 +111,16 @@ namespace PitchManagement.API.Implementaions
                 matchInDb.Status = 1; // xác nhận kèo đấu
                 matchInDb.UpdateTime = DateTime.Now;
                 await _context.SaveChangesAsync();
+
+                //Test send mail
+                User userReciveder = _context.Users.FirstOrDefault(x => x.Id == matchInDb.ReceiverId);
+                User userInvite = _context.Users.FirstOrDefault(x => x.Id == matchInDb.InviteeId);
+                string content = "Xin Chào, " + userReciveder.FirstName + " " + userReciveder.LastName + "\n Cảm ơn bạn đã tin tưởng chúng tôi. \n Bắt kèo giao lưu đội bóng của bạn và đội bóng của "
+                    + userInvite.FirstName + " " + userInvite.LastName + " vào ngày " + matchInDb.SetupTime + " đã được chấp nhận "
+                    + " \n Vui lòng vào trang web để kiểm tra. Chúc bạn sức khỏe.";
+                var message1 = new Message(new string[] { userReciveder.Email }, "Bắt đội thành công", content);
+                await _emailSender.SendEmailAsync(message1);
+
                 return true;
             }
             catch (Exception ex)

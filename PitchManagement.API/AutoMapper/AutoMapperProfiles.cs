@@ -107,7 +107,7 @@ namespace PitchManagement.API.AutoMapper
                                             .ForMember(x => x.LastName, y => { y.MapFrom(z => z.User.LastName); })
                                             .ForMember(x => x.FirstName, y => { y.MapFrom(z => z.User.FirstName); })
                                             .ForMember(x => x.PitchName, y => { y.MapFrom(z => z.SubPitchDetail.SubPitch.Pitch.Name); })
-                               .ForMember(x => x.DateOrder, y => y.MapFrom(z => z.DateOrder.ToString("dd/MM/yyyy")))
+                               .ForMember(x => x.DateOrder, y => y.MapFrom(z => z.DateOrder.ToString("MM/dd/yyyy")))
                                .ForMember(x => x.StartTime, y => y.MapFrom(z => new DateTime().Add(z.SubPitchDetail.StartTime).ToString("HH:mm")))
                             .ForMember(x => x.EndTime, y => y.MapFrom(z => new DateTime().Add(z.SubPitchDetail.EndTime).ToString("HH:mm")));
             CreateMap<OrderPitchUI, OrderPitch>();
